@@ -1,0 +1,29 @@
+.btn-primary{
+    margin:10px !important; 
+}
+.navbar-nav > li{
+    padding-left:30px;
+    padding-right:30px;
+  }
+.navbar-brand:link, .navbar-brand:visited{
+    color:white !important;   
+}
+.navbar-brand:hover, .navbar-brand:active{
+    color:gray !important;
+}
+#navbar  li a:link, #navbar  li a:visited{
+    color:white !important;
+}
+#navbar  li a:active, #navbar  li a:hover{
+    color:gray !important;
+}
+.card-heading{
+    margin:10px;
+}
+ body{
+        background: url("../imagenes/fondo1.jpg") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        }
