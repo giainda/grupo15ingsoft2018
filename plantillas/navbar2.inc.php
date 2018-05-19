@@ -8,11 +8,12 @@ Conexion :: abrir_conexion();
 
 
 ?>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-default navbar-fixed-top color1">
 <div class='container'>
-      <a class="navbar-brand" href="<?php echo SERVIDOR?>">unAventon</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <a class="navbar-brand" href="<?php echo SERVIDOR?>">
+      Un aventon <img src="img/logo2.png" width="30" height="30" alt=""></a>
+      <button id="bot" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-caret-down"></i>
       </button>
       
       <div class="collapse navbar-collapse " id="navbar">
@@ -29,12 +30,10 @@ Conexion :: abrir_conexion();
           <?php
              }else{
              ?>
-             <li class="nav-item active center">
-            <a  href="#"><i class="fas fa-user"></i><?php echo ' '. $_SESSION['nombre_usuario'];?></a>
+             <li class="nav-item active">
+            <a  href="<?php echo RUTA_PERFIL?>"><i class="fas fa-user"></i><?php echo ' '. $_SESSION['nombre_usuario'];?></a>
             </li>
-             <li class="nav-item active ">
-            <a  href="#">Perfil </a>
-            </li>
+            
             <li class="nav-item active">
             <a  href="<?php echo RUTA_LOGOUT?>">Cerrar Sesion</a>
             </li>

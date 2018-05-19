@@ -8,11 +8,11 @@
  
  if (isset($_POST['enviar'])){
      Conexion::abrir_conexion();
-     $validador =new ValidadorRegistro($_POST['correo'],$_POST['nombre'],$_POST['apellido'],$_POST['fechanac'],$_POST['contraseña'],$_POST['contraseña2'],$_POST['codigo_tarjeta'],Conexion::obtener_conexion());
+     $validador =new ValidadorRegistro($_POST['correo'],$_POST['nombre'],$_POST['apellido'],$_POST['fechanac'],$_POST['contraseña'],$_POST['contraseña2'],Conexion::obtener_conexion());
  
  if ($validador -> registro_valido()){
      $usuario =new Usuario('',$validador -> obtener_correo(),$validador -> obtener_nombre(),$validador -> obtener_apellido(),
-     $validador -> obtener_fechanac(),password_hash($validador -> obtener_contraseña(),PASSWORD_DEFAULT),0,$validador -> obtener_codigo_tarjeta(),0,0,1);
+     $validador -> obtener_fechanac(),password_hash($validador -> obtener_contraseña(),PASSWORD_DEFAULT),0,0,0,0,1);
      $usuario_insertado = RepositorioUsuario :: insertar_usuario(Conexion::obtener_conexion(),$usuario);
      if($usuario_insertado){
          Redireccion::redirigir(RUTA_REGISTRO_CORRECTO.'?nombre='.$usuario -> getNombre());
@@ -39,11 +39,11 @@
                     <div class="card-body">
                         <br>
                         <p class="text-justify">
-                         -nombre de usuario debe tener mas de 6 caracteres y menos 24
+                         -nombre de usuario debe tener mas de 3 caracteres y menos 24
                         </p>
                          
                          <p class="text-justify">
-                             -apellido debe tener mas de 6 caracteres y menos de 24
+                             -apellido debe tener mas de 4 caracteres y menos de 24
                              </p>
                              
                              <p class="text-justify">    
@@ -56,12 +56,10 @@
                               </p>
                              
                              <p class="text-justify">
-                             -la contraseña y la comprobacion de contraseña deben coinsidir
+                             -la contraseña y la comprobacion de contraseña deben coincidir
                              
                              </p>
-                             <p class="text-justify">
-                             -el codigo de la targeta debe ser un codigo de 12 caracteres
-                             </p>
+                             
                               
                         
                         <a href="#">¿ya tienes cuenta?</a>
@@ -87,6 +85,7 @@
 
                              }
                             ?>
+                            
                         </form>
                         
                     </div>

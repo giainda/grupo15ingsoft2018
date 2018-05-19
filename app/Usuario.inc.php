@@ -171,7 +171,7 @@ class Usuario {
     /**
      * Get the value of codigo_targeta
      */ 
-    public function getCodigo_targeta()
+    public function getCodigo_tarjeta()
     {
         return $this->codigo_targeta;
     }

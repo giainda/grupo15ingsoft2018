@@ -12,7 +12,7 @@ $titulo = 'registro correcto';
 include_once 'plantillas/documento-declaracion.inc.php';
 include_once 'plantillas/navbar2.inc.php';
 ?>
-<div class="container">
+<div class="container contenedorasd">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">

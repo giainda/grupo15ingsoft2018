@@ -1,4 +1,5 @@
 <?php
+include_once 'app/Usuario.inc.php';
 
 
 class RepositorioUsuario{
@@ -7,7 +8,6 @@ class RepositorioUsuario{
     $usuarios = array();
     if (isset($conexion)){
         try{
-            include_once 'Usuario.inc.php';
             $sql = "SELECT * FROM usuarios";
             $sentencia = $conexion -> prepare($sql);
             $sentencia -> execute();
@@ -58,7 +58,7 @@ class RepositorioUsuario{
                $obApellido= $usuario ->getApellido();
                $obFechanac= $usuario ->getFechanac();
                $obContrasena= $usuario ->getContraseña();
-               $obCodigo_targeta= $usuario ->getCodigo_targeta();
+               $obCodigo_targeta= $usuario ->getCodigo_tarjeta();
                $sentencia -> bindParam(':correo',$obCorreo,PDO::PARAM_STR);
                $sentencia -> bindParam(':nombre',$obNombre,PDO::PARAM_STR);
                $sentencia -> bindParam(':apellido',$obApellido,PDO::PARAM_STR);
@@ -97,7 +97,6 @@ class RepositorioUsuario{
         $usuario=null;
         if(isset($conexion)){
             try{
-                include_once 'app/Usuario.inc.php';
                 $sql="SELECT * FROM usuarios WHERE correo = :correo";
                 $sentencia =$conexion -> prepare($sql);
                 $sentencia -> bindParam( ":correo" , $email, PDO::PARAM_STR);
@@ -140,15 +139,14 @@ class RepositorioUsuario{
         $usuario=null;
         if(isset($conexion)){
             try{
-                include_once 'app/Usuario.inc.php';
                 $sql="SELECT * FROM usuarios WHERE id = :id";
                 $sentencia =$conexion -> prepare($sql);
-                $sentencia -> bindParam( ":id" , $id, PDO::PARAM_STR);
+                $sentencia -> bindParam( ":id" , $id, PDO::PARAM_STR);               
                 $sentencia -> execute();
                 $resultado=$sentencia -> fetch();
                 if(!empty($resultado)){
-                    $usuario =new Usuario($resultado['id'],$resultado['correo'],$resultado['nombre'],$resultado['apellido'],$resultado['fechanac'],$resultado['contraseña'],$resultado['fondos'],
-                    $resultado['codigo_targeta'],$resultado['calificacionPos'],$resultado['calificacionNeg'],$resultado['activo']);
+                    $usuario =new Usuario($resultado['id'],$resultado['correo'],$resultado['nombre'],$resultado['apellido'],$resultado['fechanac'],$resultado['contrasena'],$resultado['fondos'],
+                    $resultado['codigo_tarjeta'],$resultado['calificacionPos'],$resultado['calificacionNeg'],$resultado['activo']);
                 }
             }catch(PDOException $ex){
                 print "error". $ex ->getMessage();
@@ -156,5 +154,61 @@ class RepositorioUsuario{
         }
         return $usuario;
         
+    }
+    public static function actualizarInfo($nombre,$apellido,$codigo_tarjeta,$id,$conexion){
+        $actualizacion_correcta=false;
+        if(isset($conexion)){
+            try{
+                $sql="UPDATE usuarios SET nombre= :nombre, apellido=:apellido, codigo_tarjeta=:codigo_tarjeta WHERE id=:id";
+                $sentencia=$conexion ->prepare($sql);
+                $sentencia -> bindParam( ":id" , $id, PDO::PARAM_STR);
+                $sentencia -> bindParam( ":nombre" , $nombre, PDO::PARAM_STR);
+                $sentencia -> bindParam( ":apellido" , $apellido, PDO::PARAM_STR);
+                $sentencia -> bindParam( ":codigo_tarjeta" , $codigo_tarjeta, PDO::PARAM_STR);
+                $sentencia ->execute();
+            
+                    $actualizacion_correcta=true;
+
+                   
+
+            }catch(PDOException $ex){
+                print "error: ".$ex->getMessage();
+
+            }
+        }
+        return $actualizacion_correcta;
+    } 
+    public static function actualizarContraseña($contraseña,$id,$conexion){
+        $actualizacion_correcta=false;
+        if(isset($conexion)){
+            try{
+                $sql= "UPDATE usuarios SET contrasena=:contrasena WHERE id= :id";
+                $sentencia = $conexion -> prepare($sql);
+                $sentencia ->bindParam( ":id", $id, PDO::PARAM_STR);
+                $sentencia ->bindParam( ":contrasena", $contraseña, PDO::PARAM_STR);
+                $sentencia ->execute();
+                $actualizacion_correcta=true;
+
+            }catch(PDOException $ex){
+                print "error: ".$ex->getMessage();
+
+            }
+        }
+        return $actualizacion_correcta;
+    }
+    public static function eliminar($id,$conexion){
+        $ok=false;
+        if(isset($conexion)){
+            try{
+                $sql="UPDATE usuarios SET activo=0 WHERE id=:id";
+                $sentencia=$conexion ->prepare($sql);
+                $sentencia ->bindParam(":id", $id, PDO::PARAM_STR);
+                $sentencia ->execute();
+              $ok=true;
+            }catch(PDOException $ex){
+                print "erro: ". $ex->getMessage();
+            }
+        }
+        return $ok;
     }
 }

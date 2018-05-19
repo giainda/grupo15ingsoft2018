@@ -41,6 +41,8 @@ create table pago_pendiente(
 );
 create table conductor(
     idUsuario int not null,
+    calificacionPos int not null,
+    calificacionNeg int not null,
     foreign key(idUsuario)
         references Usuarios(id)
         on update Cascade
@@ -72,7 +74,9 @@ create table tiene(
 create table viajes(
     idViaje int not null auto_increment unique,
     idConductor int not null,
-    fecha date not null,
+    patente varchar(7) not null,
+    fechaCreacion date not null,
+    fechaInicio datetime not null,
     inicio varchar(20) not null,
     destino varchar(20) not null,
     asientos int not null,
@@ -121,5 +125,21 @@ create table mensajes(
     texto text character set utf8 not null,
     respuesta text character set utf8 not null
 
+);
+create table fotos(
+    idUsuario int not null,
+    foto varchar(255) not null,
+    foreign key(idUsuario)
+        references usuarios(id)
+        on update Cascade
+        on delete restrict
+);
+create table fotoAuto(
+    patente varchar(7) not null,
+    foto varchar(255) not null,
+    foreign key(patente)
+        references auto(patente)
+        on update Cascade
+        on delete restrict
 );
 

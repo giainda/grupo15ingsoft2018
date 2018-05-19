@@ -21,7 +21,7 @@
 </div>
 <div class="form-group">
     <label>fecha de nacimienton</label>
-    <input type="text" class="form-control" name="fechanac" placeholder="YYYY/MM/DD"<?php $validador -> mostrar_fechanac()?>>
+    <input type="text" class="form-control" name="fechanac" placeholder="DD/MM/YYYY"<?php $validador -> mostrar_fechanac()?>>
     <?php
       $validador -> mostrar_error_fechanac(); 
     ?>
@@ -40,13 +40,9 @@
       $validador -> mostrar_error_contraseña2(); 
     ?>
 </div>
-<div class="form-group">
-    <label>codigo_tarjeta</label>
-    <input type="text" class="form-control" name="codigo_tarjeta" placeholder="123412341234"<?php $validador -> mostrar_codigo_tarjeta()?>>
-    <?php
-      $validador -> mostrar_error_codigo_tarjeta(); 
-    ?>
-</div>
 <br>
-<button type="submit"class="btn btn-default btn-primary" name="enviar">Enviar datos</button>
-<button type="reset"class="btn btn-default btn-primary">Limpiar formulario</button>
+<h4>Todos los campos son obligatorios</h4>
+
+<br>
+<button type="submit"class="btn botoncss" name="enviar">Enviar datos</button>
+<button type="reset"class="btn botoncss">Limpiar formulario</button>

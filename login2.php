@@ -54,7 +54,7 @@ include_once 'plantillas/navbar2.inc.php';
                                     $validador -> mostrar_error();
                                  }
                                  ?>
-                                <button type="submit" name="login" class="btn btn-success btn-lg float-right" >Iniciar Sesion</button>
+                                <button type="submit" name="login" class="btn botoncss form-control" >Iniciar Sesion</button>
                             </form>
                         </div>
                         <!--/card-block-->

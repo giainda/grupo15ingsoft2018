@@ -9,16 +9,14 @@ class ValidadorRegistro {
     private $correo;
     private $contraseña;
     private $fechanac;
-    private $codigo_tarjeta;
     private $error_nombre;
     private $error_apellido;
     private $error_correo;
     private $error_fechanac;
     private $error_contraseña;
     private $error_contraseña2;
-    private $error_codigo_tarjeta;
  
- public function __construct($correo,$nombre,$apellido,$fechanac,$contraseña,$contraseña2,$codigo_tarjeta,$conexion){
+ public function __construct($correo,$nombre,$apellido,$fechanac,$contraseña,$contraseña2,$conexion){
      $this -> aviso_inicio = "<br><div class= 'alert alert-danger' role='alert'>";
      $this -> aviso_cierre="</div>";
 
@@ -27,14 +25,12 @@ class ValidadorRegistro {
      $this -> correo="";
      $this -> contraseña="";
      $this -> fechanac="";
-     $this -> codigo_tarjeta="";
      $this -> error_nombre= $this -> validar_nombre($nombre);
      $this -> error_apellido=$this -> validar_apellido($apellido);
      $this -> error_correo=$this -> validar_correo($conexion,$correo);
      $this -> error_contraseña= $this -> validar_contraseña($contraseña);
      $this -> error_contraseña2= $this -> validar_contraseña2($contraseña,$contraseña2);
      $this -> error_fechanac= $this -> validar_fechanac($fechanac);
-     $this -> error_codigo_tarjeta= $this -> validar_codigo_tarjeta($codigo_tarjeta);
      if ($this -> error_contraseña==="" && $this -> error_contraseña2 ===""){
          $this -> contraseña=$contraseña;
      }
@@ -52,7 +48,9 @@ class ValidadorRegistro {
     if(!$this ->variable_iniciada($fechanac)){
         return"debes escribir tu fecha de nacimiento";
     }else {
-        $this -> fechanac = $fechanac;
+        $valores=explode('/',$fechanac);
+        $fecha=$valores[2]."/".$valores[1]."/".$valores[0];
+        $this -> fechanac = $fecha;
     }
     if(strlen($fechanac)<10){
         return"formato de fecha incorrecto, el formato debe ser año(4 digitos)/mes(2 digitos)/dia(2 digitos)";
@@ -64,7 +62,7 @@ class ValidadorRegistro {
     $newdate= strtotime('+18 year',strtotime($date));
     $newdate= date('Y-m-d',$newdate);
     $valores=explode('/',$fechanac);
-    if(!checkdate($valores[1], $valores[2], $valores[0])){
+    if(!checkdate($valores[1], $valores[0], $valores[2])){
         return "fecha no valida";
     }
     if($newdate>date('Y-m-d')){
@@ -73,21 +71,6 @@ class ValidadorRegistro {
     return"";
  }
 
- private function validar_codigo_tarjeta($codigo_tarjeta){
-    if(!$this ->variable_iniciada($codigo_tarjeta)){
-        return"debes ingresar un codigo de tarjeta";
-    }else {
-        $this -> codigo_tarjeta = $codigo_tarjeta;
-    }
-    if(strlen($codigo_tarjeta)<12){
-        return"formato de codigo incorrecto, el formato debe ser:12 digitos";
-    }
-    if(strlen($codigo_tarjeta)>12){
-        return"formato de codigo incorrecto, el formato debe ser:12 digitos";
-    }
-    return"";
-     
- }
  private function validar_nombre($nombre){
      if(!$this -> variable_iniciada($nombre)){
          return "Debes escribir un nombre de usuario.";
@@ -96,8 +79,8 @@ class ValidadorRegistro {
      else {
          $this -> nombre = $nombre;
      }
-     if(strlen($nombre)< 6){
-         return "El nombre debe ser mas largo que 6 caracteres";
+     if(strlen($nombre)< 3){
+         return "El nombre debe ser mas largo que 3 caracteres";
      }
      if (strlen($nombre)>24){
          return "el nombre debe ser mas corto que 24 caracteres";
@@ -112,8 +95,8 @@ class ValidadorRegistro {
     else {
         $this -> apellido = $apellido;
     }
-    if(strlen($apellido)< 6){
-        return "El apellido debe ser mas largo que 6 caracteres";
+    if(strlen($apellido)< 4){
+        return "El apellido debe ser mas largo que 4 caracteres";
     }
     if (strlen($apellido)>24){
         return "el apellido debe ser mas corto que 24 caracteres";
@@ -165,9 +148,6 @@ class ValidadorRegistro {
  public function obtener_fechanac(){
      return $this -> fechanac;
  }
- public function obtener_codigo_tarjeta(){
-     return $this -> codigo_tarjeta;
- }
 
  public function obtener_error_nombre(){
      return $this -> error_nombre;
@@ -186,9 +166,6 @@ public function obtener_error_apellido(){
 }
 public function obtener_error_fechanac(){
     return $this -> error_fechanac;
-}
-public function obtener_error_codigo_tarjeta(){
-    return $this -> error_codigo_tarjeta;
 }
 public function mostrar_correo(){
     if($this -> correo !==""){
@@ -234,11 +211,6 @@ public function mostrar_error_fechanac(){
        
     }
 }
-public function mostrar_codigo_tarjeta(){
-    if($this -> codigo_tarjeta !==""){
-        echo 'value="'.$this -> codigo_tarjeta .'"';
-    }
-} 
 public function mostrar_error_codigo_tarjeta(){
     if($this -> error_codigo_tarjeta !==""){
         echo $this -> aviso_inicio. $this -> error_codigo_tarjeta . $this -> aviso_cierre;
@@ -258,7 +230,7 @@ public function mostrar_error_contraseña2(){
     }
 }
 public function registro_valido(){
-    if($this -> error_nombre === "" && $this -> error_correo === "" && $this -> error_contraseña ==="" && $this -> error_contraseña === "" && $this -> error_apellido==="" && $this -> error_contraseña === "" && $this -> error_fechanac==="" && $this -> error_contraseña === "" && $this -> error_codigo_tarjeta===""){
+    if($this -> error_nombre === "" && $this -> error_correo === "" && $this -> error_contraseña ==="" && $this -> error_contraseña === "" && $this -> error_apellido==="" && $this -> error_contraseña === "" && $this -> error_fechanac==="" && $this -> error_contraseña === ""){
         return true;
 
     }else{

@@ -12,7 +12,7 @@
 </div>
 <div class="form-group">
     <label>fecha de nacimiento</label>
-    <input type="text" class="form-control" name="fechanac" placeholder="YYYY/MM/DD">
+    <input type="text" class="form-control" name="fechanac" placeholder="DD/MM/YYYY">
 </div>
 <div class="form-group">
     <label>contraseña</label>
@@ -22,10 +22,9 @@
     <label>confirmar contraseña</label>
     <input type="password" class="form-control" name="contraseña2" placeholder="*****">
 </div>
-<div class="form-group">
-    <label>codigo tarjeta</label>
-    <input type="text" class="form-control" name="codigo_tarjeta" placeholder="123412341234">
-</div>
 <br>
-<button type="submit"class="btn btn-default btn-primary" name="enviar">Enviar datos</button>
-<button type="reset"class="btn btn-default btn-primary">Limpiar formulario</button>
+<h4>Todos los campos son obligatorios</h4>
+
+<br>
+<button type="submit"class="btn botoncss" name="enviar">Enviar datos</button>
+<button type="reset"class="btn botoncss">Limpiar formulario</button>
