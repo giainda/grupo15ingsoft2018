@@ -55,7 +55,7 @@ include_once 'plantillas/navbar2.inc.php';
                     <a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo1">Ver mis autos</a>
                     <br>
                     <br>
-                    <a href="#" class="btn botoncss form-control color1">Agregar auto</a>
+                    <a href="<?php echo RUTA_INGRESO_PATENTE ?>" class="btn botoncss form-control color1">Agregar auto</a>
                     <br>
                     <br>
                     <a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo3">Eliminar cuenta</a>
@@ -160,11 +160,11 @@ include_once 'plantillas/navbar2.inc.php';
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <div class="card">
-                                                                <div class="card-body">
-                                                                    <p class="card-text"><?php echo "<h4>color: </h4>", $auto->getColor(); ?> </p>
-                                                                </div>
-                                                            </div>
+                                                            
+                                                                
+                                                                <a href="<?php echo RUTA_MOSTRAR_AUTO."?patente=".$auto-> getPatente(); ?>" class="btn botoncss form-control color1">Mostrar</a>
+                                                            
+                                                          
                                                         </div>
 
                                                     </div>

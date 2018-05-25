@@ -7,7 +7,7 @@ class RepositorioConductor{
         if(isset($conexion)){
             try{
                 $sql = "INSERT INTO conductor(idUsuario, calificacionPos, calificacionNeg)
-                 VALUES(:idUsuario, 1, 1)";
+                 VALUES(:idUsuario, 0, 0)";
                 $sentencia= $conexion -> prepare($sql);
                 $sentencia -> bindParam(':idUsuario',$idUsuario,PDO::PARAM_STR);
                 $usuario_insertado = $sentencia -> execute();

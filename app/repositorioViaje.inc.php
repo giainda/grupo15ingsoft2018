@@ -89,5 +89,27 @@ class RepositorioViaje{
             }
         }
        return $es;
+    }
+    public static function autoTieneViaje($conexion,$patente){
+        $es=null;
+        if(isset($conexion)){
+            try{
+                $sql="SELECT COUNT(*) AS si FROM viajes WHERE patente= :patente";
+                $sentencia=$conexion -> prepare($sql);
+                $sentencia -> bindParam(':patente',$patente,PDO::PARAM_STR);
+                $sentencia ->execute();
+                $resultado=$sentencia ->fetch();
+                if($resultado['si']){
+                    $es=true;
+                }else{
+                    $es=false;
+                }
+            }catch(PDOException $ex){
+              print 'error: '. $ex ->getMessage();
+    
+            }
+        }
+       return $es;
     } 
+     
 }

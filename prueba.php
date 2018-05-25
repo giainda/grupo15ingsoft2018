@@ -11,4 +11,12 @@ if ($newdate>date('Y-m-d')){
     echo 'false';
 }
 echo date('Y-m-d');
+$patente='as123ad';
+$primera=substr($patente,0,2);
+            $prin=substr($patente,0,5);
+
+            $segunda=substr($prin,2,5);
+            $tercera=substr($patente,5,7);
+            print $tercera;
+
 

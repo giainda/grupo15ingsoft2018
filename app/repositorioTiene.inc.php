@@ -67,6 +67,65 @@ public static function activo($conexion,$idConductor,$patente){
     }
     return $activo;
 }
+public static function existeRelacion($conexion,$idConductor,$patente){
+    $existe=null;
+    if(isset($conexion)){
+        try{
+            $sql="SELECT COUNT(*)as total FROM tiene WHERE idConductor = :idConductor AND patente = :patente";
+            $sentencia = $conexion -> prepare($sql);
+            $sentencia -> bindParam( ":idConductor" , $idConductor, PDO::PARAM_STR);
+            $sentencia -> bindParam( ":patente" , $patente, PDO::PARAM_STR);
+            $sentencia -> execute();
+            $resultado = $sentencia -> fetch();
+            if($resultado['total']){
+                $existe=true;
+            }else{
+                $existe=false;
+            }
 
+}catch(PDOException $ex){
+    print "error" . $ex ->getMessage();
 
+}
+    }return $existe;
+
+}
+public static function eliminar($patente,$idConductor,$conexion){
+    $ok=false;
+    if(isset($conexion)){
+        try{
+            $sql="UPDATE tiene SET activo=0 WHERE patente=:patente AND idConductor=:idConductor";
+            $sentencia=$conexion ->prepare($sql);
+            $sentencia ->bindParam(":patente", $patente, PDO::PARAM_STR);
+            $sentencia ->bindParam(":idConductor", $idConductor, PDO::PARAM_STR);
+            $sentencia ->execute();
+          $ok=true;
+        }catch(PDOException $ex){
+            print "erro: ". $ex->getMessage();
+        }
+    }
+    return $ok;
+} 
+public static function autoExisteRelacion($conexion,$patente){
+    $existe=null;
+    if(isset($conexion)){
+        try{
+            $sql="SELECT COUNT(*)as total FROM tiene WHERE patente = :patente";
+            $sentencia = $conexion -> prepare($sql);
+            $sentencia -> bindParam( ":patente" , $patente, PDO::PARAM_STR);
+            $sentencia -> execute();
+            $resultado = $sentencia -> fetch();
+            if($resultado['total']){
+                $existe=true;
+            }else{
+                $existe=false;
+            }
+
+}catch(PDOException $ex){
+    print "error" . $ex ->getMessage();
+
+}
+    }return $existe;
+
+}
 }
