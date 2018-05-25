@@ -27,7 +27,7 @@ $usuario=RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion()
                     <!-- form card login -->
                     <div class="card rounded-0">
                         <div class="card-header">
-                            <h3 class="mb-0">Registro de auto</h3>
+                            <h3 class="mb-0">Registro de vehículo</h3>
                         </div>
                         <div class="card-body">
                             <form class="form" role="form" autocomplete="off" id="formPatente" novalidate="" method="POST">
@@ -101,7 +101,7 @@ $usuario=RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion()
                                 }
                                 ?>
                                 <br>
-                                <button type="submit" name="comprobar" class="btn botoncss form-control" >Confirmar contraseña</button>
+                                <button type="submit" name="comprobar" class="btn botoncss form-control" >Confirmar patente</button>
                             </form>
                         </div>
                         <!--/card-block-->

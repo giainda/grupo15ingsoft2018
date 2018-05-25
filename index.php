@@ -72,7 +72,7 @@
 
                                
                                 <div class="modal-body">
-                                  <h3>esta funcionalidad todavia no esta disponible  </h3> 
+                                  <h3>esta funcionalidad todavía no esta disponible  </h3> 
                                 </div>
                             </div>
                         </div>

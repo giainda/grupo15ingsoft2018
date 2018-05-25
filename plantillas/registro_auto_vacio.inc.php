@@ -7,14 +7,14 @@
     <input type="text" class="form-control" name="modelo" placeholder="Modelo">
 </div>
 <div class="form-group">
-    <label>Capasidad</label>
+    <label>Capacidad</label>
     <input type="number" class="form-control" name="capasidad" placeholder="Capasidad">
 </div>
 <div class="form-group">
     <label>Color</label>
     <input type="text" class="form-control" name="color" placeholder="Color">
 </div>
-<label for="inputState">Tipo de auto</label>
+<label for="inputState">Tipo de vehículo</label>
                             <select id="inputState" name=tipoAuto class="form-control">
                             <option selected>Auto</option>
                             <option>Camioneta</option>

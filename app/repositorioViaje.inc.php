@@ -59,7 +59,7 @@ class RepositorioViaje{
                     }
     
                 }else{
-                    print 'este conductor no tiene viajes';
+                    print '       No hay viajes creados';
                 }
     
             }catch(PDOException $ex){

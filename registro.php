@@ -34,35 +34,36 @@
             <div class="col-md-6 text-center">
                  <div class="card tex-center">
                     <div class="card-heading">
-                        <h3 class="panel-tittle">Instrucciones</h3>
+                        <h3 class="panel-tittle">Instrucciónes</h3>
                     </div>
                     <div class="card-body">
                         <br>
                         <p class="text-justify">
-                         -nombre de usuario debe tener mas de 3 caracteres y menos 24
+                         El nombre de usuario debe tener mas de 3 caracteres y menos 24
                         </p>
                          
                          <p class="text-justify">
-                             -apellido debe tener mas de 4 caracteres y menos de 24
+                            El apellido debe tener mas de 4 caracteres y menos de 24
                              </p>
                              
                              <p class="text-justify">    
-                             -correo debe ser un correo valido y no utilizado por otra cuenta
+                             El correo debe ser un correo valido y no utilizado por otra cuenta
                              </p>
                              
                              <p class="text-justify">
-                             -la fecha de nacimiento debe ser una fecha valida en formato
-                              YYYY/MM/DD
+                             La fecha de nacimiento debe ser una fecha valida en formato
+                              DD/MM/YYYY, ademas, para tener acceso 
+                               a las funcionalidades de "Un Aventon", usted debe ser mayor de 18 años.
                               </p>
                              
                              <p class="text-justify">
-                             -la contraseña y la comprobacion de contraseña deben coincidir
+                             La contraseña y la comprobacion de contraseña deben coincidir
                              
                              </p>
                              
                               
                         
-                        <a href="#">¿ya tienes cuenta?</a>
+                        <a href="<?php echo RUTA_LOGIN;?>">¿ya tienes cuenta?</a>
                         <br>
                         <br>
                         <br>

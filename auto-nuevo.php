@@ -40,7 +40,7 @@ if($validador->auto_valido()){
 <div class="container contenedorasd">
 <div class="card text-center">
                     <div class="card-heading">
-                        <h3 class="panel-tittle">Introduce los datos del auto</h3>
+                        <h3 class="panel-tittle">Introduce los datos del vehículo</h3>
                     </div>
                     <div class="card-body">
                         <form role="form" method="post" action="<?php echo RUTA_AUTO_NUEVO.'?patente='.$_GET['patente'];?>">
@@ -72,7 +72,7 @@ if($validador->auto_valido()){
 
                                 <!-- cuerpo del diálogo -->
                                 <div class="modal-body">
-                                    <h4>El auto fue vinculado correctamente</h4>
+                                    <h4>El vehículo fue vinculado correctamente</h4>
                                     <br>
                                     <br>
                                 </div>

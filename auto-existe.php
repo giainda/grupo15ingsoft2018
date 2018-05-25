@@ -34,7 +34,7 @@ if(isset($_POST['enviar'])){
 ?>
 
 <div class="container text-center contenedorasd">
-    <h3>El auto ya existe</h3>
+    <h3>El vehículo ya existe</h3>
     <div class="card text-center">
                                                 <div class="card-body">
                                                     <h5 class="card-title"><?php echo "Patente: ", $auto->getPatente(), ", tipo: ", $auto->getTipo(); ?></h5>
@@ -56,7 +56,7 @@ if(isset($_POST['enviar'])){
                                                         <div class="col-md-3">
                                                             <div class="card">
                                                                 <div class="card-body">
-                                                                    <p class="card-text"><?php echo "<h4>capasidad: </h4>", $auto->getCapasidad(); ?> </p>
+                                                                    <p class="card-text"><?php echo "<h4>capacidad: </h4>", $auto->getCapasidad(); ?> </p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -96,7 +96,7 @@ if(isset($_POST['enviar'])){
 
                                 <!-- cuerpo del diálogo -->
                                 <div class="modal-body">
-                                    <h4>El auto fue vinculado correctamente</h4>
+                                    <h4>El vehículo fue vinculado correctamente</h4>
                                     <br>
                                     <br>
                                 </div>

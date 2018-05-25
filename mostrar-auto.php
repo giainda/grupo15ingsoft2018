@@ -34,8 +34,8 @@ if(isset($_GET['patente'])&&!empty($_GET['patente'])){
      ?> 
     <div class="card">
     <div class="card-body">  
-    <a href="<?php echo RUTA_EDITOR_AUTO."?patente=".$auto -> getPatente(); ?> " class="btn botoncss form-control color1">Editar Auto</a>
-    <a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo3">Eliminar auto</a>
+    <a href="<?php echo RUTA_EDITOR_AUTO."?patente=".$auto -> getPatente(); ?> " class="btn botoncss form-control color1">Editar vehículo</a>
+    <a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo3">Eliminar vehículo</a>
     </div>
     </div>
     <?php       
@@ -44,7 +44,7 @@ if(isset($_GET['patente'])&&!empty($_GET['patente'])){
     <div class="col-md-8 text-center"> 
     <div class="card color1 ">
                 <div class="card-heading color1">
-                    <h1>Información del auto</h1>
+                    <h1>Información del vehículo</h1>
                 </div>
       </div>          
                 <div class="card-body text-center">
@@ -67,7 +67,7 @@ if(isset($_GET['patente'])&&!empty($_GET['patente'])){
                     <br>
                     <br>
                     <?php
-                    echo "<h4>Capasidad: </h4><h3>", $auto->getCapasidad(), "</h3>";
+                    echo "<h4>Capacidad: </h4><h3>", $auto->getCapasidad(), "</h3>";
                     ?>
                     <br>
                     <br>
@@ -90,16 +90,16 @@ if(isset($_GET['patente'])&&!empty($_GET['patente'])){
 
                                 <!-- cabecera del diálogo -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Eliminacion de auto</h4>
+                                    <h4 class="modal-title">Eliminación de vehículo</h4>
                                     <button type="button" class="close" data-dismiss="modal">X</button>
                                 </div>
 
-                                <!-- Eliminar cuenta -->
+                                <!-- Eliminar auto -->
                                 <div class="modal-body">
                                     <?php
                                     if (!RepositorioViaje::autoTieneViaje(Conexion::obtener_conexion(),$auto ->getPatente())) {
-                                        echo "Usted esta habilitado para eliminar su vinculo con este auto,
-                                            ¿Esta seguro de que decea hacerlo?";
+                                        echo "Usted esta habilitado para eliminar su vinculo con este vehículo,
+                                            ¿Esta seguro de que desea hacerlo?";
                                         ?> <div class="row">
                                             <div class= "col-md-6">
                                                 <button onclick="location.href = '<?php echo RUTA_ELIMINAR_AUTO."?patente=".$auto ->getPatente() ?>';"class="botoncss form-control">Si</button>
@@ -109,7 +109,7 @@ if(isset($_GET['patente'])&&!empty($_GET['patente'])){
                                             </div>
                                         </div>  <?php
                                     } else {
-                                        $error = "no puede borrar este auto: tiene al menos un viaje creado con este auto <br>";
+                                        $error = "no puede borrar este vehículo: tiene al menos un viaje creado con este auto <br>";
                                         ?>
                                         <br><div class= 'alert alert-danger' role='alert'>
                                         <?php echo $error;

@@ -33,7 +33,7 @@ if($validador->editor_valido()){
  ?>
 <div class="container ">
     <div class="jumbotron">
-        <h1 class="text-center">Formulario editor de informacion del auto</h1>
+        <h1 class="text-center">Formulario editor de información del vehículo</h1>
     </div>
 </div>  
 <br>
@@ -44,7 +44,7 @@ if($validador->editor_valido()){
             <div class="col-md-6 text-center" >
                 <div class="card text-center">
                     <div class="card-heading">
-                        <h3 class="panel-tittle">Cambiar datos auto</h3>
+                        <h3 class="panel-tittle">Cambiar datos del vehículo</h3>
                     </div>
                     <div class="card-body">
                         <form role="form" method="post" action="<?php echo RUTA_EDITOR_AUTO."?patente=".$patente;?>">

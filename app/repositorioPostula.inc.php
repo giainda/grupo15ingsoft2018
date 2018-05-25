@@ -18,7 +18,7 @@ public static function viajes_postulado_idUsuario($conexion,$idUsuario){
                 }
 
             }else{
-                print 'no se postulo a nada';
+                print '     No hay viajes pendientes';
             }
 
         }catch(PDOException $ex){

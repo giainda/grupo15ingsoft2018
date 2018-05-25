@@ -37,7 +37,7 @@ include_once 'plantillas/navbar2.inc.php';
                         <div class="card-body">
                             <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
                                 <div class="form-group">
-                                    <label for="uname1">correo</label>
+                                    <label for="uname1">Correo</label>
                                     <input type="email" class="form-control form-control-lg rounded-0" name="email"  placeholder="email"
                                     <?php
                                        if(isset($_POST['login'])&& isset($_POST['email'])&& !empty($_POST['email'])){
@@ -46,7 +46,7 @@ include_once 'plantillas/navbar2.inc.php';
                                      ?>required autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <label>contraseña</label>
+                                    <label>Contraseña</label>
                                     <input type="password" name="clave" class="form-control form-control-lg rounded-0" placeholder="contraseña" required="" autocomplete="new-password">
                                 </div>
                                 <?php

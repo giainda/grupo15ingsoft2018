@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label>correo</label>
+    <label>Correo</label>
     <input type="email" class="form-control" name="correo" placeholder="correo">
 </div>
 <div class="form-group">
@@ -7,19 +7,19 @@
     <input type="text" class="form-control" name="nombre" placeholder="nombre">
 </div>
 <div class="form-group">
-    <label>apellido</label>
+    <label>Apellido</label>
     <input type="text" class="form-control" name="apellido" placeholder="apellido">
 </div>
 <div class="form-group">
-    <label>fecha de nacimiento</label>
+    <label>Fecha de nacimiento</label>
     <input type="text" class="form-control" name="fechanac" placeholder="DD/MM/YYYY">
 </div>
 <div class="form-group">
-    <label>contraseña</label>
+    <label>Contraseña</label>
     <input type="password" class="form-control" name="contraseña" placeholder="*****">
 </div>
 <div class="form-group">
-    <label>confirmar contraseña</label>
+    <label>Confirmar contraseña</label>
     <input type="password" class="form-control" name="contraseña2" placeholder="*****">
 </div>
 <br>

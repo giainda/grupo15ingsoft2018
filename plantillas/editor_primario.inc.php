@@ -9,7 +9,7 @@
 </div>
 <?php if($usuario ->getCodigo_tarjeta()!=0){?>
 <div class="form-group">
-    <label>codigo tarjeta</label>
+    <label>código tarjeta</label>
     <input type="text" class="form-control" name="codigo_tarjeta" placeholder="123412341234"<?php echo 'value="'.$usuario-> getCodigo_tarjeta() .'"'; ?>>
 </div>
 <br>

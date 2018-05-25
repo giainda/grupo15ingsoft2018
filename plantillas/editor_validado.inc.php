@@ -15,7 +15,7 @@
 </div>
 <?php if($usuario ->getCodigo_tarjeta()!=0){?>
 <div class="form-group">
-    <label>codigo_tarjeta</label>
+    <label>código_tarjeta</label>
     <input type="text" class="form-control" name="codigo_tarjeta" placeholder="123412341234"<?php $validador -> mostrar_codigo_tarjeta()?>>
     <?php
       $validador -> mostrar_error_codigo_tarjeta(); 

@@ -30,7 +30,7 @@ $usuario = RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion
                             <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
                 
                                 <div class="form-group">
-                                    <label>Introdusca su contraseña actual</label>
+                                    <label>Introduzca su contraseña actual</label>
                                     <input type="password" name="clave" class="form-control form-control-lg rounded-0" placeholder="contraseña" required="" autocomplete="new-password">
                                 </div>
                                 <?php

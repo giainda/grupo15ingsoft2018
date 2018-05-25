@@ -13,7 +13,7 @@
       $validador -> mostrar_error_modelo(); 
     ?>
 <div class="form-group">
-    <label>Capasidad</label>
+    <label>Capacidad</label>
     <input type="number" class="form-control" name="capasidad" placeholder="Capasidad"<?php $validador -> mostrar_capasidad()?>>
 </div>
 <?php
@@ -26,7 +26,7 @@
 <?php
       $validador -> mostrar_error_color(); 
     ?>
-<label for="inputState">Tipo de auto</label>
+<label for="inputState">Tipo de vehículo</label>
                             <select id="inputState" name=tipoAuto class="form-control">
                             <option <?php if($_POST['tipoAuto']==='Auto'){ echo 'selected';}?>>Auto</option>
                             <option <?php if($_POST['tipoAuto']==='Camioneta'){ echo 'selected';}?>>Camioneta</option>

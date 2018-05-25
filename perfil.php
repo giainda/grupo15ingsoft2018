@@ -52,10 +52,10 @@ include_once 'plantillas/navbar2.inc.php';
                     <a href="<?php echo RUTA_EDITOR_PERFIL ?> " class="btn botoncss form-control color1">Editar Perfil</a>
                     <br>
                     <br>
-                    <a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo1">Ver mis autos</a>
+                    <a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo1">Ver mis vehículos</a>
                     <br>
                     <br>
-                    <a href="<?php echo RUTA_INGRESO_PATENTE ?>" class="btn botoncss form-control color1">Agregar auto</a>
+                    <a href="<?php echo RUTA_INGRESO_PATENTE ?>" class="btn botoncss form-control color1">Agregar vehículo</a>
                     <br>
                     <br>
                     <a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo3">Eliminar cuenta</a>
@@ -76,7 +76,7 @@ include_once 'plantillas/navbar2.inc.php';
                                     <?php
                                     if (!RepositorioViaja::viaja(Conexion::obtener_conexion(), $usuario->getId()) && !RepositorioCalificacionPendiente::debeCalificacion(Conexion::obtener_conexion(), $usuario->getId()) && !RepositorioPagoPendiente::debePago(Conexion::obtener_conexion(), $usuario->getId())&&!RepositorioViaje::tieneViaje(Conexion::obtener_conexion(),$usuario->getId())) {
                                         echo "Usted esta habilitado para eliminar su cuenta,
-                                            ¿Esta seguro de que decea hacerlo?";
+                                            ¿Esta seguro de que desea hacerlo?";
                                         ?> <div class="row">
                                             <div class= "col-md-6">
                                                 <button onclick="location.href = '<?php echo RUTA_ELIMINAR_CUENTA ?>';"class="botoncss form-control">Si</button>
@@ -122,7 +122,7 @@ include_once 'plantillas/navbar2.inc.php';
 
                                 <!-- cabecera del diálogo -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Mis autos</h4>
+                                    <h4 class="modal-title">Mis vehículos</h4>
                                     <button type="button botoncss " class="close" data-dismiss="modal">X</button>
                                 </div>
 
@@ -155,7 +155,7 @@ include_once 'plantillas/navbar2.inc.php';
                                                         <div class="col-md-3">
                                                             <div class="card">
                                                                 <div class="card-body">
-                                                                    <p class="card-text"><?php echo "<h4>capasidad: </h4>", $auto->getCapasidad(); ?> </p>
+                                                                    <p class="card-text"><?php echo "<h4>capacidad: </h4>", $auto->getCapasidad(); ?> </p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -193,14 +193,14 @@ include_once 'plantillas/navbar2.inc.php';
 
                 <?php
                 if (!empty($usuario)) {
-                    echo "<h4>calificaciones como pasajero: </h4><br><h3>Positivas: ", $usuario->getCalificacionPos(), '<br>Negativas: ',$usuario->getCalificacionNeg(),'<h3>';
+                    echo "<h4>Calificaciones como pasajero: </h4><br><h3>Positivas: ", $usuario->getCalificacionPos(), '<br>Negativas: ',$usuario->getCalificacionNeg(),'<h3>';
                     ?>
                     <br>
                     <br>
     <?php
     if (RepositorioConductor::esConductor(Conexion::obtener_conexion(), $usuario->getId())) {
 
-        echo "<h4>calificaciones como conductor: </h4><br><h3>Positivas: ", $conductor->getCalificacionPos(), '<br>Negativas: ',$conductor->getCalificacionNeg(),'<h3>';
+        echo "<h4>Calificaciones como conductor: </h4><br><h3>Positivas: ", $conductor->getCalificacionPos(), '<br>Negativas: ',$conductor->getCalificacionNeg(),'<h3>';
         ?>
                         <br>
                         <br>
@@ -211,13 +211,13 @@ include_once 'plantillas/navbar2.inc.php';
                     <br>
                     <br>
                     <?php
-                    echo "<h4>nacimiento: </h4><h3>", $usuario->getFechanac(), "</h3>";
+                    echo "<h4>Nacimiento: </h4><h3>", $usuario->getFechanac(), "</h3>";
                     ?>
                     <br>
                     <br>
                     <?php
                     if($usuario->getCodigo_Tarjeta()!=0){
-                    echo "<h4>tarjeta: </h4><h3>", "********".substr($usuario->getCodigo_Tarjeta(),8,12), "</h3>";
+                    echo "<h4>Tarjeta: </h4><h3>", "********".substr($usuario->getCodigo_Tarjeta(),8,12), "</h3>";
                     
                     ?>
                     <br>
@@ -240,7 +240,7 @@ include_once 'plantillas/navbar2.inc.php';
     <div id='infoviaje' class='collapse'>
         <br>
         <br>                  
-        <h3 id="titulo">Viajes a los que me postulé: </h3>
+        <h3  id="titulo">Viajes a los que me postulé: </h3>
         <?php
         $postulado = RepositorioPostula::viajes_postulado_idUsuario(Conexion::obtener_conexion(), $_SESSION['id_usuario']);
         foreach ($postulado as $pos) {
@@ -270,7 +270,7 @@ include_once 'plantillas/navbar2.inc.php';
 
                             </div>
                             <div class="col-md-3">
-                                <a href="#" class="btn botoncss">Ver Viaje</a>
+                                <a href="#" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
                             </div>    
                         </div>
                     </div>
@@ -308,7 +308,7 @@ foreach ($viaja as $pos) {
 
                         </div>
                         <div class="col-md-3">
-                            <a href="#" class="btn botoncss">Ver Viaje</a>
+                            <a href="#" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
                         </div>    
                     </div>
                 </div>
@@ -345,7 +345,7 @@ foreach ($viaja as $pos) {
 
                             </div>
                             <div class="col-md-3">
-                                <a href="#" class="btn botoncss">Ver Viaje</a>
+                                <a href="#" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
                             </div>    
                         </div>
                     </div>
@@ -359,6 +359,23 @@ foreach ($viaja as $pos) {
 
 </div>
 </div>
+<!-- este modal es solo para informar de funcionalidades no implementadas , en el futuro se borrara -->
+<div class="modal fade" id="dialogo22">
+           <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- cabecera del diálogo -->
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">X</button>
+                                </div>
+
+                               
+                                <div class="modal-body">
+                                  <h3>esta funcionalidad todavía no esta disponible  </h3> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
 
