@@ -15,6 +15,8 @@ if(!ControlSesion::sesion_iniciada()){
 }
 
 $usuario=RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion(),$_SESSION["id_usuario"]);
+if(isset($_POST['patente'])){
+    $seleccion=$_POST['tipoPatente'];}
 
 ?>
 <div class="container py-1">
@@ -33,8 +35,8 @@ $usuario=RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion()
                             <form class="form" role="form" autocomplete="off" id="formPatente" novalidate="" method="POST">
                             <label for="inputState">Tipo de patente</label>
                             <select id="inputState" name=tipoPatente class="form-control">
-                            <option selected>MercoSur (aa111aa)</option>
-                            <option>Argentina (aaa111)</option>
+                            <option>MercoSur (aa111aa)</option>
+                            <option <?php if(isset($_POST['comprobar'])){if($seleccion==='Argentina (aaa111)'){echo ' selected';}} ?>>Argentina (aaa111)</option>
                             </select>
                             <br>
                                 <div class="form-group">
@@ -45,6 +47,9 @@ $usuario=RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion()
                                 <?php 
                                 $error='';
                                 if(isset($_POST['comprobar'])){
+                                    if(empty($_POST['patente'])){
+                                        echo "<div class= 'alert alert-danger' role='alert'> debe rellenar el campo patente</div>"; 
+                                    }else{
                                     if(isset($_POST['patente'])){
                                         $seleccion=$_POST['tipoPatente'];
                                         if($seleccion==='Argentina (aaa111)'){
@@ -96,6 +101,7 @@ $usuario=RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion()
                                             }
                                             }
                                         }
+                                    }
                                     }
                                                                     
                                 }

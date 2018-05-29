@@ -32,6 +32,7 @@ if(isset($_POST['enviar'])){
     }
 }
 ?>
+<br>
 
 <div class="container text-center contenedorasd">
     <h3>El vehículo ya existe</h3>
@@ -72,7 +73,7 @@ if(isset($_POST['enviar'])){
                                                 </div>
                                             </div>
 
-<h2>¿decea vincular este auto a su cuenta?</h2>
+<h2>¿desea vincular este auto a su cuenta?</h2>
 <div class="row">
     <div class=col-md-3>
 </div>

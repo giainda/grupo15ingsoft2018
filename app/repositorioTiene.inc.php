@@ -23,7 +23,7 @@ public static function autos_idConductor($conexion,$idConductor){
     $autos=array();
     if(isset($conexion)){
         try{
-            $sql="SELECT * FROM tiene WHERE idConductor = :idConductor";
+            $sql="SELECT * FROM tiene WHERE idConductor = :idConductor AND activo=1";
             $sentencia = $conexion -> prepare($sql);
             $sentencia -> bindParam( ":idConductor" , $idConductor, PDO::PARAM_STR);
             $sentencia -> execute();
@@ -34,7 +34,7 @@ public static function autos_idConductor($conexion,$idConductor){
                 }
 
             }else{
-                print 'no tiene autos';
+                print 'no tiene vehículos';
             }
 
         }catch(PDOException $ex){

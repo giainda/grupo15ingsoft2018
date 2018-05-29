@@ -43,7 +43,7 @@ include_once 'plantillas/navbar2.inc.php';
                 ?>
                 <img class="card-img-top" src="<?php echo $imagen ?>" alt="Card image cap">            
                 <div class="card-body text-center">
-                    <h4 class="card-title">Nombre:<?php
+                    <h4 class="card-title"><?php
                         if (!empty($usuario)) {
                             echo ' ', $usuario->getNombre(), ' ', $usuario->getApellido();
                         }

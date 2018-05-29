@@ -94,9 +94,31 @@ class RepositorioViaje{
         $es=null;
         if(isset($conexion)){
             try{
-                $sql="SELECT COUNT(*) AS si FROM viajes WHERE patente= :patente";
+                $sql="SELECT COUNT(*) AS si FROM viajes WHERE patente= :patente  AND estado=1";
                 $sentencia=$conexion -> prepare($sql);
                 $sentencia -> bindParam(':patente',$patente,PDO::PARAM_STR);
+                $sentencia ->execute();
+                $resultado=$sentencia ->fetch();
+                if($resultado['si']){
+                    $es=true;
+                }else{
+                    $es=false;
+                }
+            }catch(PDOException $ex){
+              print 'error: '. $ex ->getMessage();
+    
+            }
+        }
+       return $es;
+    } 
+    public static function autoTieneViajeId($conexion,$idConductor,$patente){
+        $es=null;
+        if(isset($conexion)){
+            try{
+                $sql="SELECT COUNT(*) AS si FROM viajes WHERE idConductor= :idConductor AND patente= :patente AND estado=1";
+                $sentencia=$conexion -> prepare($sql);
+                $sentencia -> bindParam(':patente',$patente,PDO::PARAM_STR);
+                $sentencia -> bindParam(':idConductor',$idConductor,PDO::PARAM_STR);
                 $sentencia ->execute();
                 $resultado=$sentencia ->fetch();
                 if($resultado['si']){

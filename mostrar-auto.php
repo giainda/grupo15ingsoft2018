@@ -97,7 +97,7 @@ if(isset($_GET['patente'])&&!empty($_GET['patente'])){
                                 <!-- Eliminar auto -->
                                 <div class="modal-body">
                                     <?php
-                                    if (!RepositorioViaje::autoTieneViaje(Conexion::obtener_conexion(),$auto ->getPatente())) {
+                                        if (!RepositorioViaje::autoTieneViajeId(Conexion::obtener_conexion(),$_SESSION['id_usuario'],$auto ->getPatente())) {
                                         echo "Usted esta habilitado para eliminar su vinculo con este vehículo,
                                             ¿Esta seguro de que desea hacerlo?";
                                         ?> <div class="row">
