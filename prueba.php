@@ -18,5 +18,6 @@ $primera=substr($patente,0,2);
             $segunda=substr($prin,2,5);
             $tercera=substr($patente,5,7);
             print $tercera;
+            print 'asd';
 
 
