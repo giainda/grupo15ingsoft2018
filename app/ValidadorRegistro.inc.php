@@ -202,7 +202,9 @@ public function mostrar_error_apellido(){
 }
 public function mostrar_fechanac(){
     if($this -> fechanac !==""){
-        echo 'value="'.$this -> fechanac .'"';
+        $valores=explode('/',$this -> fechanac);
+        $fecha=$valores[2]."/".$valores[1]."/".$valores[0];
+        echo 'value="'.$fecha .'"';
     }
 } 
 public function mostrar_error_fechanac(){
