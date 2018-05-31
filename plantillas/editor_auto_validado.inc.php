@@ -1,7 +1,7 @@
 
 <div class="form-group">
-    <label>Capasidad</label>
-    <input type="number" class="form-control" name="capasidad" placeholder="Cpasidad"<?php $validador -> mostrar_capasidad()?>>
+    <label>Capacidad</label>
+    <input type="number" class="form-control" name="capasidad" placeholder="Capacidad"<?php $validador -> mostrar_capasidad()?>>
     <?php
       $validador -> mostrar_error_capasidad(); 
     ?>

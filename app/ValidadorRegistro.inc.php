@@ -58,7 +58,7 @@ class ValidadorRegistro {
     if(strlen($fechanac)>10){
         return"formato de fecha incorrecto, el formato debe ser año(4 digitos)/mes(2 digitos)/dia(2 digitos)";
     }
-    $date= date("Y-m-d", strtotime($fechanac));
+    $date= date("Y-m-d", strtotime($this ->fechanac));
     $newdate= strtotime('+18 year',strtotime($date));
     $newdate= date('Y-m-d',$newdate);
     $valores=explode('/',$fechanac);

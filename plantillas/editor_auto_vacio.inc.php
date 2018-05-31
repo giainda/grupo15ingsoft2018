@@ -1,7 +1,7 @@
 
 <div class="form-group">
-    <label>Capasidad</label>
-    <input type="number" class="form-control" name="capasidad" placeholder="Capasidad"<?php echo 'value="'.$auto-> getCapasidad() .'"';?>>
+    <label>Capacidad</label>
+    <input type="number" class="form-control" name="capasidad" placeholder="Capacidad"<?php echo 'value="'.$auto-> getCapasidad() .'"';?>>
 </div>
 <div class="form-group">
     <label>Color</label>

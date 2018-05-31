@@ -8,7 +8,7 @@
 </div>
 <div class="form-group">
     <label>Capacidad</label>
-    <input type="number" class="form-control" name="capasidad" placeholder="Capasidad">
+    <input type="number" class="form-control" name="capasidad" placeholder="Capacidad">
 </div>
 <div class="form-group">
     <label>Color</label>
