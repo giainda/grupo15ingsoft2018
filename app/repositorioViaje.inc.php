@@ -12,7 +12,7 @@ class RepositorioViaje{
                 $sentencia -> execute();
                 $resultado = $sentencia -> fetch();
                 if(!empty($resultado)){
-                    $viaje=new Viaje($resultado['idViaje'],$resultado['idConductor'],$resultado['patente'],$resultado['fechaCreacion'],$resultado['fechaInicio'],$resultado['inicio'],$resultado['destino'],$resultado['asientos'],$resultado['precio'],$resultado['descripcion'],$resultado['tipoViaje'],$resultado['estado']);
+                    $viaje=new Viaje($resultado['idViaje'],$resultado['idConductor'],$resultado['patente'],$resultado['fechaCreacion'],$resultado['fechaInicio'],$resultado['inicio'],$resultado['destino'],$resultado['asientos'],$resultado['precio'],$resultado['descripcion'],$resultado['tipoViaje'],$resultado['estado'],$resultado['duracion']);
                 }
             }catch(PDOException $ex){
                 print 'error'. $ex->getMessage();
@@ -55,11 +55,34 @@ class RepositorioViaje{
                 $resultado = $sentencia -> fetchAll();
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado']);
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion']);
                     }
     
                 }else{
                     print '       No hay viajes creados';
+                }
+    
+            }catch(PDOException $ex){
+                print 'error' . $ex ->getMessage();
+            }
+    
+        }
+        return $viajes;
+    } 
+    public static function viajes_por_idConductor2($conexion,$idConductor){
+        $viajes=array();
+        if(isset($conexion)){
+            try{
+                $sql="SELECT * FROM viajes WHERE idConductor = :idConductor";
+                $sentencia = $conexion -> prepare($sql);
+                $sentencia -> bindParam( ":idConductor" , $idConductor, PDO::PARAM_STR);
+                $sentencia -> execute();
+                $resultado = $sentencia -> fetchAll();
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion']);
+                    }
+    
                 }
     
             }catch(PDOException $ex){
@@ -133,5 +156,65 @@ class RepositorioViaje{
         }
        return $es;
     } 
+    public static function insertar_viaje($conexion,$viaje){
+        $viaje_insertado = false;
+        if(isset($conexion)){
+            try{
+                $sql = "INSERT INTO viajes(idConductor, patente, fechaCreacion, fechaInicio, inicio, destino, asientos,
+                precio, descripcion, tipoViaje, estado, duracion)
+                 VALUES(:idConductor, :patente, NOW(), :fechaInicio, :inicio, :destino,:asientos,:precio,:descripcion,:tipoViaje,1,:duracion)";
+                $sentencia= $conexion -> prepare($sql);
+                $obidConductor= $viaje ->getIdConductor();
+                $obpatente= $viaje ->getPatente();
+                $obFechaInicio= $viaje ->getFechaInicio();
+                $obInicio= $viaje ->getInicio();
+                $obDestino= $viaje ->getDestino();
+                $obAsientos= $viaje ->getAsientos();
+                $obPrecio= $viaje ->getPrecio();
+                $obDescripcion= $viaje ->getDescripcion();
+                $obTipoViaje= $viaje ->getTipoViaje();
+                $obDuracion= $viaje -> getDuracion();
+                $sentencia -> bindParam(':idConductor',$obidConductor,PDO::PARAM_STR);
+                $sentencia -> bindParam(':patente',$obpatente,PDO::PARAM_STR);
+                $sentencia -> bindParam(':fechaInicio',$obFechaInicio,PDO::PARAM_STR);
+                $sentencia -> bindParam(':inicio',$obInicio,PDO::PARAM_STR);
+                $sentencia -> bindParam(':destino',$obDestino,PDO::PARAM_STR);
+                $sentencia -> bindParam(':asientos',$obAsientos,PDO::PARAM_STR);
+                $sentencia -> bindParam(':precio',$obPrecio,PDO::PARAM_STR);
+                $sentencia -> bindParam(':descripcion',$obDescripcion,PDO::PARAM_STR);
+                $sentencia -> bindParam(':tipoViaje',$obTipoViaje,PDO::PARAM_STR);
+                $sentencia -> bindParam(':duracion',$obDuracion,PDO::PARAM_STR);
+                $viaje_insertado = $sentencia -> execute();
+            }catch (PDOException $ex){
+                print 'error'. $ex -> getMessage();
+            }
+        }
+        return $viaje_insertado;
+     }
+     public static function viajes_por_patente($conexion,$patente){
+        $viajes=array();
+        if(isset($conexion)){
+            try{
+                $sql="SELECT * FROM viajes WHERE patente = :patente";
+                $sentencia = $conexion -> prepare($sql);
+                $sentencia -> bindParam( ":patente" , $patente, PDO::PARAM_STR);
+                $sentencia -> execute();
+                $resultado = $sentencia -> fetchAll();
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion']);
+                    }
+    
+                }else{
+                    print '       No hay viajes creados';
+                }
+    
+            }catch(PDOException $ex){
+                print 'error' . $ex ->getMessage();
+            }
+    
+        }
+        return $viajes;
+    }
      
 }

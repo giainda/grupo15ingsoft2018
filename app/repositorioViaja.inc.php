@@ -14,12 +14,33 @@ public static function viajes_viaja_idUsuario($conexion,$idUsuario){
             $resultado = $sentencia -> fetchAll();
             if(count($resultado)){
                 foreach($resultado as $fila){
-                    $viaja[]= new Postula($fila['idUsuario'],$fila['idViaje'],$fila['eliminado']);
+                    $viaja[]= new Viaja($fila['idUsuario'],$fila['idViaje'],$fila['eliminado']);
                 }
 
             }else{
                 print '     No hay viajes pendientes';
             }
+
+        }catch(PDOException $ex){
+            print 'error' . $ex ->getMessage();
+        }
+
+    }
+    return $viaja;
+}
+public static function viajes_viaja_idUsuario2($conexion,$idUsuario){
+    $viaja=array();
+    if(isset($conexion)){
+        try{
+            $sql="SELECT * FROM viaja WHERE idUsuario = :idUsuario";
+            $sentencia = $conexion -> prepare($sql);
+            $sentencia -> bindParam( ":idUsuario" , $idUsuario, PDO::PARAM_STR);
+            $sentencia -> execute();
+            $resultado = $sentencia -> fetchAll();
+            if(count($resultado)){
+                foreach($resultado as $fila){
+                    $viaja[]= new Viaja($fila['idUsuario'],$fila['idViaje'],$fila['eliminado']);
+                }}
 
         }catch(PDOException $ex){
             print 'error' . $ex ->getMessage();

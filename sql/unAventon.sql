@@ -16,6 +16,7 @@ create table Usuarios(
     primary key (id)
 );
 create table calificacion_pendiente(
+    id int not null unique auto_increment,
     idUsuariocalificador int not null,
     idusuarioACalificar int not null,
     foreign key(idUsuarioCalificador)
@@ -28,6 +29,7 @@ create table calificacion_pendiente(
          on delete restrict     
 );
 create table pago_pendiente(
+    id int not null unique auto_increment,
     idUsuarioDeudor int not null,
     idusuarioCobrador int not null,
     foreign key(idUsuarioDeudor)
@@ -84,6 +86,7 @@ create table viajes(
     descripcion text character set utf8 not null,
     tipoViaje varchar(30) not null,
     estado tinyint not null,
+    duracion int not null,
     primary key(idViaje),
     foreign key(idConductor)
        references conductor(idUsuario)
@@ -142,4 +145,33 @@ create table fotoAuto(
         on update Cascade
         on delete restrict
 );
+create table notificacion(
+    idUsuario int not null,
+    texto text character set utf8 not null,
+    leido tinyint not null,
+    foreign key (idUsuario)
+        references usuarios(id)
+        on update Cascade
+        on delete restrict
+);
+create table viajesProgramados(
+    idViajeProgramado int not null,
+    fechaInicio datetime not null,
+    fechaFin datetime not null,
+    activo tinyint not null,
+    primary key (idViajeProgramado)
+);
+create table viajePertenece(
+    idViajeProgramado int not null,
+    idViaje int not null,
+    activo tinyint not null,
+    foreign key(idViajeProgramado)
+          references viajesProgramados(idViajeProgramado)
+          on update Cascade
+          on delete restrict,
+    foreign key(idViaje)
+          references viajes(idViaje)
+          on update Cascade
+          on delete restrict      
+)
 

@@ -29,7 +29,7 @@
                    if(!RepositorioConductor::esConductor(Conexion::obtener_conexion(),$_SESSION['id_usuario'])){ 
                            ?>data-toggle="modal"  data-target="#dialogo1"<?php
                             }else{
-                            ?> data-toggle="modal" data-target="#dialogo2" <?php  } /* este inicio de modal sera remplazado por onclick="location.href='<php RUTA_CREAR_VIAJE ?>';" */ 
+                            ?> onclick="location.href = '<?php echo RUTA_SELECCION_TIPO_VIAJE ?>';" <?php  } /* este inicio de modal sera remplazado por onclick="location.href='<php RUTA_CREAR_VIAJE ?>';" */ 
                                     }else{
                                             ?> data-toggle="modal" data-target="#dialogo1" <?php }
                                              ?> ><h5 class="stroke"> Crear viaje</h5></button>
@@ -95,6 +95,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="modal fade text-center" id="dialogo4">
+           <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- cabecera del diálogo -->
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">X</button>
+                                </div>
+
+                               
+                                <div class="modal-body">
+                                  <h3>Para crear un viaje usted no debe tener pagos pendientes ni calificaciones pendientes  </h3> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>        
 
 
-        <?php include_once "plantillas/documento-cierre.inc.php";?>
+        <?php include_once "plantillas/documento-cierre.inc.php";
+        if(isset($_GET['cod'])){
+     ?>
+        <script>$('#dialogo4').modal('show');</script><?php } 

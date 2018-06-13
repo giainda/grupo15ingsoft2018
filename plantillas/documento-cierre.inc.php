@@ -2,7 +2,10 @@
        <script src="<?php echo RUTA_JS ?>popper.min.js"></script>
        <script src="<?php echo RUTA_JS ?>jquery-3.3.1.min.js"></script>
        <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
+       <script src="<?php echo RUTA_JS ?>jquery.datetimepicker.full.js"></script>
        
+
+
     </body>
 
 </html>

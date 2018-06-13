@@ -22,3 +22,5 @@ define("RUTA_AUTO_NUEVO",SERVIDOR."/auto-nuevo.php");
 define("RUTA_EDITOR_AUTO",SERVIDOR."/editor-auto.php");
 define("RUTA_ELIMINAR_AUTO",SERVIDOR."/eliminarAuto.inc.php");
 define("RUTA_MOSTRAR_AUTO",SERVIDOR."/mostrar-auto.php");
+define("RUTA_SELECCION_TIPO_VIAJE",SERVIDOR."/seleccion-tipo-viaje.php");
+define("RUTA_CREAR_VIAJE_UNICO",SERVIDOR."/crear-viaje-unico.php");
