@@ -48,8 +48,8 @@ class RepositorioViaje{
         $viajes=array();
         if(isset($conexion)){
             try{
-                $sql="SELECT * FROM viajes WHERE idConductor = :idConductor";
-                $sentencia = $conexion -> prepare($sql);
+                $sql="SELECT * FROM viajes WHERE idConductor = :idConductor AND estado=1 ORDER BY fechaInicio";
+                $sentencia = $conexion -> prepare($sql); 
                 $sentencia -> bindParam( ":idConductor" , $idConductor, PDO::PARAM_STR);
                 $sentencia -> execute();
                 $resultado = $sentencia -> fetchAll();
@@ -73,7 +73,7 @@ class RepositorioViaje{
         $viajes=array();
         if(isset($conexion)){
             try{
-                $sql="SELECT * FROM viajes WHERE idConductor = :idConductor";
+                $sql="SELECT * FROM viajes WHERE idConductor = :idConductor AND estado=1";
                 $sentencia = $conexion -> prepare($sql);
                 $sentencia -> bindParam( ":idConductor" , $idConductor, PDO::PARAM_STR);
                 $sentencia -> execute();
@@ -195,7 +195,7 @@ class RepositorioViaje{
         $viajes=array();
         if(isset($conexion)){
             try{
-                $sql="SELECT * FROM viajes WHERE patente = :patente";
+                $sql="SELECT * FROM viajes WHERE patente = :patente AND estado=1";
                 $sentencia = $conexion -> prepare($sql);
                 $sentencia -> bindParam( ":patente" , $patente, PDO::PARAM_STR);
                 $sentencia -> execute();

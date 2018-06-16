@@ -32,7 +32,7 @@ public static function viajes_viaja_idUsuario2($conexion,$idUsuario){
     $viaja=array();
     if(isset($conexion)){
         try{
-            $sql="SELECT * FROM viaja WHERE idUsuario = :idUsuario";
+            $sql="SELECT * FROM viaja WHERE idUsuario = :idUsuario and eliminado=1";
             $sentencia = $conexion -> prepare($sql);
             $sentencia -> bindParam( ":idUsuario" , $idUsuario, PDO::PARAM_STR);
             $sentencia -> execute();
