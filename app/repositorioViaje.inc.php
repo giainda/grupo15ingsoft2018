@@ -217,4 +217,39 @@ class RepositorioViaje{
         return $viajes;
     }
      
+    public static function insertar_viaje2($conexion,$viaje){
+        $viaje_insertado = false;
+        if(isset($conexion)){
+            try{
+                $sql = "INSERT INTO viajes(idConductor, patente, fechaCreacion, fechaInicio, inicio, destino, asientos,
+                precio, descripcion, tipoViaje, estado, duracion)
+                 VALUES(:idConductor, :patente, NOW(), :fechaInicio, :inicio, :destino,:asientos,:precio,:descripcion,:tipoViaje,1,:duracion)";
+                $sentencia= $conexion -> prepare($sql);
+                $obidConductor= $viaje ->getIdConductor();
+                $obpatente= $viaje ->getPatente();
+                $obFechaInicio= $viaje ->getFechaInicio();
+                $obInicio= $viaje ->getInicio();
+                $obDestino= $viaje ->getDestino();
+                $obAsientos= $viaje ->getAsientos();
+                $obPrecio= $viaje ->getPrecio();
+                $obDescripcion= $viaje ->getDescripcion();
+                $obTipoViaje= $viaje ->getTipoViaje();
+                $obDuracion= $viaje -> getDuracion();
+                $sentencia -> bindParam(':idConductor',$obidConductor,PDO::PARAM_STR);
+                $sentencia -> bindParam(':patente',$obpatente,PDO::PARAM_STR);
+                $sentencia -> bindParam(':fechaInicio',$obFechaInicio,PDO::PARAM_STR);
+                $sentencia -> bindParam(':inicio',$obInicio,PDO::PARAM_STR);
+                $sentencia -> bindParam(':destino',$obDestino,PDO::PARAM_STR);
+                $sentencia -> bindParam(':asientos',$obAsientos,PDO::PARAM_STR);
+                $sentencia -> bindParam(':precio',$obPrecio,PDO::PARAM_STR);
+                $sentencia -> bindParam(':descripcion',$obDescripcion,PDO::PARAM_STR);
+                $sentencia -> bindParam(':tipoViaje',$obTipoViaje,PDO::PARAM_STR);
+                $sentencia -> bindParam(':duracion',$obDuracion,PDO::PARAM_STR);
+                $viaje_insertado = $sentencia -> execute();
+            }catch (PDOException $ex){
+                print 'error'. $ex -> getMessage();
+            }
+        }
+        return $conexion->lastInsertId();
+     } 
 }

@@ -24,3 +24,6 @@ define("RUTA_ELIMINAR_AUTO",SERVIDOR."/eliminarAuto.inc.php");
 define("RUTA_MOSTRAR_AUTO",SERVIDOR."/mostrar-auto.php");
 define("RUTA_SELECCION_TIPO_VIAJE",SERVIDOR."/seleccion-tipo-viaje.php");
 define("RUTA_CREAR_VIAJE_UNICO",SERVIDOR."/crear-viaje-unico.php");
+define("RUTA_CREAR_VIAJE_MULTIPLE",SERVIDOR."/crear-viaje-multiple.php");
+define("RUTA_AGREGAR_FECHA",SERVIDOR."/agregar-fecha.php");
+define("RUTA_MOSTRAR_PROCESO_VIAJE_MULTIPLE",SERVIDOR."/mostrar-proceso-viaje-multiple.inc.php");

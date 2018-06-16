@@ -155,14 +155,15 @@ create table notificacion(
         on delete restrict
 );
 create table viajesProgramados(
-    idViajeProgramado int not null,
+    idViajeProgramado int not null unique auto_increment,
     fechaInicio datetime not null,
     fechaFin datetime not null,
     activo tinyint not null,
     primary key (idViajeProgramado)
+
 );
 create table viajePertenece(
-    idViajeProgramado int not null,
+    idViajeProgramado int not null ,
     idViaje int not null,
     activo tinyint not null,
     foreign key(idViajeProgramado)

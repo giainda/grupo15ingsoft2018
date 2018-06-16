@@ -71,6 +71,9 @@ class ValidadorViajeUnico {
     }else {
         $this -> duracion = $duracion;
     }
+    if($duracion>24){
+        return "la duracion no puede ser mayor a 24 horas";
+    }
     
     return"";
  }
@@ -85,6 +88,12 @@ class ValidadorViajeUnico {
     }
     $viajes=RepositorioViaje::viajes_por_idConductor2(Conexion::obtener_conexion(),$_SESSION['id_usuario']);
     $ok= false;
+    date_default_timezone_set('America/Argentina/Buenos_Aires');
+    $menor =new DateTime (date('Y-m-d H:i:s',strtotime('+ 1 day',strtotime(date('Y-m-d H:i:s'))))); 
+    $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($this ->fecha_inicio)));
+    if($fecha < $menor){
+        return "el viaje debe ser creado, como minimo, con un dia de antelacion";
+    }
     if(isset($viajes)){
         foreach ($viajes as $viaje){
             $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$viaje->getDuracion().' hour',strtotime($viaje->getFechaInicio()))));

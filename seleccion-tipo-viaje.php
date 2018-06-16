@@ -37,7 +37,7 @@ if( RepositorioCalificacionPendiente::debeCalificacion(Conexion::obtener_conexio
             <div class="card-body">
               <h4 class="card-title">Vieajes múltiples </h4>
               <p class="card-text">Organiza una serie de viajes con una fecha, origen y destino determinado </p>
-              <a href="#" class="btn btn-primary botoncss">Crear</a>
+              <a href="<?php echo RUTA_CREAR_VIAJE_MULTIPLE ?>" class="btn btn-primary botoncss">Crear</a>
             </div>
                                  
           </div>          
