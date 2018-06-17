@@ -77,7 +77,7 @@ $viaje=$arreglo[0];
                         <div class="col-md-8">
                         <div class="card">
                                 <div class="card-body">
-                                    <p class="card-text"><?php echo "<h4>Fecha N°".$cant.": </h4>", $vi->getFechaInicio(); ?> </p>
+                                    <p class="card-text"><?php echo "<h4>Fecha ingresada N°".$cant.": </h4>", $vi->getFechaInicio(); ?> </p>
                                 </div>
                             </div>
                         </div>

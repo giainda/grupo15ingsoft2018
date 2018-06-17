@@ -18,4 +18,45 @@ class RepositorioViajePertenece{
             }
         }return $conexion_creada; 
     }
+    public static function viajesIdProgramado($conexion,$idViajeProgramado){
+        $relaciones=array();
+        if(isset($conexion)){
+            try{
+                $sql="SELECT * FROM viajepertenece c INNER JOIN viajes v ON (c.idViaje=v.idViaje) WHERE idViajeProgramado = :idViajeProgramado AND activo=1 ORDER BY v.fechaInicio";
+                $sentencia = $conexion -> prepare($sql);
+                $sentencia -> bindParam( ":idViajeProgramado" , $idViajeProgramado, PDO::PARAM_STR);
+                $sentencia -> execute();
+                $resultado = $sentencia -> fetchAll();
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $relaciones[]= new viajePertenece($fila['idViajeProgramado'],$fila['idViaje'],$fila['activo']);
+                    }
+                }
+            }catch(PDOException $ex){
+                print 'error' . $ex ->getMessage();
+            }
+    
+        }
+        return $relaciones;
+    }
+    public static function viajeIdViaje($conexion,$idViaje){
+        $relacion='';
+        if(isset($conexion)){
+            try{
+                $sql="SELECT * FROM viajepertenece WHERE idViaje = :idViaje AND activo=1";
+                $sentencia = $conexion -> prepare($sql);
+                $sentencia -> bindParam( ":idViaje" , $idViaje, PDO::PARAM_STR);
+                $sentencia -> execute();
+                $resultado = $sentencia -> fetch();
+                if(!empty($resultado)){
+                        $relacion= new viajePertenece($resultado['idViajeProgramado'],$resultado['idViaje'],$resultado['activo']);
+
+                }
+            }catch(PDOException $ex){
+                print 'error' . $ex ->getMessage();
+            }
+    
+        }
+        return $relacion;
+    }
 }

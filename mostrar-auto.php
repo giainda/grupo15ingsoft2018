@@ -29,6 +29,7 @@ if(isset($_GET['patente'])&&!empty($_GET['patente'])){
                 ?>
     <img class="card-img-top"  src="<?php echo $imagen ?>" alt="Card image cap">
    <?php
+   if(ControlSesion::sesion_iniciada()){
     if(RepositorioTiene::existeRelacion(Conexion::obtener_conexion(),$_SESSION['id_usuario'],$auto ->getPatente())){
 
      ?> 
@@ -39,7 +40,7 @@ if(isset($_GET['patente'])&&!empty($_GET['patente'])){
     </div>
     </div>
     <?php       
-   }?>
+   }}?>
     </div>
     <div class="col-md-8 text-center"> 
     <div class="card color1 ">
@@ -55,27 +56,27 @@ if(isset($_GET['patente'])&&!empty($_GET['patente'])){
                     echo "<h4>Patente: </h4><h3>", $auto->getPatente(), "</h3>";
                     ?>
                     <br>
-                    <br>
+                    <hr>
                     <?php
                     echo "<h4>Marca: </h4><h3>", $auto->getMarca(), "</h3>";
                     ?>
                     <br>
-                    <br>
+                    <hr>
                     <?php
                     echo "<h4>Modelo: </h4><h3>", $auto->getModelo(), "</h3>";
                     ?>
                     <br>
-                    <br>
+                    <hr>
                     <?php
                     echo "<h4>Capacidad: </h4><h3>", $auto->getCapasidad(), "</h3>";
                     ?>
                     <br>
-                    <br>
+                    <hr>
                     <?php
                     echo "<h4>Color: </h4><h3>", $auto->getColor(), "</h3>";
                     ?>
                     <br>
-                    <br>
+                    <hr>
                     </div>
 
 

@@ -229,15 +229,16 @@ include_once 'plantillas/navbar2.inc.php';
 ?>         
             </p>
         </div>
+        <?php ?>
         <a href"#" class='btn botoncss form-control' data-toggle='collapse' data-target='#infoviaje'>
            <h5> Información de mis viajes </h5>
             <i class="fas fa-caret-down"></i>
-        </a>
+        </a><?php ?>
         <br>
         <br>
     </div>
 
-    <div id='infoviaje' class='collapse'>
+    <div id='infoviaje'class='collapse'>
         <br>
         <br>                  
         <h3  id="titulo">Viajes a los que me postulé: </h3>
@@ -270,7 +271,7 @@ include_once 'plantillas/navbar2.inc.php';
 
                             </div>
                             <div class="col-md-3">
-                                <a href="#" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
+                                <a href="<?php echo RUTA_DETALLE_VIAJE."?idViaje=".$viaje->getId(); ?>" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
                             </div>    
                         </div>
                     </div>
@@ -308,7 +309,7 @@ foreach ($viaja as $pos) {
 
                         </div>
                         <div class="col-md-3">
-                            <a href="#" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
+                            <a href="<?php echo RUTA_DETALLE_VIAJE."?idViaje=".$viaje->getId(); ?>" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
                         </div>    
                     </div>
                 </div>
@@ -345,7 +346,7 @@ foreach ($viaja as $pos) {
 
                             </div>
                             <div class="col-md-3">
-                                <a href="#" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
+                                <a href="<?php echo RUTA_DETALLE_VIAJE."?idViaje=".$pos->getId()?>" class="btn botoncss">Ver Viaje</a>
                             </div>    
                         </div>
                     </div>
@@ -383,3 +384,9 @@ foreach ($viaja as $pos) {
 
 <?php
 include_once 'plantillas/documento-cierre.inc.php';
+?>
+<script>$('#infoviaje').on('shown.bs.collapse', function () {
+    $('html, body').animate({
+       scrollTop: $("#infoviaje").offset().top
+    }, 500);
+});</script>

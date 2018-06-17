@@ -251,5 +251,30 @@ class RepositorioViaje{
             }
         }
         return $conexion->lastInsertId();
-     } 
+     }
+     public static function viajesCreadosResientes($conexion){
+        $viajes=array();
+        if(isset($conexion)){
+            try{
+                $sql="SELECT * FROM viajes WHERE estado=1 ORDER BY fechaCreacion DESC LIMIT 10";
+                $sentencia = $conexion -> prepare($sql); 
+                $sentencia -> bindParam( ":idConductor" , $idConductor, PDO::PARAM_STR);
+                $sentencia -> execute();
+                $resultado = $sentencia -> fetchAll();
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion']);
+                    }
+    
+                }else{
+                    print '       No hay viajes creados';
+                }
+    
+            }catch(PDOException $ex){
+                print 'error' . $ex ->getMessage();
+            }
+    
+        }
+        return $viajes;
+    }  
 }
