@@ -276,5 +276,49 @@ class RepositorioViaje{
     
         }
         return $viajes;
-    }  
+    }
+
+
+
+
+    public static function tieneViajeFechaDuracion($conexion,$idConductor,$fechaInicio,$duracion){
+        $viajes=array();
+        if(isset($conexion)){
+            try{
+                $sql="SELECT * FROM viajes WHERE idConductor = :idConductor AND estado=1";
+                $sentencia = $conexion -> prepare($sql);
+                $sentencia -> bindParam( ":idConductor" , $idConductor, PDO::PARAM_STR);
+                $sentencia -> execute();
+                $resultado = $sentencia -> fetchAll();
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion']);
+                    }   
+                }   
+            }catch(PDOException $ex){
+                print 'error' . $ex ->getMessage();
+            }   
+        }
+        if(isset($viajes)){
+            foreach ($viajes as $viaje){
+                $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$viaje->getDuracion().' hour',strtotime($viaje->getFechaInicio()))));
+                $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$duracion.' hour',strtotime($fechaInicio))));
+                $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($fechaInicio)));
+                $fecha2=new DateTime($viaje-> getFechaInicio()); 
+                 if($fecha >= $fecha2){
+                     if($sumTime >= $fecha){
+                        return "usted ya tiene un viaje creado en esa fecha y horario"; 
+                     }
+                 }else{
+                    if($fecha <= $fecha2){
+                     if($sumTime2 >= $fecha2){
+                        return "usted ya tiene un viaje creado en esa fecha y horario";
+                     }
+    
+                 }
+                 }
+            }
+        }
+        return '';
+    }   
 }

@@ -29,3 +29,4 @@ define("RUTA_AGREGAR_FECHA",SERVIDOR."/agregar-fecha.php");
 define("RUTA_MOSTRAR_PROCESO_VIAJE_MULTIPLE",SERVIDOR."/mostrar-proceso-viaje-multiple.inc.php");
 define("RUTA_DETALLE_VIAJE",SERVIDOR."/detalle-viaje.php");
 define("RUTA_MOSTRAR_PERFIL",SERVIDOR."/mostrar-perfil.php");
+define("RUTA_MOSTRAR_POSTULANTES",SERVIDOR."/mostrar-postulantes.php");

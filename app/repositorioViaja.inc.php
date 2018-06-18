@@ -95,4 +95,55 @@ public static function viaja($conexion,$idUsuario){
 }
 
 
+
+
+
+
+public static function viajesViajaFechaDuracion($conexion,$idUsuario,$fechaInicio,$duracion){
+    $viajesViaja=array();
+    if(isset($conexion)){
+        try{
+            $sql="SELECT * FROM viaja WHERE idUsuario = :idUsuario and eliminado=1";
+            $sentencia = $conexion -> prepare($sql);
+            $sentencia -> bindParam( ":idUsuario" , $idUsuario, PDO::PARAM_STR);
+            $sentencia -> execute();
+            $resultado = $sentencia -> fetchAll();
+            if(count($resultado)){
+                foreach($resultado as $fila){
+                    $viajesViaja[]= new Viaja($fila['idUsuario'],$fila['idViaje'],$fila['eliminado']);
+                }}
+
+        }catch(PDOException $ex){
+            print 'error' . $ex ->getMessage();
+        }
+
+    }
+    if(isset($viajesViaja)){
+        include_once "app/repositorioViaje.inc.php";
+        foreach($viajesViaja as $viaja ){
+            $viaje=RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(),$viaja->getIdViaje());
+            $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$viaje->getDuracion().' hour',strtotime($viaje->getFechaInicio()))));
+            $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$duracion.' hour',strtotime($fechaInicio))));
+            $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($fechaInicio)));
+            $fecha2=new DateTime($viaje-> getFechaInicio()); 
+             if($fecha >= $fecha2){
+                 if($sumTime >= $fecha){
+                    return "usted fue aceptado en otro viaje a este horario"; 
+                 }
+             }else{
+                if($fecha <= $fecha2){
+                 if($sumTime2 >= $fecha2){
+                    return "usted fue aceptado en otro viaje a este horario";
+                 }
+  
+             }
+             }
+  
+        }
+    }
+    return "";
+    
+}
+
+
 }
