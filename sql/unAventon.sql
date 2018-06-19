@@ -149,6 +149,7 @@ create table notificacion(
     idUsuario int not null,
     texto text character set utf8 not null,
     leido tinyint not null,
+    fechaNoti datetime not null,
     foreign key (idUsuario)
         references usuarios(id)
         on update Cascade

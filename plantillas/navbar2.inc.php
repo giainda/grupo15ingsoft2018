@@ -3,11 +3,13 @@
 include_once 'app/ControlSesion.inc.php';
 include_once 'app/config.inc.php';
 include_once 'app/conexion.inc.php';
+
 Conexion :: abrir_conexion();
 
 
 
 ?>
+
 <nav class="navbar navbar-expand-md navbar-default navbar-fixed-top color1">
 <div class='container'>
       <a class="navbar-brand" href="<?php echo SERVIDOR?>">
@@ -30,9 +32,14 @@ Conexion :: abrir_conexion();
           <?php
              }else{
              ?>
+
              <li class="nav-item active">
             <a  href="<?php echo RUTA_PERFIL?>"><i class="fas fa-user"></i><?php echo ' '. $_SESSION['nombre_usuario'];?></a>
             </li>
+            <script type="text/javascript">var id = "<?php echo $_SESSION['id_usuario'] ?>";</script>
+            <script src="<?php echo RUTA_JS ?>contadorNotificacion.js"></script>
+             <li class="nav-item active"id="contenido">
+             </li>
             
             <li class="nav-item active">
             <a  href="<?php echo RUTA_LOGOUT?>">Cerrar Sesion</a>

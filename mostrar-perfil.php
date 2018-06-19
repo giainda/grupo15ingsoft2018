@@ -58,27 +58,27 @@ include_once 'plantillas/navbar2.inc.php';
                 echo "<h4>Calificaciones como pasajero: </h4><br><h3>Positivas: ", $usuario->getCalificacionPos(), '<br>Negativas: ', $usuario->getCalificacionNeg(), '<h3>';
                 ?>
                 <br>
-                <hr>
-                <?php
-                if (RepositorioConductor::esConductor(Conexion::obtener_conexion(), $usuario->getId())) {
+            <hr>
+            <?php
+            if (RepositorioConductor::esConductor(Conexion::obtener_conexion(), $usuario->getId())) {
 
-                    echo "<h4>Calificaciones como conductor: </h4><br><h3>Positivas: ", $conductor->getCalificacionPos(), '<br>Negativas: ', $conductor->getCalificacionNeg(), '<h3>';
-                    ?>
-                    <br>
-                    <hr>
-                    <?php
-                }
-                echo "<h4>Correo: </h4><h3>", $usuario->getCorreo(), "</h3>";
+                echo "<h4>Calificaciones como conductor: </h4><br><h3>Positivas: ", $conductor->getCalificacionPos(), '<br>Negativas: ', $conductor->getCalificacionNeg(), '<h3>';
                 ?>
                 <br>
                 <hr>
                 <?php
-                echo "<h4>Nacimiento: </h4><h3>", $usuario->getFechanac(), "</h3>";
-                ?>
-                <br>
-                <hr>
-                <?php
-                ?>         
+            }
+            echo "<h4>Correo: </h4><h3>", $usuario->getCorreo(), "</h3>";
+            ?>
+            <br>
+            <hr>
+            <?php
+            echo "<h4>Nacimiento: </h4><h3>", $usuario->getFechanac(), "</h3>";
+            ?>
+            <br>
+            <hr>
+            <?php
+            ?>         
             </p>
         </div>
 

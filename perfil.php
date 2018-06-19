@@ -74,7 +74,7 @@ include_once 'plantillas/navbar2.inc.php';
                                 <!-- Eliminar cuenta -->
                                 <div class="modal-body">
                                     <?php
-                                    if (!RepositorioViaja::viaja(Conexion::obtener_conexion(), $usuario->getId()) && !RepositorioCalificacionPendiente::debeCalificacion(Conexion::obtener_conexion(), $usuario->getId()) && !RepositorioPagoPendiente::debePago(Conexion::obtener_conexion(), $usuario->getId())&&!RepositorioViaje::tieneViaje(Conexion::obtener_conexion(),$usuario->getId())) {
+                                    if (!RepositorioViaja::viaja(Conexion::obtener_conexion(), $usuario->getId()) && !RepositorioCalificacionPendiente::debeCalificacion(Conexion::obtener_conexion(), $usuario->getId()) && !RepositorioPagoPendiente::debePago(Conexion::obtener_conexion(), $usuario->getId()) && !RepositorioViaje::tieneViaje(Conexion::obtener_conexion(), $usuario->getId())) {
                                         echo "Usted esta habilitado para eliminar su cuenta,
                                             ¿Esta seguro de que desea hacerlo?";
                                         ?> <div class="row">
@@ -90,10 +90,10 @@ include_once 'plantillas/navbar2.inc.php';
                                         if (RepositorioViaja::viaja(Conexion::obtener_conexion(), $usuario->getId())) {
                                             $error = $error . "tiene viajes pendientes <br>";
                                         }
-                                        if(RepositorioViaje::tieneViaje(Conexion::obtener_conexion(),$usuario->getId())){
+                                        if (RepositorioViaje::tieneViaje(Conexion::obtener_conexion(), $usuario->getId())) {
                                             $error = $error . "tiene por lo menos un viaje creado <br>";
                                         }
-                                        
+
                                         if (RepositorioCalificacionPendiente::debeCalificacion(Conexion::obtener_conexion(), $usuario->getId())) {
                                             $error = $error . "tiene calificaciones pendientes <br>";
                                         }
@@ -102,18 +102,18 @@ include_once 'plantillas/navbar2.inc.php';
                                         }
                                         ?>
                                         <br><div class= 'alert alert-danger' role='alert'>
-                                        <?php echo $error;
-                                        ?>
+                                            <?php echo $error;
+                                            ?>
                                         </div>
-    <?php
-}
-?>
+                                        <?php
+                                    }
+                                    ?>
 
                                 </div>
                             </div>
                         </div>
                     </div>
-                                       
+
                     <br>
                     <br>
                     <div class="modal fade" id="dialogo1">
@@ -160,20 +160,20 @@ include_once 'plantillas/navbar2.inc.php';
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            
-                                                                
-                                                                <a href="<?php echo RUTA_MOSTRAR_AUTO."?patente=".$auto-> getPatente(); ?>" class="btn botoncss form-control color1">Mostrar</a>
-                                                            
-                                                          
+
+
+                                                            <a href="<?php echo RUTA_MOSTRAR_AUTO . "?patente=" . $auto->getPatente(); ?>" class="btn botoncss form-control color1">Mostrar</a>
+
+
                                                         </div>
 
                                                     </div>
                                                 </div>
                                             </div>
-        <?php
-    }
-}
-?>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -193,15 +193,15 @@ include_once 'plantillas/navbar2.inc.php';
 
                 <?php
                 if (!empty($usuario)) {
-                    echo "<h4>Calificaciones como pasajero: </h4><br><h3>Positivas: ", $usuario->getCalificacionPos(), '<br>Negativas: ',$usuario->getCalificacionNeg(),'<h3>';
+                    echo "<h4>Calificaciones como pasajero: </h4><br><h3>Positivas: ", $usuario->getCalificacionPos(), '<br>Negativas: ', $usuario->getCalificacionNeg(), '<h3>';
                     ?>
                     <br>
                     <br>
-    <?php
-    if (RepositorioConductor::esConductor(Conexion::obtener_conexion(), $usuario->getId())) {
+                    <?php
+                    if (RepositorioConductor::esConductor(Conexion::obtener_conexion(), $usuario->getId())) {
 
-        echo "<h4>Calificaciones como conductor: </h4><br><h3>Positivas: ", $conductor->getCalificacionPos(), '<br>Negativas: ',$conductor->getCalificacionNeg(),'<h3>';
-        ?>
+                        echo "<h4>Calificaciones como conductor: </h4><br><h3>Positivas: ", $conductor->getCalificacionPos(), '<br>Negativas: ', $conductor->getCalificacionNeg(), '<h3>';
+                        ?>
                         <br>
                         <br>
                         <?php
@@ -216,17 +216,18 @@ include_once 'plantillas/navbar2.inc.php';
                     <br>
                     <br>
                     <?php
-                    if($usuario->getCodigo_Tarjeta()!=0){
-                    echo "<h4>Tarjeta: </h4><h3>", "********".substr($usuario->getCodigo_Tarjeta(),8,12), "</h3>";
-                    
-                    ?>
-                    <br>
-                    <br><?php }
-    
-    if (RepositorioConductor::esConductor(Conexion::obtener_conexion(), $usuario->getId())) {
-    echo "<h4>fondos: </h4><h3>", $usuario->getFondos(), "</h3>";}
-}
-?>         
+                    if ($usuario->getCodigo_Tarjeta() != 0) {
+                        echo "<h4>Tarjeta: </h4><h3>", "********" . substr($usuario->getCodigo_Tarjeta(), 8, 12), "</h3>";
+                        ?>
+                        <br>
+                        <br><?php
+                    }
+
+                    if (RepositorioConductor::esConductor(Conexion::obtener_conexion(), $usuario->getId())) {
+                        echo "<h4>fondos: </h4><h3>", $usuario->getFondos(), "</h3>";
+                    }
+                }
+                ?>         
             </p>
         </div>
         <?php ?>
@@ -271,7 +272,7 @@ include_once 'plantillas/navbar2.inc.php';
 
                             </div>
                             <div class="col-md-3">
-                                <a href="<?php echo RUTA_DETALLE_VIAJE."?idViaje=".$viaje->getId(); ?>" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
+                                <a href="<?php echo RUTA_DETALLE_VIAJE . "?idViaje=" . $viaje->getId(); ?>" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
                             </div>    
                         </div>
                     </div>
@@ -281,11 +282,11 @@ include_once 'plantillas/navbar2.inc.php';
         }
         ?>
         <h3 id="titulo">Viajes en los que fui aceptado: </h3>
-<?php
-$viaja = RepositorioViaja::viajes_viaja_idUsuario(Conexion::obtener_conexion(), $_SESSION['id_usuario']);
-foreach ($viaja as $pos) {
-    $viaje = RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(), $pos->getIdViaje());
-    ?>
+        <?php
+        $viaja = RepositorioViaja::viajes_viaja_idUsuario(Conexion::obtener_conexion(), $_SESSION['id_usuario']);
+        foreach ($viaja as $pos) {
+            $viaje = RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(), $pos->getIdViaje());
+            ?>
             <div class="card text-center">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo "Viaje desde: ", $viaje->getInicio(), " Hasta: ", $viaje->getDestino(); ?></h5>
@@ -309,7 +310,7 @@ foreach ($viaja as $pos) {
 
                         </div>
                         <div class="col-md-3">
-                            <a href="<?php echo RUTA_DETALLE_VIAJE."?idViaje=".$viaje->getId(); ?>" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
+                            <a href="<?php echo RUTA_DETALLE_VIAJE . "?idViaje=" . $viaje->getId(); ?>" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
                         </div>    
                     </div>
                 </div>
@@ -319,10 +320,10 @@ foreach ($viaja as $pos) {
             ?>
 
             <h3 id="titulo">Viajes creados por mi: </h3>
-    <?php
-    $viajes = RepositorioViaje::viajes_por_idConductor(Conexion::obtener_conexion(), $_SESSION['id_usuario']);
-    foreach ($viajes as $pos) {
-        ?>
+            <?php
+            $viajes = RepositorioViaje::viajes_por_idConductor(Conexion::obtener_conexion(), $_SESSION['id_usuario']);
+            foreach ($viajes as $pos) {
+                ?>
                 <div class="card text-center">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo "Viaje desde: ", $pos->getInicio(), " Hasta: ", $pos->getDestino(); ?></h5>
@@ -346,15 +347,15 @@ foreach ($viaja as $pos) {
 
                             </div>
                             <div class="col-md-3">
-                                <a href="<?php echo RUTA_DETALLE_VIAJE."?idViaje=".$pos->getId()?>" class="btn botoncss">Ver Viaje</a>
+                                <a href="<?php echo RUTA_DETALLE_VIAJE . "?idViaje=" . $pos->getId() ?>" class="btn botoncss">Ver Viaje</a>
                             </div>    
                         </div>
                     </div>
                 </div>
-        <?php
-    }
-}
-?>
+                <?php
+            }
+        }
+        ?>
     </div>
 </div>
 
@@ -362,21 +363,21 @@ foreach ($viaja as $pos) {
 </div>
 <!-- este modal es solo para informar de funcionalidades no implementadas , en el futuro se borrara -->
 <div class="modal fade" id="dialogo22">
-           <div class="modal-dialog">
-                            <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-                                <!-- cabecera del diálogo -->
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">X</button>
-                                </div>
+            <!-- cabecera del diálogo -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">X</button>
+            </div>
 
-                               
-                                <div class="modal-body">
-                                  <h3>esta funcionalidad todavía no esta disponible  </h3> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+            <div class="modal-body">
+                <h3>esta funcionalidad todavía no esta disponible  </h3> 
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -386,7 +387,7 @@ foreach ($viaja as $pos) {
 include_once 'plantillas/documento-cierre.inc.php';
 ?>
 <script>$('#infoviaje').on('shown.bs.collapse', function () {
-    $('html, body').animate({
-       scrollTop: $("#infoviaje").offset().top
-    }, 500);
-});</script>
+        $('html, body').animate({
+            scrollTop: $("#infoviaje").offset().top
+        }, 500);
+    });</script>
