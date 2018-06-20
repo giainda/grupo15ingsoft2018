@@ -55,7 +55,7 @@ $postulaciones = RepositorioPostula::personas_postuladas_idViaje(Conexion::obten
                                 <a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo3">Aceptar</a>
                             </div>
                             <div class="col-md-3">
-                            <?php $path='eliminarSolicitud.php?id='.$usuario->getId().'&&idV='.$viaje->getId(); ?>
+                            <?php $path='eliminarSolicitud.php?id='.$usuario->getId().'&&idVi='.$viaje->getId(); ?>
                                 <a href="<?php echo $path?>" class="btn botoncss form-control color1">Rechazar</a>
                             </div>
                             <div class="col-md-6">

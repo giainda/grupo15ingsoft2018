@@ -33,6 +33,66 @@ if (!ControlSesion::sesion_iniciada()) {
         $ok = 3;
     }
 }
+$usuarioCon = RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion(), $viaje->getIdConductor());
+if(isset($_POST['enviar'])){
+    $oka = 1;
+    $error ="";
+    
+    if (RepositorioCalificacionPendiente::debeCalificacion(Conexion::obtener_conexion(), $_SESSION['id_usuario'])) {
+        $error = $error . "tiene calificaciones pendientes <br>";
+        $oka=2;
+    }
+    if (RepositorioPagoPendiente::debePago(Conexion::obtener_conexion(), $_SESSION['id_usuario'])) {
+        $error = $error . "tiene pagos pendientes <br>";
+        $oka=2;
+    }
+    if ($viaje->getTipoViaje() == 1) {
+        $tengoViaje = RepositorioViaje::tieneViajeFechaDuracion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $viaje->getFechaInicio(), $viaje->getDuracion());
+        if ($tengoViaje !== '') {
+            $error = $error . $tengoViaje . "<br>";
+            $oka=2;
+        }
+        $aceptadoViaje = RepositorioViaja::viajesViajaFechaDuracion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $viaje->getFechaInicio(), $viaje->getDuracion());
+        if ($aceptadoViaje !== '') {
+            $error = $error . $aceptadoViaje . "<br>";
+            $oka=2;
+        }
+    } else {
+        $relacion = RepositorioViajePertenece::viajeIdViaje(Conexion::obtener_conexion(), $idViaje);
+      $viajes = RepositorioViajePertenece::viajesIdProgramado(Conexion::obtener_conexion(), $relacion->getIdViajeProgramado());
+        $cont = 1;
+        foreach ($viajes as $vi) {
+            $via = RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(), $vi->getIdViaje());
+            $tengoViaje = RepositorioViaje::tieneViajeFechaDuracion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $via->getFechaInicio(), $via->getDuracion());
+            if ($tengoViaje !== '') {
+                $error = $error . $tengoViaje . "(Fecha N° " . $cont . ")<br>";
+                $oka=2;
+            }
+            $aceptadoViaje = RepositorioViaja::viajesViajaFechaDuracion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $via->getFechaInicio(), $via->getDuracion());
+            if ($aceptadoViaje !== '') {
+                $error = $error . $aceptadoViaje . "(Fecha N° " . $cont . ")<br>";
+                $oka=2;
+            }
+            $cont = $cont + 1;
+        }
+    }
+    if ($oka!==2) {
+        echo "error";
+        $texto="Un usuario se postulo a tu viaje desde: ".$viaje->getInicio()." hasta: ".$viaje->getDestino();
+         RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$usuarioCon->getId(),$texto);
+    if ($viaje->getTipoViaje() == 1) {
+            RepositorioPostula::crearRelacion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $viaje->getId());
+        } else {
+            foreach ($viajes as $vi) {
+                RepositorioPostula::crearRelacion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $vi->getIdViaje());
+            }
+        }
+        Redireccion::redirigir(RUTA_DETALLE_VIAJE."?idViaje=".$viaje->getId());
+    } else {
+        Redireccion::redirigir(RUTA_DETALLE_VIAJE."?idViaje=".$viaje->getId()."&&erro=".$error);
+    }
+    
+}
 
 /* ok=1 sin sesion, ok=2 coductor, ok=3 no conductor con sesion iniciada */
 ?>
@@ -46,7 +106,7 @@ if (!ControlSesion::sesion_iniciada()) {
                     </div>
                     <div class="card-body text-center">
                         <?php
-                        $usuarioCon = RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion(), $viaje->getIdConductor());
+                        
                         echo "<h3>", $usuarioCon->getNombre(), " ", $usuarioCon->getApellido(), "</h3>";
                         ?>
                         <br>
@@ -171,10 +231,26 @@ if (!ControlSesion::sesion_iniciada()) {
         <div class="col-md-3">
         </div>
         <div class="col-md-6">
-            <?php if ($ok == 3) { ?>
-                <a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo">Postularse al viaje</a>
+            <?php if ($ok == 3) { 
+                $misPostulaciones = RepositorioPostula::viajes_postulado_idUsuario2(Conexion::obtener_conexion(), $_SESSION['id_usuario']);
+                if (isset($misPostulaciones)) {
+                    foreach ($misPostulaciones as $pos) {
+                        if (($viaje->getId() === $pos->getIdViaje()) ) {
+                            $ok =4;
+                        }
+                    }
+                }
+                if($ok==4){
+                    echo "<h3>Usted ya se postulo anteriormente a este viaje</h3>";
+                }else{
+                
+                
+                ?>
+                <form role="form" method="post" action="<?php echo RUTA_DETALLE_VIAJE."?idViaje=".$viaje->getId();?>">
+                <button type="submit" name="enviar" class="btn botoncss form-control color1">Postularse al viaje</button>
+                </form>
                 <?php
-            } else {
+            }} else {
                 if ($ok == 1) {
                     echo "<h3>Para postularse a este viaje debe <a href='" . RUTA_LOGIN . "'>Iniciar sesion</a> o <a href='" . RUTA_REGISTRO . "'>Crear cuenta</a> si todavia no tiene una </h3>";
                 }
@@ -191,62 +267,7 @@ if (!ControlSesion::sesion_iniciada()) {
             </div>
             <div class="modal-body">
                 <?php
-                $oka = 2;
-                $error = '';
-                $misPostulaciones = RepositorioPostula::viajes_postulado_idUsuario2(Conexion::obtener_conexion(), $_SESSION['id_usuario']);
-                if (isset($misPostulaciones)) {
-                    foreach ($misPostulaciones as $pos) {
-                        if (($viaje->getId() === $pos->getIdViaje()) && ($oka === 2)) {
-                            $error = "Usted ya se postulo a este viaje anteriormente<br>";
-                        }
-                    }
-                }
-                if (RepositorioCalificacionPendiente::debeCalificacion(Conexion::obtener_conexion(), $_SESSION['id_usuario'])) {
-                    $error = $error . "tiene calificaciones pendientes <br>";
-                }
-                if (RepositorioPagoPendiente::debePago(Conexion::obtener_conexion(), $_SESSION['id_usuario'])) {
-                    $error = $error . "tiene pagos pendientes <br>";
-                }
-                if ($viaje->getTipoViaje() == 1) {
-                    $tengoViaje = RepositorioViaje::tieneViajeFechaDuracion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $viaje->getFechaInicio(), $viaje->getDuracion());
-                    if ($tengoViaje !== '') {
-                        $error = $error . $tengoViaje . "<br>";
-                    }
-                    $aceptadoViaje = RepositorioViaja::viajesViajaFechaDuracion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $viaje->getFechaInicio(), $viaje->getDuracion());
-                    if ($aceptadoViaje !== '') {
-                        $error = $error . $aceptadoViaje . "<br>";
-                    }
-                } else {
-                    $cont = 1;
-                    foreach ($viajes as $vi) {
-                        $via = RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(), $vi->getIdViaje());
-                        $tengoViaje = RepositorioViaje::tieneViajeFechaDuracion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $via->getFechaInicio(), $via->getDuracion());
-                        if ($tengoViaje !== '') {
-                            $error = $error . $tengoViaje . "(Fecha N° " . $cont . ")<br>";
-                        }
-                        $aceptadoViaje = RepositorioViaja::viajesViajaFechaDuracion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $via->getFechaInicio(), $via->getDuracion());
-                        if ($aceptadoViaje !== '') {
-                            $error = $error . $aceptadoViaje . "(Fecha N° " . $cont . ")<br>";
-                        }
-                        $cont = $cont + 1;
-                    }
-                }
-                if ($error === '') {
-                    $oka = 1;
-                    ?> <h2>Usted se postulo correctamente al viaje </h2>
-                    <?php
-                    $texto="Un usuario se postulo a tu viaje desde: ".$viaje->getInicio()." hasta: ".$viaje->getDestino();
-                     RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$usuarioCon->getId(),$texto);
-                    if ($viaje->getTipoViaje() == 1) {
-                        RepositorioPostula::crearRelacion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $viaje->getId());
-                    } else {
-                        foreach ($viajes as $vi) {
-                            RepositorioPostula::crearRelacion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $vi->getIdViaje());
-                        }
-                    }
-                } else {
-                    echo "<h2>No puede postularse a este viaje <br>" . $error . "</h2>";
-                }
+                   echo "<h3>".$_GET['erro']."</h3>";
                 ?> 
 
             </div>
@@ -256,11 +277,15 @@ if (!ControlSesion::sesion_iniciada()) {
 
 
 <?php
+
 include_once "plantillas/documento-cierre.inc.php";
 ?>
-<script>$('#dialogo').on('hidden.bs.modal', function () {
-        location.reload();
-    })</script>
-  <?php   
+
+  <?php 
+  if(isset($_GET['erro'])){
+  ?> 
+  <script>$('#dialogo').modal('show');</script>   
+  <?php
+   }  
  
    

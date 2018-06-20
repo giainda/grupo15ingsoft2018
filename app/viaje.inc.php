@@ -15,10 +15,11 @@ class Viaje{
     private $tipoViaje;
     private $estado;
     private $duracion;
+    private $terminado;
 
 public function __construct($id,$idConductor,$patente,$fechaCreacion,
                             $fechaInicio,$inicio,$destino,$asientos,
-                            $precio,$descripcion,$tipoViaje,$estado,$duracion){
+                            $precio,$descripcion,$tipoViaje,$estado,$duracion,$terminado){
         $this -> id=$id;
         $this -> idConductor=$idConductor;
         $this -> patente = $patente;
@@ -32,6 +33,7 @@ public function __construct($id,$idConductor,$patente,$fechaCreacion,
         $this -> tipoViaje=$tipoViaje;
         $this -> estado =$estado;
         $this -> duracion= $duracion;
+        $this -> terminado= $terminado;
                                 
                             }
 
@@ -292,6 +294,26 @@ public function __construct($id,$idConductor,$patente,$fechaCreacion,
     public function setDuracion($duracion)
     {
         $this->duracion = $duracion;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of terminado
+     */ 
+    public function getTerminado()
+    {
+        return $this->terminado;
+    }
+
+    /**
+     * Set the value of terminado
+     *
+     * @return  self
+     */ 
+    public function setTerminado($terminado)
+    {
+        $this->terminado = $terminado;
 
         return $this;
     }

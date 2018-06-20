@@ -4,7 +4,7 @@
 3
 */
 
-var seconds = 1; // el tiempo en que se refresca
+var seconds = 5; // el tiempo en que se refresca
 var divid = "contenido"; // el div que quieres actualizar!
 var url = "app/notificacionAnalisis.php"; // el archivo que ira en el div
 function refreshdiv() {

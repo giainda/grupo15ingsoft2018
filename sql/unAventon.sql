@@ -87,6 +87,7 @@ create table viajes(
     tipoViaje varchar(30) not null,
     estado tinyint not null,
     duracion int not null,
+    terminado tinyint not null,
     primary key(idViaje),
     foreign key(idConductor)
        references conductor(idUsuario)

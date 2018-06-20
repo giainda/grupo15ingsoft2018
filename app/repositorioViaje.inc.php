@@ -12,7 +12,7 @@ class RepositorioViaje{
                 $sentencia -> execute();
                 $resultado = $sentencia -> fetch();
                 if(!empty($resultado)){
-                    $viaje=new Viaje($resultado['idViaje'],$resultado['idConductor'],$resultado['patente'],$resultado['fechaCreacion'],$resultado['fechaInicio'],$resultado['inicio'],$resultado['destino'],$resultado['asientos'],$resultado['precio'],$resultado['descripcion'],$resultado['tipoViaje'],$resultado['estado'],$resultado['duracion']);
+                    $viaje=new Viaje($resultado['idViaje'],$resultado['idConductor'],$resultado['patente'],$resultado['fechaCreacion'],$resultado['fechaInicio'],$resultado['inicio'],$resultado['destino'],$resultado['asientos'],$resultado['precio'],$resultado['descripcion'],$resultado['tipoViaje'],$resultado['estado'],$resultado['duracion'],$resultado['terminado']);
                 }
             }catch(PDOException $ex){
                 print 'error'. $ex->getMessage();
@@ -55,7 +55,7 @@ class RepositorioViaje{
                 $resultado = $sentencia -> fetchAll();
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion']);
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion'],$fila['terminado']);
                     }
     
                 }else{
@@ -80,7 +80,7 @@ class RepositorioViaje{
                 $resultado = $sentencia -> fetchAll();
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion']);
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion'],$fila['terminado']);
                     }
     
                 }
@@ -161,8 +161,8 @@ class RepositorioViaje{
         if(isset($conexion)){
             try{
                 $sql = "INSERT INTO viajes(idConductor, patente, fechaCreacion, fechaInicio, inicio, destino, asientos,
-                precio, descripcion, tipoViaje, estado, duracion)
-                 VALUES(:idConductor, :patente, NOW(), :fechaInicio, :inicio, :destino,:asientos,:precio,:descripcion,:tipoViaje,1,:duracion)";
+                precio, descripcion, tipoViaje, estado, duracion, terminado)
+                 VALUES(:idConductor, :patente, NOW(), :fechaInicio, :inicio, :destino,:asientos,:precio,:descripcion,:tipoViaje,1,:duracion,0)";
                 $sentencia= $conexion -> prepare($sql);
                 $obidConductor= $viaje ->getIdConductor();
                 $obpatente= $viaje ->getPatente();
@@ -202,7 +202,7 @@ class RepositorioViaje{
                 $resultado = $sentencia -> fetchAll();
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion']);
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion'],$fila['terminado']);
                     }
     
                 }else{
@@ -222,8 +222,8 @@ class RepositorioViaje{
         if(isset($conexion)){
             try{
                 $sql = "INSERT INTO viajes(idConductor, patente, fechaCreacion, fechaInicio, inicio, destino, asientos,
-                precio, descripcion, tipoViaje, estado, duracion)
-                 VALUES(:idConductor, :patente, NOW(), :fechaInicio, :inicio, :destino,:asientos,:precio,:descripcion,:tipoViaje,1,:duracion)";
+                precio, descripcion, tipoViaje, estado, duracion, terminado)
+                 VALUES(:idConductor, :patente, NOW(), :fechaInicio, :inicio, :destino,:asientos,:precio,:descripcion,:tipoViaje,1,:duracion,0)";
                 $sentencia= $conexion -> prepare($sql);
                 $obidConductor= $viaje ->getIdConductor();
                 $obpatente= $viaje ->getPatente();
@@ -263,7 +263,7 @@ class RepositorioViaje{
                 $resultado = $sentencia -> fetchAll();
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion']);
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion'],$fila['terminado']);
                     }
     
                 }else{
@@ -292,7 +292,7 @@ class RepositorioViaje{
                 $resultado = $sentencia -> fetchAll();
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion']);
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion'],$fila['terminado']);
                     }   
                 }   
             }catch(PDOException $ex){

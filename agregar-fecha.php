@@ -24,7 +24,7 @@ if (isset($_POST['enviar'])) {
 
     $validador = new ValidadorFechaMultiple($arregloViajes, $new, $viaje->getDuracion(), $viaje->getPatente(), Conexion::obtener_conexion());
     if ($validador->registro_valido()) {
-        $viajeNue = new Viaje('', $_SESSION['id_usuario'], $viaje->getPatente(), '', $new, $viaje->getInicio(), $viaje->getDestino(), $viaje->getAsientos(), $viaje->getPrecio(), $viaje->getDescripcion(), 2, 1, $viaje->getDuracion());
+        $viajeNue = new Viaje('', $_SESSION['id_usuario'], $viaje->getPatente(), '', $new, $viaje->getInicio(), $viaje->getDestino(), $viaje->getAsientos(), $viaje->getPrecio(), $viaje->getDescripcion(), 2, 1, $viaje->getDuracion(),0);
         $arregloViajes[] = $viajeNue;
         $_SESSION['array'] = $arregloViajes;
         Redireccion::redirigir(RUTA_MOSTRAR_PROCESO_VIAJE_MULTIPLE . "?ok=1");

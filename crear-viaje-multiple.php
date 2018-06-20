@@ -26,7 +26,7 @@ if (isset($_POST['enviar'])) {
     if ($validador->registro_valido()) {
         $arregloViajes = array();
         $auto = RepositorioAuto::obtener_por_patente(Conexion::obtener_conexion(), $validador->obtener_vehiculo());
-        $viaje = new Viaje('', $_SESSION['id_usuario'], $validador->obtener_vehiculo(), '', $validador->obtener_fecha_inicio(), $validador->obtener_ciudad_origen(), $validador->obtener_ciudad_destino(), $auto->getCapasidad(), $validador->obtener_precio_total(), $validador->obtener_descripcion(), 2, 1, $validador->obtener_duracion());
+        $viaje = new Viaje('', $_SESSION['id_usuario'], $validador->obtener_vehiculo(), '', $validador->obtener_fecha_inicio(), $validador->obtener_ciudad_origen(), $validador->obtener_ciudad_destino(), $auto->getCapasidad(), $validador->obtener_precio_total(), $validador->obtener_descripcion(), 2, 1, $validador->obtener_duracion(),0);
         $arregloViajes[] = $viaje;
         $array = serialize($arregloViajes);
         $array = base64_encode($array);
