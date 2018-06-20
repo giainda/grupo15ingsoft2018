@@ -144,6 +144,22 @@ public static function viajesViajaFechaDuracion($conexion,$idUsuario,$fechaInici
     return "";
     
 }
+public function crearRelacion($conexion,$idUsuario,$idViaje){
+    $conexion_creada=false;
+    if(isset($conexion)){
+        try{
+            $sql="INSERT INTO viaja (idUsuario,idViaje,eliminado) VALUES (:idUsuario,:idViaje,1)";
+            $sentencia =$conexion ->prepare($sql);
+            $sentencia ->bindParam(':idUsuario',$idUsuario,PDO::PARAM_STR);
+            $sentencia ->bindParam(':idViaje',$idViaje,PDO::PARAM_STR);
+            $conexion_creada=$sentencia ->execute();
+
+
+        }catch(PDOException $ex){
+            print 'error'. $ex -> getMessage();
+        }
+    }return $conexion_creada; 
+}
 
 
 }

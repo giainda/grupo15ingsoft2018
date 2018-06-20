@@ -51,11 +51,12 @@ $postulaciones = RepositorioPostula::personas_postuladas_idViaje(Conexion::obten
                     <div class="col-md-7">
                         <div class="row">
                             <div class="col-md-3">
-
-                                <a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo3">Aceptar</a>
+                            <?php
+                            $path='aceptarSolicitud.php?id='.$usuario->getId().'&&idViajeas='.$viaje->getId(); ?>
+                                <a href="<?php echo $path?>" class="btn botoncss form-control color1">Aceptar</a>
                             </div>
                             <div class="col-md-3">
-                            <?php $path='eliminarSolicitud.php?id='.$usuario->getId().'&&idVi='.$viaje->getId(); ?>
+                            <?php $path='eliminarSolicitud.php?id='.$usuario->getId().'&&idViaj='.$viaje->getId(); ?>
                                 <a href="<?php echo $path?>" class="btn botoncss form-control color1">Rechazar</a>
                             </div>
                             <div class="col-md-6">
@@ -80,7 +81,7 @@ $postulaciones = RepositorioPostula::personas_postuladas_idViaje(Conexion::obten
         </div>
     </div>           
 </div>
-<div class="modal fade" id="dialogo3">
+<div class="modal fade" id="dialogo">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -91,7 +92,7 @@ $postulaciones = RepositorioPostula::personas_postuladas_idViaje(Conexion::obten
 
 
             <div class="modal-body">
-                <h3>esta funcionalidad todavia no esta disponible  </h3> 
+              <h3>Solicitud no fue aceptada, el postulante tiene otro viaje en el mismo horario</h3>
             </div>
         </div>
     </div>
@@ -103,4 +104,11 @@ $postulaciones = RepositorioPostula::personas_postuladas_idViaje(Conexion::obten
 
 <?php
 include_once "plantillas/documento-cierre.inc.php";
+
+if(isset($_GET['err'])){
+    ?> 
+  <script>$('#dialogo').modal('show');</script>   
+  <?php
+   } 
+
 
