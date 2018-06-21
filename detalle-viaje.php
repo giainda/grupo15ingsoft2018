@@ -143,6 +143,8 @@ if(isset($_POST['enviar'])){
             <?php } else {
                 ?>
                 <a href="<?php echo RUTA_MOSTRAR_POSTULANTES . "?idViaje=" . $viaje->getId(); ?>" class="btn botoncss form-control color1">Ver postulantes</a>
+                <br>
+                <a href="<?php echo RUTA_MOSTRAR_ACEPTADOS . "?idViaje=" . $viaje->getId(); ?>" class="btn botoncss form-control color1">Ver pasajeros</a>
             <?php } ?>
         </div>
 

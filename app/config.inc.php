@@ -31,3 +31,4 @@ define("RUTA_DETALLE_VIAJE",SERVIDOR."/detalle-viaje.php");
 define("RUTA_MOSTRAR_PERFIL",SERVIDOR."/mostrar-perfil.php");
 define("RUTA_MOSTRAR_POSTULANTES",SERVIDOR."/mostrar-postulantes.php");
 define("RUTA_MOSTRAR_NOTIFICACIONES",SERVIDOR."/mostrar-notificaciones.php");
+define("RUTA_MOSTRAR_ACEPTADOS",SERVIDOR."/mostrar-aceptados.php");
