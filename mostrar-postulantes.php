@@ -92,7 +92,11 @@ $postulaciones = RepositorioPostula::personas_postuladas_idViaje(Conexion::obten
 
 
             <div class="modal-body">
+            <?php if(isset($_GET['err'])){ ?>
               <h3>Solicitud no fue aceptada, el postulante tiene otro viaje en el mismo horario</h3>
+            <?php }else{
+                echo "<h3>No puede aceptar mas pasajeros, limite de capasidad alcansado.</h3>";
+            } ?>
             </div>
         </div>
     </div>
@@ -105,7 +109,7 @@ $postulaciones = RepositorioPostula::personas_postuladas_idViaje(Conexion::obten
 <?php
 include_once "plantillas/documento-cierre.inc.php";
 
-if(isset($_GET['err'])){
+if(isset($_GET['err'])||isset($_GET['arr'])){
     ?> 
   <script>$('#dialogo').modal('show');</script>   
   <?php

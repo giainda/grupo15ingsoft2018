@@ -19,6 +19,8 @@ create table calificacion_pendiente(
     id int not null unique auto_increment,
     idUsuariocalificador int not null,
     idusuarioACalificar int not null,
+    activo tinyint not null,
+    esAConductor tinyint not null,
     foreign key(idUsuarioCalificador)
          references Usuarios(id)
          on update Cascade

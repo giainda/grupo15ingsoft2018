@@ -20,7 +20,7 @@ if(empty($_GET['idViaj'])){
 
 $viaje=RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(),$_GET['idViaj']);
 RepositorioPostula::actualizarInfo($_GET['id'],$_GET['idViaj'],Conexion::obtener_conexion());
-$texto='su solicitud para unirse al viaje desde: '.$viaje->getInicio().' hasta:'.$viaje->getDestino().' fue rechazada';
+$texto='su solicitud para unirse al <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().' hasta:'.$viaje->getDestino().' fue rechazada';
 RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$_GET['id'],$texto);
 Redireccion::redirigir(RUTA_MOSTRAR_POSTULANTES."?idViaje=".$_GET['idViaj']);
 

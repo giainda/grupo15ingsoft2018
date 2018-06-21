@@ -78,7 +78,7 @@ if(isset($_POST['enviar'])){
     }
     if ($oka!==2) {
         echo "error";
-        $texto="Un usuario se postulo a tu viaje desde: ".$viaje->getInicio()." hasta: ".$viaje->getDestino();
+        $texto='Un usuario se postulo a tu <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().' hasta: '.$viaje->getDestino();
          RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$usuarioCon->getId(),$texto);
     if ($viaje->getTipoViaje() == 1) {
             RepositorioPostula::crearRelacion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $viaje->getId());

@@ -44,7 +44,7 @@ class RepositorioNotificacion{
         $notificaciones=array();
         if(isset($conexion)){
             try{
-                $sql="SELECT * FROM notificacion WHERE idUsuario = :idUsuario AND leido=0 ORDER BY fechaNoti";
+                $sql="SELECT * FROM notificacion WHERE idUsuario = :idUsuario AND leido=0 ORDER BY fechaNoti DESC";
                 $sentencia = $conexion -> prepare($sql);
                 $sentencia -> bindParam( ":idUsuario" , $idUsuario, PDO::PARAM_STR);
                 $sentencia -> execute();

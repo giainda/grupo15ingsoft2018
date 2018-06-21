@@ -24,15 +24,19 @@ $viaje=RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(),$_GET[
 $errorViaja=RepositorioViaja::viajesViajaFechaDuracion(Conexion::obtener_conexion(),$_GET['id'],$viaje->getFechaInicio(),$viaje->getDuracion());
 $errorViaje=RepositorioViaje::tieneViajeFechaDuracion(Conexion::obtener_conexion(),$_GET['id'],$viaje->getFechaInicio(),$viaje->getDuracion());
 if($errorViaja===''&& $errorViaje===''){
+ $viaja=RepositorioViaja::viaja_idViaje(Conexion::obtener_conexion(),$viaje->getId());
+ if(count($viaja)<($viaje->getAsientos()-1)){   
  RepositorioViaja::crearRelacion(Conexion::obtener_conexion(),$_GET['id'],$viaje->getId());
  RepositorioPostula::actualizarInfo($_GET['id'],$viaje->getId(),Conexion::obtener_conexion());
- $texto='su solicitud para unirse al viaje desde: '.$viaje->getInicio().' hasta:'.$viaje->getDestino().' fue aceptada';
+ $texto='su solicitud para unirse al <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().' hasta:'.$viaje->getDestino().' fue aceptada';
 RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$_GET['id'],$texto);
-Redireccion::redirigir(RUTA_MOSTRAR_POSTULANTES."?idViaje=".$viaje->getId());
+Redireccion::redirigir(RUTA_MOSTRAR_POSTULANTES."?idViaje=".$viaje->getId());}else{
+    Redireccion::redirigir(RUTA_MOSTRAR_POSTULANTES."?idViaje=".$viaje->getId()."&&arr=2");   
+}
 }else{
 
 RepositorioPostula::actualizarInfo($_GET['id'],$viaje->getId(),Conexion::obtener_conexion());
-$texto='su solicitud para unirse al viaje desde: '.$viaje->getInicio().' hasta:'.$viaje->getDestino().' fue eliminada (ya tienes otro viaje al mismo horario)';
+$texto='su solicitud para unirse al <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().' hasta:'.$viaje->getDestino().' fue eliminada (ya tienes otro viaje al mismo horario)';
 RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$_GET['id'],$texto);
 Redireccion::redirigir(RUTA_MOSTRAR_POSTULANTES."?idViaje=".$viaje->getId()."&&err=2");
 

@@ -7,7 +7,7 @@ public static function calificacion_pendiente_idUsuario($conexion,$idUsuariocali
     $viaja=array();
     if(isset($conexion)){
         try{
-            $sql="SELECT * FROM calificacion_pendiente WHERE idUsuariocalificador = :idUsuariocalificador";
+            $sql="SELECT * FROM calificacion_pendiente WHERE idUsuariocalificador = :idUsuariocalificador AND activo=1";
             $sentencia = $conexion -> prepare($sql);
             $sentencia -> bindParam( ":idUsuariocalificador" , $idUsuariocalificador, PDO::PARAM_STR);
             $sentencia -> execute();
@@ -32,7 +32,7 @@ public static function debeCalificacion($conexion,$idUsuariocalificador){
     $es=null;
     if(isset($conexion)){
         try{
-            $sql="SELECT COUNT(*) AS si FROM calificacion_pendiente WHERE idUsuariocalificador= :idUsuariocalificador";
+            $sql="SELECT COUNT(*) AS si FROM calificacion_pendiente WHERE idUsuariocalificador= :idUsuariocalificador AND activo=1";
             $sentencia=$conexion -> prepare($sql);
             $sentencia -> bindParam(':idUsuariocalificador',$idUsuariocalificador,PDO::PARAM_STR);
             $sentencia ->execute();
