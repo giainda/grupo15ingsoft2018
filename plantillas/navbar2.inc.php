@@ -37,13 +37,15 @@ Conexion :: abrir_conexion();
             <a  href="<?php echo RUTA_PERFIL?>"><i class="fas fa-user"></i><?php echo ' '. $_SESSION['nombre_usuario'];?></a>
             </li>
             <script type="text/javascript">var id = "<?php echo $_SESSION['id_usuario'] ?>";</script>
-            <script src="<?php echo RUTA_JS ?>contadorNotificacion.js"></script>
+            <script src="contadorNotificacion.js"></script>
+            
              <li class="nav-item active"id="contenido">
              </li>
             
             <li class="nav-item active">
             <a  href="<?php echo RUTA_LOGOUT?>">Cerrar Sesion</a>
             </li>
+            
             <?php
              }
              ?>              

@@ -14,7 +14,7 @@ public static function calificacion_pendiente_idUsuario($conexion,$idUsuariocali
             $resultado = $sentencia -> fetchAll();
             if(count($resultado)){
                 foreach($resultado as $fila){
-                    $viaja[]= new Postula($fila['idUsuariocalificador'],$fila['idUsuariAcalificar']);
+                    $viaja[]= new ClificacionPendiente($fila['id'],$fila['idUsuariocalificador'],$fila['idUsuariACalificar'],$fila['activo'],$fila['esAConductor']);
                 }
 
             }else{
@@ -48,5 +48,37 @@ public static function debeCalificacion($conexion,$idUsuariocalificador){
         }
     }
    return $es;
+}
+public function crearCalificacionPendienteAConductor($conexion,$idUsuario,$idConductor){
+    $conexion_creada=false;
+    if(isset($conexion)){
+        try{
+            $sql="INSERT INTO calificacion_pendiente (idUsuariocalificador,idUsuarioACalificar,activo,esAConductor) VALUES (:idUsuario,:idConductor,1,1)";
+            $sentencia =$conexion ->prepare($sql);
+            $sentencia ->bindParam(':idUsuario',$idUsuario,PDO::PARAM_STR);
+            $sentencia ->bindParam(':idConductor',$idConductor,PDO::PARAM_STR);
+            $conexion_creada=$sentencia ->execute();
+
+
+        }catch(PDOException $ex){
+            print 'error'. $ex -> getMessage();
+        }
+    }return $conexion_creada; 
+}
+public function crearCalificacionPendienteAPasajero($conexion,$idConductor,$idUsuario){
+    $conexion_creada=false;
+    if(isset($conexion)){
+        try{
+            $sql="INSERT INTO calificacion_pendiente (idUsuariocalificador,idUsuarioACalificar,activo,esAConductor) VALUES (:idConductor,:idUsuario,1,0)";
+            $sentencia =$conexion ->prepare($sql);
+            $sentencia ->bindParam(':idUsuario',$idUsuario,PDO::PARAM_STR);
+            $sentencia ->bindParam(':idConductor',$idConductor,PDO::PARAM_STR);
+            $conexion_creada=$sentencia ->execute();
+
+
+        }catch(PDOException $ex){
+            print 'error'. $ex -> getMessage();
+        }
+    }return $conexion_creada; 
 }
 }

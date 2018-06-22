@@ -320,5 +320,82 @@ class RepositorioViaje{
             }
         }
         return '';
-    }   
+    }
+    public static function todosLosViajes($conexion){
+        $viajes=array();
+        if(isset($conexion)){
+            try{
+                $sql="SELECT * FROM viajes WHERE  estado=1";
+                $sentencia = $conexion -> prepare($sql); 
+                $sentencia -> execute();
+                $resultado = $sentencia -> fetchAll();
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion'],$fila['terminado']);
+                    }
+    
+                }
+    
+            }catch(PDOException $ex){
+                print 'error' . $ex ->getMessage();
+            }
+    
+        }
+        return $viajes;
+    }
+    public static function todosLosViajesSinTerminar($conexion){
+        $viajes=array();
+        if(isset($conexion)){
+            try{
+                $sql="SELECT * FROM viajes WHERE  estado=2 AND terminado=0";
+                $sentencia = $conexion -> prepare($sql); 
+                $sentencia -> execute();
+                $resultado = $sentencia -> fetchAll();
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion'],$fila['terminado']);
+                    }
+    
+                }
+    
+            }catch(PDOException $ex){
+                print 'error' . $ex ->getMessage();
+            }
+    
+        }
+        return $viajes;
+    }
+    public static function comienza($conexion,$idViaje){
+        $ok=false;
+        if(isset($conexion)){
+            try{
+                $sql="UPDATE viajes SET estado=2 WHERE idViaje=:idViaje";
+                $sentencia=$conexion ->prepare($sql);
+                $sentencia ->bindParam(":idViaje", $idViaje, PDO::PARAM_STR);
+                $sentencia ->execute();
+              $ok=true;
+              echo "c";
+            }catch(PDOException $ex){
+                print "erro: ". $ex->getMessage();
+            }
+        }
+        return $ok;
+    }
+    public static function termina($conexion,$idViaje){
+        $ok=false;
+        if(isset($conexion)){
+            try{
+                $sql="UPDATE viajes SET terminado=1 WHERE idViaje=:idViaje";
+                $sentencia=$conexion ->prepare($sql);
+                $sentencia ->bindParam(":idViaje", $idViaje, PDO::PARAM_STR);
+                $ok=$sentencia ->execute();
+
+              
+            }catch(PDOException $ex){
+                print "erro: ". $ex->getMessage();
+            }
+        }
+        return $ok;
+    }
+       
 }

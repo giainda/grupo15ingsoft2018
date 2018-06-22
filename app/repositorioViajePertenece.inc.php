@@ -22,7 +22,7 @@ class RepositorioViajePertenece{
         $relaciones=array();
         if(isset($conexion)){
             try{
-                $sql="SELECT * FROM viajepertenece c INNER JOIN viajes v ON (c.idViaje=v.idViaje) WHERE idViajeProgramado = :idViajeProgramado AND activo=1 ORDER BY v.fechaInicio";
+                $sql="SELECT * FROM viajepertenece c INNER JOIN viajes v ON (c.idViaje=v.idViaje) WHERE idViajeProgramado = :idViajeProgramado ORDER BY v.fechaInicio";
                 $sentencia = $conexion -> prepare($sql);
                 $sentencia -> bindParam( ":idViajeProgramado" , $idViajeProgramado, PDO::PARAM_STR);
                 $sentencia -> execute();
@@ -43,7 +43,7 @@ class RepositorioViajePertenece{
         $relacion='';
         if(isset($conexion)){
             try{
-                $sql="SELECT * FROM viajepertenece WHERE idViaje = :idViaje AND activo=1";
+                $sql="SELECT * FROM viajepertenece WHERE idViaje = :idViaje";
                 $sentencia = $conexion -> prepare($sql);
                 $sentencia -> bindParam( ":idViaje" , $idViaje, PDO::PARAM_STR);
                 $sentencia -> execute();
@@ -58,5 +58,20 @@ class RepositorioViajePertenece{
     
         }
         return $relacion;
+    }
+    public static function termina($conexion,$idViaje){
+        $ok=false;
+        if(isset($conexion)){
+            try{
+                $sql="UPDATE viajepertenece SET activo=0 WHERE idViaje=:idViaje";
+                $sentencia=$conexion ->prepare($sql);
+                $sentencia ->bindParam(":idViaje", $idViaje, PDO::PARAM_STR);
+                $sentencia ->execute();
+              $ok=true;
+            }catch(PDOException $ex){
+                print "erro: ". $ex->getMessage();
+            }
+        }
+        return $ok;
     }
 }

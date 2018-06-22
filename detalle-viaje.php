@@ -25,6 +25,9 @@ $viaje = RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(), $id
 if (empty($viaje)) {
     Redireccion::redirigir(SERVIDOR);
 }
+if($viaje->getTerminado()){
+    Redireccion::redirigir(SERVIDOR);
+}
 $ok = 2;
 if (!ControlSesion::sesion_iniciada()) {
     $ok = 1;
@@ -245,6 +248,19 @@ if(isset($_POST['enviar'])){
                 if($ok==4){
                     echo "<h3>Usted ya se postulo anteriormente a este viaje</h3>";
                 }else{
+                    if($viaje->getTipoViaje()==2){
+                        $viajeP=RepositorioViajeProgramado::obtener_por_idViajeProgramado(Conexion::obtener_conexion(),1);
+                        date_default_timezone_set('America/Argentina/Buenos_Aires');
+                        $actual=new DateTime(date("Y-m-d H:i:s"));
+                        $fecha= new DateTime($viajeP->getFechaInicio());
+                        if($actual>$fecha){
+                            echo "<h3>Este viaje ya comenzó</h3>" ; 
+                            $ok=5;
+                        }
+                    }
+
+
+                 if($ok!==5){   
                 
                 
                 ?>
@@ -252,7 +268,7 @@ if(isset($_POST['enviar'])){
                 <button type="submit" name="enviar" class="btn botoncss form-control color1">Postularse al viaje</button>
                 </form>
                 <?php
-            }} else {
+            }}} else {
                 if ($ok == 1) {
                     echo "<h3>Para postularse a este viaje debe <a href='" . RUTA_LOGIN . "'>Iniciar sesion</a> o <a href='" . RUTA_REGISTRO . "'>Crear cuenta</a> si todavia no tiene una </h3>";
                 }
