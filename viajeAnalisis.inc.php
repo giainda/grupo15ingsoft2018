@@ -21,7 +21,7 @@ foreach($viajes as $viaje){
         /*descontar porcentaje al conductor*/
         /*pasajeros que no pagaron???*/
         foreach($pasajeros as $pa){
-            $texto='El <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a>" desde: '.$viaje->getInicio().', hasta: '.$viaje->getDestino().' ha comenzado. ';
+            $texto='El <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().', hasta: '.$viaje->getDestino().' ha comenzado. ';
             RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$pa->getIdUsuario(),$texto);
         }
         RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$viaje->getIdConductor(),$texto);

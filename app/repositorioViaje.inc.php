@@ -374,7 +374,7 @@ class RepositorioViaje{
                 $sentencia ->bindParam(":idViaje", $idViaje, PDO::PARAM_STR);
                 $sentencia ->execute();
               $ok=true;
-              echo "c";
+
             }catch(PDOException $ex){
                 print "erro: ". $ex->getMessage();
             }
