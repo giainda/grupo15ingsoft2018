@@ -211,4 +211,39 @@ class RepositorioUsuario{
         }
         return $ok;
     }
+    public static function saldoUsuario($conexion,$idUsuario){
+        $saldo =null;
+        if (isset($conexion)){
+            try{
+                $sql="SELECT fondos  FROM usuarios WHERE id=:id";
+                $sentencia= $conexion -> prepare($sql);
+                $sentencia ->bindParam(":id", $idUsuario, PDO::PARAM_STR);
+                $sentencia -> execute();
+                
+                $resultado=$sentencia -> fetch();
+                $saldo=$resultado['fondos'];
+
+            }catch(PDOException $ex){
+                print 'error'. $ex -> getMessage()."getSaldo";
+            }
+
+        }
+        return $saldo;
+    }
+    public static function nuevoSaldo($conexion,$idUsuario,$saldo){
+        $ok=false;
+        if(isset($conexion)){
+            try{
+                $sql="UPDATE usuarios SET fondos=:saldo WHERE id=:id";
+                $sentencia=$conexion ->prepare($sql);
+                $sentencia ->bindParam(":saldo", $saldo, PDO::PARAM_STR);
+                $sentencia ->bindParam(":id", $idUsuario, PDO::PARAM_STR);
+                $sentencia ->execute();
+              $ok=true;
+            }catch(PDOException $ex){
+                print "erro: ". $ex->getMessage()."nuevoSaldo";
+            }
+        }
+        return $ok;
+    }
 }

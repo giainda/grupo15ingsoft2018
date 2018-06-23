@@ -3,9 +3,11 @@
 include_once "app/repositorioNotificacion.inc.php";
 include_once "app/repositorioViaje.inc.php";
 include_once "app/repositorioViaja.inc.php";
+include_once "app/repositorioUsuario.inc.php";
 include_once "app/repositorioViajePertenece.inc.php";
 include_once "app/repositorioViajeProgramado.inc.php";
 include_once "app/repositorioCalificacionPendiente.inc.php";
+include_once "app/repositorioPagoPendiente.inc.php";
 include_once "app/Conexion.inc.php";
 include_once "app/ControlSesion.inc.php";
 include_once "app/config.inc.php";
@@ -19,7 +21,9 @@ foreach($viajes as $viaje){
         $pasajeros=RepositorioViaja::viaja_idViaje(Conexion::obtener_conexion(),$viaje->getId());
         RepositorioViaje::comienza(Conexion::obtener_conexion(),$viaje->getId());
         /*descontar porcentaje al conductor*/
-        /*pasajeros que no pagaron???*/
+        $saldo=RepositorioUsuario::saldoUsuario(Conexion::obtener_conexion(),$viaje->getIdConductor());
+        $saldo=($saldo-($viaje->getPrecio()*0.05));
+        RepositorioUsuario::nuevoSaldo(Conexion::obtener_conexion(),$viaje->getIdConductor(),$saldo);
         foreach($pasajeros as $pa){
             $texto='El <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().', hasta: '.$viaje->getDestino().' ha comenzado. ';
             RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$pa->getIdUsuario(),$texto);
@@ -41,7 +45,8 @@ foreach($viajesActuales as $viaje){
         foreach($pasajeros as $pa){
             RepositorioCalificacionPendiente::crearCalificacionPendienteAConductor(Conexion::obtener_conexion(),$pa->getIdUsuario(),$viaje->getIdConductor());
             RepositorioCalificacionPendiente::crearCalificacionPendienteAPasajero(Conexion::obtener_conexion(),$viaje->getIdConductor(),$pa->getIdUsuario());
-            $texto='tiene nuevas calificaciones pendientes';
+            RepositorioPagoPendiente::crearPagoPendiente(Conexion::obtener_conexion(),$pa->getIdUsuario(),$viaje->getIdConductor(),($viaje->getPrecio()/$viaje->getAsientos()));
+            $texto='tiene nuevas calificaciones y <a href="'.RUTA_PAGOS_PENDIENTES.'">pagos</a> pendientes';
             RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$pa->getIdUsuario(),$texto);
         }
         if(count($pasajeros)){

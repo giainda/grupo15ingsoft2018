@@ -34,6 +34,8 @@ create table pago_pendiente(
     id int not null unique auto_increment,
     idUsuarioDeudor int not null,
     idusuarioCobrador int not null,
+    activo tinyint not null,
+    monto numeric not null,
     foreign key(idUsuarioDeudor)
          references Usuarios(id)
          on update Cascade
