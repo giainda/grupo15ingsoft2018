@@ -24,6 +24,10 @@ $segunda = substr($prin, 2, 5);
 $tercera = substr($patente, 5, 7);
 print $tercera;
 print 'asd';
+if(isset($_POST['enviar']))
+{
+    echo $_POST['exampleRadios'];
+}
 include_once "plantillas/documento-declaracion.inc.php";
 ?>
 
@@ -44,7 +48,21 @@ $fechaasd = "1990/05/03 23:40";
 $cenvertedTime = date('Y-m-d H:i:s', strtotime('+' . $cant . ' hour', strtotime($fechaasd)));
 echo $cenvertedTime;
 ?>
-
+<form role="form" method="post" action="prueba.php">
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+  <label class="form-check-label" for="exampleRadios1">
+    Default radio
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2asd">
+  <label class="form-check-label" for="exampleRadios2">
+    Second default radio
+  </label>
+</div>
+<button type="submit" name="enviar" class="btn botoncss form-control color1">Con mis fondos</button>
+</form>
 
 <?php
 include_once "plantillas/documento-cierre.inc.php";

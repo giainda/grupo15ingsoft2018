@@ -44,8 +44,8 @@ $pagosPendientes=repositorioPagoPendiente::pago_pendiente_idUsuario(Conexion::ob
                         <div class="row">
 
                             <div class="col-md-12">
-                            <?php $path='pagar.inc.php?idCobrador='.$usuario->getId().'&&monto='.$pos->getMonto().'&&idPs='.$pos->getId(); ?>
-                            <a href="<?php echo $path ?>" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo1">Pagar</a>
+                            <?php $path='pagar.inc.php?idCobrador='.$usuario->getId().'&&monto='.$pos->getMonto().'&&idPsa='.$pos->getId(); ?>
+                            <a href="<?php echo $path ?>" class="btn botoncss form-control color1">Pagar</a>
                             </div>
 
 

@@ -13,7 +13,7 @@ if(!isset($_GET['idCobrador'])){
 if(!isset($_GET['monto'])){
     Redireccion::redirigir(SERVIDOR);
 }
-if(!isset($_GET['idPs'])){
+if(!isset($_GET['idPsa'])){
     Redireccion::redirigir(SERVIDOR);
 }
 if(!ControlSesion::sesion_iniciada()){
@@ -29,7 +29,7 @@ if(isset($_POST['enviar'])){
 $saldo=RepositorioUsuario::saldoUsuario(Conexion::obtener_conexion(),$_GET['idCobrador']);
 $saldo=$saldo+$_GET['monto'];
 RepositorioUsuario::nuevoSaldo(Conexion::obtener_conexion(),$_GET['idCobrador'],$saldo);
-RepositorioPagoPendiente::pagado($_GET['idPs'],Conexion::obtener_conexion());
+RepositorioPagoPendiente::pagado($_GET['idPsa'],Conexion::obtener_conexion());
 $miSaldo=RepositorioUsuario::saldoUsuario(Conexion::obtener_conexion(),$_SESSION['id_usuario']);
 if($miSaldo<$_GET['monto']){
 Redireccion::redirigir(RUTA_PAGOS_PENDIENTES."?err=1");
@@ -45,7 +45,7 @@ Redireccion::redirigir(RUTA_PAGOS_PENDIENTES."?err=1");
             <div class="modal-body">
 
              <h3>Tiene fondos suficientes en su cuenta, ¿Decea pagar con tarjeta o con los fondos de su cuenta?</h3>
-             <form role="form" method="post" action="<?php echo 'pagar.inc.php?idCobrador='.$_GET['idCobrador'].'&&monto='.$_GET['monto'].'&&idPs='.$_GET['idPs'];?>">
+             <form role="form" method="post" action="<?php echo 'pagar.inc.php?idCobrador='.$_GET['idCobrador'].'&&monto='.$_GET['monto'].'&&idPs='.$_GET['idPsa'];?>">
                 <button type="submit" name="enviar" class="btn botoncss form-control color1">Con mis fondos</button>
                 </form>
                 <a href='<?php echo RUTA_PAGOS_PENDIENTES."?err=1"?>' class="btn botoncss form-control color1" >Tarjeta</a>

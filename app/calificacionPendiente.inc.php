@@ -1,13 +1,15 @@
 <?php
  class CalificacionPendiente{
+     private $id;
      private $idUsuariocalificador;
      private $idUsuarioAcalificar;
      private $activo;
      private $esAConductor;
 
  
-     public function __construct($idUsuariocalificador,$idUsuarioAcalificar,$activo,$esAConductor){
-         $this ->idUsuariocalificador =$idUsuariocalificador;         
+     public function __construct($id,$idUsuariocalificador,$idUsuarioAcalificar,$activo,$esAConductor){
+         $this ->idUsuariocalificador =$idUsuariocalificador;
+         $this ->id=$id ;        
          $this -> idUsuarioAcalificar =$idUsuarioAcalificar;
          $this -> activo =$activo;
          $this -> esAConductor = $esAConductor;
@@ -92,6 +94,26 @@
      public function setEsAConductor($esAConductor)
      {
           $this->esAConductor = $esAConductor;
+
+          return $this;
+     }
+
+     /**
+      * Get the value of id
+      */ 
+     public function getId()
+     {
+          return $this->id;
+     }
+
+     /**
+      * Set the value of id
+      *
+      * @return  self
+      */ 
+     public function setId($id)
+     {
+          $this->id = $id;
 
           return $this;
      }

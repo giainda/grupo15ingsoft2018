@@ -58,6 +58,9 @@ include_once 'plantillas/navbar2.inc.php';
                     <a href="<?php echo RUTA_INGRESO_PATENTE ?>" class="btn botoncss form-control color1">Agregar vehículo</a>
                     <br>
                     <br>
+                    <a href="<?php echo RUTA_VER_MIS_CALIFICACIONES ?>" class="btn botoncss form-control color1">Ver mis calificaciones</a>
+                    <br>
+                    <br>
                     <a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo3">Eliminar cuenta</a>
                     <br>
                     <br>

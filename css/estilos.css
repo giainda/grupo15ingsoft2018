@@ -152,4 +152,4 @@ background: url("../img/fondo1.jpg") no-repeat center center fixed;
         width: 1px;
         height: 500px;
         }
-    
+        .dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdown-item:hover{background-color: #F00C31 !important;}

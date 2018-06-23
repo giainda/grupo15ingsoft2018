@@ -32,4 +32,6 @@ define("RUTA_MOSTRAR_PERFIL",SERVIDOR."/mostrar-perfil.php");
 define("RUTA_MOSTRAR_POSTULANTES",SERVIDOR."/mostrar-postulantes.php");
 define("RUTA_MOSTRAR_NOTIFICACIONES",SERVIDOR."/mostrar-notificaciones.php");
 define("RUTA_MOSTRAR_ACEPTADOS",SERVIDOR."/mostrar-aceptados.php");
-DEFINE("RUTA_PAGOS_PENDIENTES",SERVIDOR."/pagosPendientes.php");
+define("RUTA_PAGOS_PENDIENTES",SERVIDOR."/pagosPendientes.php");
+define("RUTA_CALIFICACIONES_PENDIENTES",SERVIDOR."/calificaciones-pendientes.php");
+define("RUTA_VER_MIS_CALIFICACIONES",SERVIDOR."/ver-mis-calificaciones.php");

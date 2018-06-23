@@ -14,11 +14,9 @@ public static function calificacion_pendiente_idUsuario($conexion,$idUsuariocali
             $resultado = $sentencia -> fetchAll();
             if(count($resultado)){
                 foreach($resultado as $fila){
-                    $viaja[]= new ClificacionPendiente($fila['id'],$fila['idUsuariocalificador'],$fila['idUsuariACalificar'],$fila['activo'],$fila['esAConductor']);
+                    $viaja[]= new CalificacionPendiente($fila['id'],$fila['idUsuariocalificador'],$fila['idusuarioACalificar'],$fila['activo'],$fila['esAConductor']);
                 }
 
-            }else{
-                print 'no viaja en nada';
             }
 
         }catch(PDOException $ex){
@@ -80,5 +78,37 @@ public function crearCalificacionPendienteAPasajero($conexion,$idConductor,$idUs
             print 'error'. $ex -> getMessage();
         }
     }return $conexion_creada; 
+}
+public static function calificacion_pendiente_id($conexion,$id){
+    $resultado=null;
+    if(isset($conexion)){
+        try{
+            $sql="SELECT *  FROM calificacion_pendiente WHERE id= :id ";
+            $sentencia=$conexion -> prepare($sql);
+            $sentencia -> bindParam(':id',$id,PDO::PARAM_STR);
+            $sentencia ->execute();
+            $fila=$sentencia ->fetch();
+            $resultado=new CalificacionPendiente($fila['id'],$fila['idUsuariocalificador'],$fila['idusuarioACalificar'],$fila['activo'],$fila['esAConductor']);
+        }catch(PDOException $ex){
+          print 'error: '. $ex ->getMessage();
+
+        }
+    }
+   return $resultado;
+}
+public static function calificado($id,$conexion){
+    $ok=false;
+    if(isset($conexion)){
+        try{
+            $sql="UPDATE calificacion_pendiente SET activo=0 WHERE id=:id";
+            $sentencia=$conexion ->prepare($sql);
+            $sentencia ->bindParam(":id", $id, PDO::PARAM_STR);
+            $sentencia ->execute();
+          $ok=true;
+        }catch(PDOException $ex){
+            print "erro: ". $ex->getMessage();
+        }
+    }
+    return $ok;
 }
 }

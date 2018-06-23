@@ -36,6 +36,18 @@ Conexion :: abrir_conexion();
              <li class="nav-item active">
             <a  href="<?php echo RUTA_PERFIL?>"><i class="fas fa-user"></i><?php echo ' '. $_SESSION['nombre_usuario'];?></a>
             </li>
+            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Pendientes<span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu color1" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="calificaciones-pendientes.php">Calificaciones Pendientes</a>
+                                <a class="dropdown-item" href="pagosPendientes.php">Pagos Pendientes</a>
+                               </div>
+                            </li>
+
+
+
             <script type="text/javascript">var id = "<?php echo $_SESSION['id_usuario'] ?>";</script>
             <script src="contadorNotificacion.js"></script>
             

@@ -23,6 +23,8 @@ foreach($viajes as $viaje){
         /*descontar porcentaje al conductor*/
         $saldo=RepositorioUsuario::saldoUsuario(Conexion::obtener_conexion(),$viaje->getIdConductor());
         $saldo=($saldo-($viaje->getPrecio()*0.05));
+        $texto="se te descontaron $".($viaje->getPrecio()*0.05)." por el inicio de un viaje";
+        RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$viaje->getIdConductor(),$texto);
         RepositorioUsuario::nuevoSaldo(Conexion::obtener_conexion(),$viaje->getIdConductor(),$saldo);
         foreach($pasajeros as $pa){
             $texto='El <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().', hasta: '.$viaje->getDestino().' ha comenzado. ';
@@ -46,11 +48,11 @@ foreach($viajesActuales as $viaje){
             RepositorioCalificacionPendiente::crearCalificacionPendienteAConductor(Conexion::obtener_conexion(),$pa->getIdUsuario(),$viaje->getIdConductor());
             RepositorioCalificacionPendiente::crearCalificacionPendienteAPasajero(Conexion::obtener_conexion(),$viaje->getIdConductor(),$pa->getIdUsuario());
             RepositorioPagoPendiente::crearPagoPendiente(Conexion::obtener_conexion(),$pa->getIdUsuario(),$viaje->getIdConductor(),($viaje->getPrecio()/$viaje->getAsientos()));
-            $texto='tiene nuevas calificaciones y <a href="'.RUTA_PAGOS_PENDIENTES.'">pagos</a> pendientes';
+            $texto='tiene nuevas <a href="calificaciones-pendientes.php">calificaciones</a> y <a href="'.RUTA_PAGOS_PENDIENTES.'">pagos</a> pendientes';
             RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$pa->getIdUsuario(),$texto);
         }
         if(count($pasajeros)){
-            $texto='tiene nuevas calificaciones pendientes';
+            $texto='tiene nuevas <a href="calificaciones-pendientes.php">calificaciones pendientes</a>';
             RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$viaje->getIdConductor(),$texto);
 
         }

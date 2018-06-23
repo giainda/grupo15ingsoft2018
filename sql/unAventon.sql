@@ -180,5 +180,14 @@ create table viajePertenece(
           references viajes(idViaje)
           on update Cascade
           on delete restrict      
+);
+create table calificaciones(
+    id int not null unique auto_increment,
+    idUsuario int not null,
+    texto text character set utf8 not null,
+        foreign key(idUsuario)
+          references usuarios(id)
+          on update Cascade
+          on delete restrict 
 )
 
