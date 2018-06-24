@@ -38,9 +38,9 @@ Conexion :: abrir_conexion();
             </li>
             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Pendientes<span class="caret"></span>
+                                     Pendientes
                                 </a>
-                                <div class="dropdown-menu color1" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-menu color1">
                                 <a class="dropdown-item" href="calificaciones-pendientes.php">Calificaciones Pendientes</a>
                                 <a class="dropdown-item" href="pagosPendientes.php">Pagos Pendientes</a>
                                </div>

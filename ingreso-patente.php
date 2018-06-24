@@ -7,7 +7,6 @@ include_once "app/Conexion.inc.php";
 include_once "app/ControlSesion.inc.php";
 include_once "app/config.inc.php";
 include_once "app/Redireccion.inc.php";
-
 include_once "plantillas/documento-declaracion.inc.php";
 include_once "plantillas/navbar2.inc.php";
 if (!ControlSesion::sesion_iniciada()) {
@@ -70,10 +69,10 @@ if (isset($_POST['patente'])) {
                                                         if (RepositorioTiene::existeRelacion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $auto->getPatente())) {
                                                             echo "<div class= 'alert alert-danger' role='alert'> esta patente ya fue vinculada a su cuenta</div>";
                                                         } else {
-                                                            Redireccion::redirigir(RUTA_AUTO_EXISTE . '?patente=' . $auto->getPatente());
+                                                            Redireccion::redirigir(RUTA_AUTO_EXISTE .'?patente='. $auto->getPatente());
                                                         }
                                                     } else {
-                                                        Redireccion::redirigir(RUTA_AUTO_NUEVO . '?patente=' . $_POST['patente']);
+                                                        Redireccion::redirigir(RUTA_AUTO_NUEVO .'?patente='. $_POST['patente']);
                                                     }
                                                 }
                                             } else {
@@ -91,10 +90,10 @@ if (isset($_POST['patente'])) {
                                                         if (RepositorioTiene::existeRelacion(Conexion::obtener_conexion(), $_SESSION['id_usuario'], $auto->getPatente())) {
                                                             echo "<div class= 'alert alert-danger' role='alert'> esta patente ya fue vinculada a su cuenta</div>";
                                                         } else {
-                                                            Redireccion::redirigir(RUTA_AUTO_EXISTE . '?patente=' . $auto->getPatente());
+                                                            Redireccion::redirigir(RUTA_AUTO_EXISTE.'?patente='.$auto->getPatente());
                                                         }
                                                     } else {
-                                                        Redireccion::redirigir(RUTA_AUTO_NUEVO . '?patente=' . $_POST['patente']);
+                                                        Redireccion::redirigir(RUTA_AUTO_NUEVO.'?patente='.$_POST['patente']);
                                                     }
                                                 }
                                             }

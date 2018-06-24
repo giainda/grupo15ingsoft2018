@@ -64,7 +64,16 @@ echo $cenvertedTime;
 <button type="submit" name="enviar" class="btn botoncss form-control color1">Con mis fondos</button>
 </form>
 
+<br>
+<br>
+<br>
+
 <?php
+$time= time();
+$arr= getDate($time);
+echo $arr['minutes'];
+
+
 include_once "plantillas/documento-cierre.inc.php";
 ?>
 <script> $("#datetime").datetimepicker();

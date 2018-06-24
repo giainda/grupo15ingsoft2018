@@ -37,7 +37,7 @@ include_once 'plantillas/navbar2.inc.php';
                 <img class="card-img-top" src="<?php echo $imagen ?>" alt="Card image cap">            
                 <div class="card-body text-center">
                     <h4 class="card-title"><?php
-                        echo ' ', $usuario->getNombre(), ' ', $usuario->getApellido();
+                        echo ' ', $usuario->getNombre(), ' ';
                         ?></h4>
 
                     <br>
@@ -68,11 +68,6 @@ include_once 'plantillas/navbar2.inc.php';
                 <hr>
                 <?php
             }
-            echo "<h4>Correo: </h4><h3>", $usuario->getCorreo(), "</h3>";
-            ?>
-            <br>
-            <hr>
-            <?php
             echo "<h4>Nacimiento: </h4><h3>", $usuario->getFechanac(), "</h3>";
             ?>
             <br>
