@@ -40,6 +40,10 @@ $usuarioCon = RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conex
 if(isset($_POST['enviar'])){
     $oka = 1;
     $error ="";
+    $usuario=RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion(),$_SESSION['id_usuario']);
+    if($usuario->getCodigo_tarjeta()==0){
+        Redireccion::redirigir(RUTA_INGRESO_TARJETA."?vi=".$_GET['idViaje']);
+    }
     
     if (RepositorioCalificacionPendiente::debeCalificacion(Conexion::obtener_conexion(), $_SESSION['id_usuario'])) {
         $error = $error . "tiene calificaciones pendientes <br>";

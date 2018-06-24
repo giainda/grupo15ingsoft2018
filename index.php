@@ -33,8 +33,12 @@ include_once "plantillas/navbar2.inc.php"
                 if (!RepositorioConductor::esConductor(Conexion::obtener_conexion(), $_SESSION['id_usuario'])) {
                     ?>data-toggle="modal"  data-target="#dialogo1"<?php
                         } else {
+                            $usuario=RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion(),$_SESSION['id_usuario']);
+                            if($usuario->getCodigo_tarjeta()==0){
+                                ?> onclick="location.href = '<?php echo RUTA_INGRESO_TARJETA ?>';" <?php   
+                            }else{
                             ?> onclick="location.href = '<?php echo RUTA_SELECCION_TIPO_VIAJE ?>';" <?php
-                        } /* este inicio de modal sera remplazado por onclick="location.href='<php RUTA_CREAR_VIAJE ?>';" */
+                        }} /* este inicio de modal sera remplazado por onclick="location.href='<php RUTA_CREAR_VIAJE ?>';" */
                     } else {
                         ?> data-toggle="modal" data-target="#dialogo1" <?php }
                     ?> ><h5 class="stroke"> Crear viaje</h5></button>

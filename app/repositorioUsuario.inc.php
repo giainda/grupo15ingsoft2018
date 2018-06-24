@@ -276,4 +276,20 @@ class RepositorioUsuario{
         }
         return $ok;
     }
+    public static function tarjetaIngreso($id,$tarjeta,$conexion){
+        $ok=false;
+        if(isset($conexion)){
+            try{
+                $sql="UPDATE usuarios SET codigo_tarjeta=:codigo WHERE id=:id";
+                $sentencia=$conexion ->prepare($sql);
+                $sentencia ->bindParam(":id", $id, PDO::PARAM_STR);
+                $sentencia ->bindParam(":codigo", $tarjeta, PDO::PARAM_STR);
+                $sentencia ->execute();
+              $ok=true;
+            }catch(PDOException $ex){
+                print "erro: ". $ex->getMessage();
+            }
+        }
+        return $ok;
+    }
 }

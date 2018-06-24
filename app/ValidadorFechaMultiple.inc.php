@@ -18,7 +18,7 @@ public function __construct($arregloViajes,$fecha_inicio,$duracion,$vehiculo,$co
     $this -> duracion=$duracion;
     $this -> vehiculo=$vehiculo;
     $this -> arregloViajes=$arregloViajes;
-    $this -> error_fecha_inicio=$this -> validar_fecha_inicio($conexion,$fecha_inicio);
+    $this -> error_fecha_inicio=$this -> validar_fecha_inicio($conexion,$fecha_inicio,$duracion);
 
 }
 private function variable_iniciada($variable){
@@ -30,7 +30,7 @@ private function variable_iniciada($variable){
    }
 
 }
-private function validar_fecha_inicio($conexion,$fecha_inicio){
+private function validar_fecha_inicio($conexion,$fecha_inicio,$duracion){
     if(!$this->variable_iniciada($fecha_inicio)){
         return "debes seleccionar una fecha";    
      }else{
@@ -44,10 +44,15 @@ private function validar_fecha_inicio($conexion,$fecha_inicio){
     if($fecha < $menor){
         return "el viaje debe ser creado, como minimo, con un dia de antelacion";
     }
+    $arr= getDate((new DateTime($duracion))->getTimeStamp());
     if(isset($viajes)){
         foreach ($viajes as $viaje){
-            $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$viaje->getDuracion().' hour',strtotime($viaje->getFechaInicio()))));
-            $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$this -> duracion.' hour',strtotime($this -> fecha_inicio))));
+            $du=$viaje->getDuracion();
+            $err= getDate((new DateTime($du))->getTimeStamp());
+            $sumTime =date('Y-m-d H:i:s',strtotime('+'.$err['hours'].' hour',strtotime($viaje->getFechaInicio())));
+            $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$err['minutes'].' minutes',strtotime($sumTime))));
+            $sumTime2 =date('Y-m-d H:i:s',strtotime('+'.$arr['hours'].' hour',strtotime($this -> fecha_inicio)));
+            $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$arr['minutes'].' minutes',strtotime($sumTime2))));
             ?>
             <br>
             <?php
@@ -69,9 +74,12 @@ private function validar_fecha_inicio($conexion,$fecha_inicio){
       $viajesViaja=RepositorioViaja::viajes_viaja_idUsuario2(Conexion::obtener_conexion(),$_SESSION['id_usuario']);
       if(isset($viajesViaja)){
       foreach($viajesViaja as $viaja ){
-          $viaje=RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(),$viaja->getIdViaje());
-          $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$viaje->getDuracion().' hour',strtotime($viaje->getFechaInicio()))));
-          $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$this -> duracion.' hour',strtotime($this -> fecha_inicio))));
+        $du=$viaje->getDuracion();
+        $err= getDate((new DateTime($du))->getTimeStamp());
+        $sumTime =date('Y-m-d H:i:s',strtotime('+'.$err['hours'].' hour',strtotime($viaje->getFechaInicio())));
+        $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$err['minutes'].' minutes',strtotime($sumTime))));
+        $sumTime2 =(date('Y-m-d H:i:s',strtotime('+'.$arr['hours'].' hour',strtotime($this -> fecha_inicio))));
+        $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$arr['minutes'].' minutes',strtotime($sumTime2))));
           ?>
           <br>
           <?php
@@ -94,8 +102,12 @@ private function validar_fecha_inicio($conexion,$fecha_inicio){
     } $viajesAuto=RepositorioViaje::viajes_por_patente(Conexion::obtener_conexion(),$this -> vehiculo);
     if(isset($viajesAuto)){
         foreach($viajesAuto as $viaje ){
-            $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$viaje->getDuracion().' hour',strtotime($viaje->getFechaInicio()))));
-            $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$this -> duracion.' hour',strtotime($this -> fecha_inicio))));
+            $du=$viaje->getDuracion();
+          $err= getDate((new DateTime($du))->getTimeStamp());
+          $sumTime =date('Y-m-d H:i:s',strtotime('+'.$err['hours'].' hour',strtotime($viaje->getFechaInicio())));
+          $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$err['minutes'].' minutes',strtotime($sumTime))));
+          $sumTime2 =(date('Y-m-d H:i:s',strtotime('+'.$arr['hours'].' hour',strtotime($this -> fecha_inicio))));
+          $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$arr['minutes'].' minutes',strtotime($sumTime2))));
             ?>
             <br>
             <?php
