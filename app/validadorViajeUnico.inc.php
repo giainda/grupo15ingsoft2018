@@ -91,14 +91,20 @@ class ValidadorViajeUnico {
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     $menor =new DateTime (date('Y-m-d H:i:s',strtotime('+ 1 day',strtotime(date('Y-m-d H:i:s'))))); 
     $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($this ->fecha_inicio)));
+    
+    $arr= getDate((new DateTime($duracion))->getTimeStamp());
+
     if($fecha < $menor){
         return "el viaje debe ser creado, como minimo, con un dia de antelacion";
     }
     if(isset($viajes)){
         foreach ($viajes as $viaje){
-            $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$viaje->getDuracion().' hour',strtotime($viaje->getFechaInicio()))));
-            $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$this -> duracion.' hour',strtotime($this -> fecha_inicio))));
-            ?>
+            $du=$viaje->getDuracion();
+            $err= getDate((new DateTime($du))->getTimeStamp());
+            $sumTime =date('Y-m-d H:i:s',strtotime('+'.$err['hours'].' hour',strtotime($viaje->getFechaInicio())));
+            $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$err['minutes'].' minutes',strtotime($sumTime))));
+            $sumTime2 =date('Y-m-d H:i:s',strtotime('+'.$arr['hours'].' hour',strtotime($this -> fecha_inicio)));
+            $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$arr['minutes'].' minutes',strtotime($sumTime2))));     ?>
             <br>
             <?php
             $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($this ->fecha_inicio)));
@@ -120,8 +126,12 @@ class ValidadorViajeUnico {
       if(isset($viajesViaja)){
       foreach($viajesViaja as $viaja ){
           $viaje=RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(),$viaja->getIdViaje());
-          $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$viaje->getDuracion().' hour',strtotime($viaje->getFechaInicio()))));
-          $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$this -> duracion.' hour',strtotime($this -> fecha_inicio))));
+          $du=$viaje->getDuracion();
+          $err= getDate((new DateTime($du))->getTimeStamp());
+          $sumTime =date('Y-m-d H:i:s',strtotime('+'.$err['hours'].' hour',strtotime($viaje->getFechaInicio())));
+          $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$err['minutes'].' minutes',strtotime($sumTime))));
+          $sumTime2 =(date('Y-m-d H:i:s',strtotime('+'.$arr['hours'].' hour',strtotime($this -> fecha_inicio))));
+          $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$arr['minutes'].' minutes',strtotime($sumTime2))));
           ?>
           <br>
           <?php
@@ -144,8 +154,12 @@ class ValidadorViajeUnico {
     } $viajesAuto=RepositorioViaje::viajes_por_patente(Conexion::obtener_conexion(),$this -> vehiculo);
     if(isset($viajesAuto)){
         foreach($viajesAuto as $viaje ){
-            $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$viaje->getDuracion().' hour',strtotime($viaje->getFechaInicio()))));
-            $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$this -> duracion.' hour',strtotime($this -> fecha_inicio))));
+            $du=$viaje->getDuracion();
+          $err= getDate((new DateTime($du))->getTimeStamp());
+          $sumTime =date('Y-m-d H:i:s',strtotime('+'.$err['hours'].' hour',strtotime($viaje->getFechaInicio())));
+          $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$err['minutes'].' minutes',strtotime($sumTime))));
+          $sumTime2 =(date('Y-m-d H:i:s',strtotime('+'.$arr['hours'].' hour',strtotime($this -> fecha_inicio))));
+          $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$arr['minutes'].' minutes',strtotime($sumTime2))));
             ?>
             <br>
             <?php

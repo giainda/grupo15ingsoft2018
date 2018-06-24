@@ -8,8 +8,8 @@
 </div>
 
 <div class="form-group">
-    <label>Duracion estimada (horas)</label>
-    <input type="number" class="form-control" name="duracion" placeholder="1">
+    <label>Duracion estimada (maximo 24 horas)</label>
+    <input type="time" class="form-control" name="duracion" placeholder="1">
 </div>
 <div class="form-group">
     <label>Precio total</label>
@@ -30,8 +30,8 @@
                             </select>
                             <br>
                             <div class="form-group">
-    <label>Primera fecha</label>
-    <input id="datetime" readonly="readonly" name="fecha"class="form-control">
+    <label>Fecha de inicio</label>
+    <input type="dateTime-local" id="datetim"  name="fecha"class="form-control">
 </div>
 <br>                            
 

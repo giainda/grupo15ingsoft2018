@@ -90,7 +90,7 @@ create table viajes(
     descripcion text character set utf8 not null,
     tipoViaje varchar(30) not null,
     estado tinyint not null,
-    duracion int not null,
+    duracion time not null,
     terminado tinyint not null,
     primary key(idViaje),
     foreign key(idConductor)

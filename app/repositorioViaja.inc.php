@@ -122,8 +122,13 @@ public static function viajesViajaFechaDuracion($conexion,$idUsuario,$fechaInici
         include_once "app/repositorioViaje.inc.php";
         foreach($viajesViaja as $viaja ){
             $viaje=RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(),$viaja->getIdViaje());
-            $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$viaje->getDuracion().' hour',strtotime($viaje->getFechaInicio()))));
-            $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$duracion.' hour',strtotime($fechaInicio))));
+            $du=$viaje->getDuracion();
+                $arr= getDate((new DateTime($duracion))->getTimeStamp());      
+                $err= getDate((new DateTime($du))->getTimeStamp());
+                $sumTime =date('Y-m-d H:i:s',strtotime('+'.$err['hours'].' hour',strtotime($viaje->getFechaInicio())));
+                $sumTime =new DateTime (date('Y-m-d H:i:s',strtotime('+'.$err['minutes'].' minutes',strtotime($sumTime))));
+                $sumTime2 =(date('Y-m-d H:i:s',strtotime('+'.$arr['hours'].' hour',strtotime($fechaInicio))));
+                $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$arr['minutes'].' minutes',strtotime($sumTime2))));
             $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($fechaInicio)));
             $fecha2=new DateTime($viaje-> getFechaInicio()); 
              if($fecha >= $fecha2){

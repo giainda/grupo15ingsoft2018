@@ -30,12 +30,15 @@ foreach($viajes as $viaje){
             $texto='El <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().', hasta: '.$viaje->getDestino().' ha comenzado. ';
             RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$pa->getIdUsuario(),$texto);
         }
+        $texto='El <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().', hasta: '.$viaje->getDestino().' ha comenzado. ';
         RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$viaje->getIdConductor(),$texto);
     }
 }
 $viajesActuales=RepositorioViaje::todosLosViajesSinTerminar(Conexion::obtener_conexion());
 foreach($viajesActuales as $viaje){
-    $sum = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$viaje->getDuracion().' hour',strtotime($viaje->getFechaInicio()))));
+    $arr= getDate((new DateTime($viaje->getDuracion()))->getTimeStamp());
+    $sum =(date('Y-m-d H:i:s',strtotime('+'.$arr['hours'].' hour',strtotime($viaje->getFechaInicio()))));
+    $sum = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$arr['minutes'].' minutes',strtotime($sum))));
     if($actual>$sum){
         $pasajeros=RepositorioViaja::viaja_idViaje(Conexion::obtener_conexion(),$viaje->getId());
         RepositorioViaje::termina(Conexion::obtener_conexion(),$viaje->getId());

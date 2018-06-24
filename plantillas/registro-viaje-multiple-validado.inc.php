@@ -15,10 +15,10 @@
     ?>
     </div>
 
-  </div>  
-<div class="form-group">
-    <label>Duracion estimada (horas)</label>
-    <input type="number" class="form-control" name="duracion" placeholder="1"<?php $validador -> mostrar_duracion()?>>
+ 
+  <div class="form-group">
+    <label>Duracion estimada (maximo 24 horas)</label>
+    <input type="time" class="form-control" name="duracion" placeholder="1"<?php $validador -> mostrar_duracion()?>>
 
 <?php
       $validador -> mostrar_error_duracion(); 
@@ -55,13 +55,14 @@
                             </select>
                             <br>
                             <div class="form-group">
-    <label>Primera fecha</label>
-    <input id="datetime" readonly="readonly"class="form-control" name="fecha" placeholder=""<?php $validador -> mostrar_fecha_inicio()?>>
+    <label>Fecha de inicio</label>
+    <input type="dateTime-local"id="datetim" class="form-control" name="fecha" placeholder=""<?php $validador -> mostrar_fecha_inicio()?>>
 
 <?php
       $validador -> mostrar_error_fecha_inicio(); 
     ?>
-    <br>                            
+
+  <br>                         
 
 
                             

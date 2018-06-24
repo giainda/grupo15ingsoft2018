@@ -67,11 +67,20 @@ echo $cenvertedTime;
 <br>
 <br>
 <br>
-
+<form  role="form" method="post" action="prueba.php">
+<div class="form-group">
+    <label>Duracion estimada (horas)</label>
+    <input type="time" class="form-control" name="duracion" placeholder="1">
+</div>
+<button type="submit"class="btn botoncss" name="enviar">Enviar datos</button>
+</form>
 <?php
-$time= time();
-$arr= getDate($time);
-echo $arr['minutes'];
+if(isset($_POST['enviar'])){
+   $time= $_POST['duracion'];
+   echo $time;
+   $arr= getDate((new DateTime($time))->getTimeStamp());
+   echo "<br>";
+   echo $arr['hours'];}
 
 
 include_once "plantillas/documento-cierre.inc.php";

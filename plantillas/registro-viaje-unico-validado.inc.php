@@ -16,15 +16,15 @@
     </div>
 <div class="form-group">
     <label>Fecha de inicio</label>
-    <input id="datetime" readonly="readonly"class="form-control" name="fecha" placeholder=""<?php $validador -> mostrar_fecha_inicio()?>>
+    <input type="dateTime-local"id="datetim" class="form-control" name="fecha" placeholder=""<?php $validador -> mostrar_fecha_inicio()?>>
 
 <?php
       $validador -> mostrar_error_fecha_inicio(); 
     ?>
   </div>  
 <div class="form-group">
-    <label>Duracion estimada (horas)</label>
-    <input type="number" class="form-control" name="duracion" placeholder="1"<?php $validador -> mostrar_duracion()?>>
+    <label>Duracion estimada (maximo 24 horas)</label>
+    <input type="time" class="form-control" name="duracion" placeholder="1"<?php $validador -> mostrar_duracion()?>>
 
 <?php
       $validador -> mostrar_error_duracion(); 
