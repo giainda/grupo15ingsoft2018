@@ -2,22 +2,22 @@
 include_once "app/repositorioViaja.inc.php";
 include_once "app/repositorioViaje.inc.php";
 
-class ValidadorFechaMultiple{
+class ValidadorEditorFechaMultiple{
     private $aviso_inicio;
     private $aviso_cierre;
     private $fecha_inicio;
     private $duracion;
     private $vehiculo;
-    private $arregloViajes;
+    private $miId;
     private $error_fecha_inicio;
 
-public function __construct($arregloViajes,$fecha_inicio,$duracion,$vehiculo,$conexion){
+public function __construct($fecha_inicio,$duracion,$vehiculo,$miId,$conexion){
     $this -> aviso_inicio ="<br><div class= 'alert alert-danger' role='alert'>";
     $this -> aviso_cierre="</div>";
     $this -> fecha_inicio= '';
     $this -> duracion=$duracion;
     $this -> vehiculo=$vehiculo;
-    $this -> arregloViajes=$arregloViajes;
+    $this -> miId=$miId;
     $this -> error_fecha_inicio=$this -> validar_fecha_inicio($conexion,$fecha_inicio,$duracion);
 
 }
@@ -39,14 +39,15 @@ private function validar_fecha_inicio($conexion,$fecha_inicio,$duracion){
     $viajes=RepositorioViaje::viajes_por_idConductor2(Conexion::obtener_conexion(),$_SESSION['id_usuario']);
     $ok= false;
     date_default_timezone_set('America/Argentina/Buenos_Aires');
-    $menor =new DateTime (date('Y-m-d H:i:s',strtotime('+ 1 day',strtotime(date('Y-m-d H:i:s'))))); 
+    $menor =new DateTime (date('Y-m-d H:i:s',strtotime('+ 5 hours',strtotime(date('Y-m-d H:i:s'))))); 
     $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($this ->fecha_inicio)));
     if($fecha < $menor){
-        return "el viaje debe ser creado, como minimo, con un dia de antelacion";
+        return "la fecha debe ser editada, como minimo, con 5 horas de antelacion";
     }
     $arr= getDate((new DateTime($duracion))->getTimeStamp());
     if(isset($viajes)){
         foreach ($viajes as $viaje){
+            if($viaje->getId()!==$this ->miId){
             $du=$viaje->getDuracion();
             $err= getDate((new DateTime($du))->getTimeStamp());
             $sumTime =date('Y-m-d H:i:s',strtotime('+'.$err['hours'].' hour',strtotime($viaje->getFechaInicio())));
@@ -70,11 +71,12 @@ private function validar_fecha_inicio($conexion,$fecha_inicio,$duracion){
 
              }
              }
-        }}
+        }}}
       $viajesViaja=RepositorioViaja::viajes_viaja_idUsuario2(Conexion::obtener_conexion(),$_SESSION['id_usuario']);
       if(isset($viajesViaja)){
       foreach($viajesViaja as $viaja ){
-          $viaje=RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(),$viaja->getIdViaje());
+        $viaje=RepositorioViaje::obtener_por_idViaje(Conexion::obtener_conexion(),$viaja->getIdViaje());
+        if($viaje->getId()!==$this ->miId){  
         $du=$viaje->getDuracion();
         $err= getDate((new DateTime($du))->getTimeStamp());
         $sumTime =date('Y-m-d H:i:s',strtotime('+'.$err['hours'].' hour',strtotime($viaje->getFechaInicio())));
@@ -100,9 +102,10 @@ private function validar_fecha_inicio($conexion,$fecha_inicio,$duracion){
            }
 
       }  
-    } $viajesAuto=RepositorioViaje::viajes_por_patente(Conexion::obtener_conexion(),$this -> vehiculo);
+    }} $viajesAuto=RepositorioViaje::viajes_por_patente(Conexion::obtener_conexion(),$this -> vehiculo);
     if(isset($viajesAuto)){
         foreach($viajesAuto as $viaje ){
+            if($viaje->getId()!==$this ->miId){
             $du=$viaje->getDuracion();
           $err= getDate((new DateTime($du))->getTimeStamp());
           $sumTime =date('Y-m-d H:i:s',strtotime('+'.$err['hours'].' hour',strtotime($viaje->getFechaInicio())));
@@ -128,15 +131,8 @@ private function validar_fecha_inicio($conexion,$fecha_inicio,$duracion){
              }
   
         }  
-      }
-      $viajes=$this-> arregloViajes;
-      foreach ($viajes as $viaje){
-        $fecha1= new dateTime($viaje -> getFechaInicio());
-        $fecha2= new dateTime($this -> fecha_inicio);
-        if($fecha1==$fecha2){
-            return "tiene que haber un dia de diferencia minimo entre las fechas ingresadas en un mismo viaje multiple";
-        }
-    }  
+      }}
+       
     return"";
  }
  public function mostrar_error_fecha_inicio(){

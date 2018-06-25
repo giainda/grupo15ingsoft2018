@@ -36,3 +36,5 @@ define("RUTA_PAGOS_PENDIENTES",SERVIDOR."/pagosPendientes.php");
 define("RUTA_CALIFICACIONES_PENDIENTES",SERVIDOR."/calificaciones-pendientes.php");
 define("RUTA_VER_MIS_CALIFICACIONES",SERVIDOR."/ver-mis-calificaciones.php");
 define("RUTA_INGRESO_TARJETA",SERVIDOR."/ingreso-tarjeta.php");
+define("RUTA_EDITOR_VIAJE_UNICO",SERVIDOR."/editar-viaje.php");
+define("RUTA_EDITOR_VIAJE_MULTIPLE",SERVIDOR."/editor-viaje-multiple.php");

@@ -402,5 +402,55 @@ class RepositorioViaje{
         }
         return $ok;
     }
+    public static function editarViaje($conexion,$viaje){
+        $viaje_insertado = false;
+        if(isset($conexion)){
+            try{
+                $sql = "UPDATE viajes SET  patente=:patente, fechaInicio=:fechaInicio, inicio=:inicio, destino=:destino, asientos=:asientos,
+                precio=:precio, descripcion=:descripcion, duracion=:duracion WHERE idViaje=:id";
+                
+                $sentencia= $conexion -> prepare($sql);
+                $obpatente= $viaje ->getPatente();
+                $obFechaInicio= $viaje ->getFechaInicio();
+                $obInicio= $viaje ->getInicio();
+                $obDestino= $viaje ->getDestino();
+                $obAsientos= $viaje ->getAsientos();
+                $obPrecio= $viaje ->getPrecio();
+                $obDescripcion= $viaje ->getDescripcion();
+                $obDuracion= $viaje -> getDuracion();
+                $obId=$viaje->getId();
+                $sentencia -> bindParam(':id',$obId,PDO::PARAM_STR);
+                $sentencia -> bindParam(':patente',$obpatente,PDO::PARAM_STR);
+                $sentencia -> bindParam(':fechaInicio',$obFechaInicio,PDO::PARAM_STR);
+                $sentencia -> bindParam(':inicio',$obInicio,PDO::PARAM_STR);
+                $sentencia -> bindParam(':destino',$obDestino,PDO::PARAM_STR);
+                $sentencia -> bindParam(':asientos',$obAsientos,PDO::PARAM_STR);
+                $sentencia -> bindParam(':precio',$obPrecio,PDO::PARAM_STR);
+                $sentencia -> bindParam(':descripcion',$obDescripcion,PDO::PARAM_STR);
+                $sentencia -> bindParam(':duracion',$obDuracion,PDO::PARAM_STR);
+                $viaje_insertado = $sentencia -> execute();
+            }catch (PDOException $ex){
+                print 'error'. $ex -> getMessage();
+            }
+        }
+        return $viaje_insertado;
+     }
+
+     public static function borrar($conexion,$idViaje){
+        $ok=false;
+        if(isset($conexion)){
+            try{
+                $sql="DELETE FROM viajes WHERE idViaje=:idViaje";
+                $sentencia=$conexion ->prepare($sql);
+                $sentencia ->bindParam(":idViaje", $idViaje, PDO::PARAM_STR);
+                $sentencia ->execute();
+              $ok=true;
+
+            }catch(PDOException $ex){
+                print "erro: ". $ex->getMessage();
+            }
+        }
+        return $ok;
+    }
        
 }

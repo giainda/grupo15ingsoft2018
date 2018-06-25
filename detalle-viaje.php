@@ -152,6 +152,49 @@ if(isset($_POST['enviar'])){
                 <a href="<?php echo RUTA_MOSTRAR_POSTULANTES . "?idViaje=" . $viaje->getId(); ?>" class="btn botoncss form-control color1">Ver postulantes</a>
                 <br>
                 <a href="<?php echo RUTA_MOSTRAR_ACEPTADOS . "?idViaje=" . $viaje->getId(); ?>" class="btn botoncss form-control color1">Ver pasajeros</a>
+                <br>
+                <?php
+                if($viaje->getTipoViaje()==1){ 
+                $ahora =new DateTime(date('Y-m-d H:i:s',strtotime(date('Y-m-d H:i:s')))); 
+                $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($viaje->getFechaInicio())));
+                   if($ahora<$fecha){
+                       $cant=RepositorioPostula::personas_postuladas_idViaje(Conexion::obtener_conexion(),$viaje->getId());
+                       if(count($cant)){
+                        echo "<h3>el viaje tiene postulantes, no puede ser editado</h3>"; 
+                       }else{
+                           $cont=RepositorioViaja::viaja_idViaje(Conexion::obtener_conexion(),$viaje->getId());
+                           if(count($cant)){
+                            echo "<h3>el viaje tiene pasajeros, no puede ser editado</h3>";   
+                           }else{
+                               ?><a href="<?php echo RUTA_EDITOR_VIAJE_UNICO."?idVi=".$viaje->getId(); ?>" class="btn botoncss form-control color1">Editar viaje</a> <?php
+                           }
+                       }
+                   }else{
+                       echo "<h3>el viaje ya empezó, no puede ser editado</h3>";
+                   }
+                }else{
+                    $relacion=RepositorioViajePertenece::viajeIdViaje(Conexion::obtener_conexion(),$viaje->getId());
+                    $viajeProgramado=RepositorioViajeProgramado::obtener_por_idViajeProgramado(Conexion::obtener_conexion(),$relacion->getIdViajeProgramado());
+                    $ahora =new DateTime(date('Y-m-d H:i:s',strtotime(date('Y-m-d H:i:s')))); 
+                    $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($viajeProgramado->getFechaInicio())));
+                    if($ahora<$fecha){
+                        $cant=RepositorioPostula::personas_postuladas_idViaje(Conexion::obtener_conexion(),$viaje->getId());
+                        if(count($cant)){
+                         echo "<h3>el viaje tiene postulantes, no puede ser editado</h3>"; 
+                        }else{
+                            $cont=RepositorioViaja::viaja_idViaje(Conexion::obtener_conexion(),$viaje->getId());
+                            if(count($cant)){
+                             echo "<h3>el viaje tiene pasajeros, no puede ser editado</h3>";   
+                            }else{
+                                ?><a href="<?php echo RUTA_EDITOR_VIAJE_MULTIPLE."?idVi=".$viaje->getId(); ?>" class="btn botoncss form-control color1">Editar viaje</a> <?php
+                            }
+                        }
+                    }else{
+                        echo "<h3>el viaje ya empezó, no puede ser editado</h3>";
+                    }
+                }
+                ?>
+                
             <?php } ?>
         </div>
 

@@ -76,4 +76,21 @@ class RepositorioViajeProgramado{
         return $viaje;
 
     }
+    public static function actualiza($conexion,$idViajeProgramado,$max,$min){
+        $ok=false;
+        if(isset($conexion)){
+            try{
+                $sql="UPDATE viajesprogramados SET fechaInicio=:mini , fechaFin=:maxi WHERE idViajeProgramado=:idViajeProgramado";
+                $sentencia=$conexion ->prepare($sql);
+                $sentencia ->bindParam(":idViajeProgramado", $idViajeProgramado, PDO::PARAM_STR);
+                $sentencia ->bindParam(":mini", $min, PDO::PARAM_STR);
+                $sentencia ->bindParam(":maxi", $max, PDO::PARAM_STR);
+                $sentencia ->execute();
+              $ok=true;
+            }catch(PDOException $ex){
+                print "erro: ". $ex->getMessage();
+            }
+        }
+        return $ok;
+    }
 }
