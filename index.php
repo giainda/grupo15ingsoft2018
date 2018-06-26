@@ -5,6 +5,8 @@ include_once "app/RepositorioConductor.inc.php";
 include_once "app/RepositorioUsuario.inc.php";
 include_once "app/ControlSesion.inc.php";
 include_once "app/repositorioViaje.inc.php";
+include_once "app/repositorioViajePertenece.inc.php";
+include_once "app/repositorioViajeProgramado.inc.php";
 
 include_once "plantillas/navbar2.inc.php"
 ?>
@@ -63,7 +65,19 @@ include_once "plantillas/navbar2.inc.php"
             <div class="col-md-8">
                 <?php
                 $viajes = RepositorioViaje::viajesCreadosResientes(Conexion::obtener_conexion());
+                date_default_timezone_set('America/Argentina/Buenos_Aires');
                 foreach ($viajes as $pos) {
+                    $error=1;
+                    if($pos->getTipoViaje()==2){
+                        $relacion=RepositorioViajePertenece::viajeIdViaje(Conexion::obtener_conexion(),$pos->getId());
+                         $viajeProgramado=RepositorioViajeProgramado::obtener_por_idViajeProgramado(Conexion::obtener_conexion(),$relacion->getIdViajeProgramado());
+                         $ahora =new DateTime(date('Y-m-d H:i:s',strtotime(date('Y-m-d H:i:s')))); 
+                         $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($viajeProgramado->getFechaInicio())));
+                         if($ahora<$fecha){
+                             $error=2;
+                         }
+                    }
+                    if($error!==2){
                     ?>
                     <div class="card text-center">
                         <div class="card-body">
@@ -99,7 +113,7 @@ include_once "plantillas/navbar2.inc.php"
                         </div>
                     </div>
                     <?php
-                }
+                }}
                 ?>
             </div>
         </div>

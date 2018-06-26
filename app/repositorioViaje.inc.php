@@ -256,7 +256,7 @@ class RepositorioViaje{
         $viajes=array();
         if(isset($conexion)){
             try{
-                $sql="SELECT * FROM viajes WHERE estado=1 ORDER BY fechaCreacion DESC LIMIT 10";
+                $sql="SELECT * FROM viajes WHERE estado=1 ORDER BY fechaCreacion DESC LIMIT 20";
                 $sentencia = $conexion -> prepare($sql); 
                 $sentencia -> bindParam( ":idConductor" , $idConductor, PDO::PARAM_STR);
                 $sentencia -> execute();

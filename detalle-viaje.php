@@ -163,7 +163,7 @@ if(isset($_POST['enviar'])){
                         echo "<h3>el viaje tiene postulantes, no puede ser editado</h3>"; 
                        }else{
                            $cont=RepositorioViaja::viaja_idViaje(Conexion::obtener_conexion(),$viaje->getId());
-                           if(count($cant)){
+                           if(count($cont)){
                             echo "<h3>el viaje tiene pasajeros, no puede ser editado</h3>";   
                            }else{
                                ?><a href="<?php echo RUTA_EDITOR_VIAJE_UNICO."?idVi=".$viaje->getId(); ?>" class="btn botoncss form-control color1">Editar viaje</a> <?php
@@ -183,7 +183,7 @@ if(isset($_POST['enviar'])){
                          echo "<h3>el viaje tiene postulantes, no puede ser editado</h3>"; 
                         }else{
                             $cont=RepositorioViaja::viaja_idViaje(Conexion::obtener_conexion(),$viaje->getId());
-                            if(count($cant)){
+                            if(count($cont)){
                              echo "<h3>el viaje tiene pasajeros, no puede ser editado</h3>";   
                             }else{
                                 ?><a href="<?php echo RUTA_EDITOR_VIAJE_MULTIPLE."?idVi=".$viaje->getId(); ?>" class="btn botoncss form-control color1">Editar viaje</a> <?php
@@ -256,7 +256,7 @@ if(isset($_POST['enviar'])){
                         <br>
                         <?php
                     } else {
-                        $relacion = RepositorioViajePertenece::viajeIdViaje(Conexion::obtener_conexion(), $idViaje);
+                        $relacion = RepositorioViajePertenece::viajeIdViaje(Conexion::obtener_conexion(), $viaje->getId());
                         $viajes = RepositorioViajePertenece::viajesIdProgramado(Conexion::obtener_conexion(), $relacion->getIdViajeProgramado());
                         $cant = 1;
                         foreach ($viajes as $vi) {
