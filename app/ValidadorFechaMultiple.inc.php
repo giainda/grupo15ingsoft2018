@@ -34,7 +34,11 @@ private function validar_fecha_inicio($conexion,$fecha_inicio,$duracion){
     if(!$this->variable_iniciada($fecha_inicio)){
         return "debes seleccionar una fecha";    
      }else{
-         $this -> fecha_inicio = $fecha_inicio;
+        $valores=explode(' ',$fecha_inicio);
+        if($fecha_inicio===("1970/01/01 ".$valores[1])){
+            return "debes seleccionar una fecha";
+        }
+        $this ->fecha_inicio=$fecha_inicio;
      }
     $viajes=RepositorioViaje::viajes_por_idConductor2(Conexion::obtener_conexion(),$_SESSION['id_usuario']);
     $ok= false;
@@ -54,7 +58,6 @@ private function validar_fecha_inicio($conexion,$fecha_inicio,$duracion){
             $sumTime2 =date('Y-m-d H:i:s',strtotime('+'.$arr['hours'].' hour',strtotime($this -> fecha_inicio)));
             $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$arr['minutes'].' minutes',strtotime($sumTime2))));
             ?>
-            <br>
             <?php
             $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($this ->fecha_inicio)));
             $fecha2=new DateTime($viaje-> getFechaInicio()); 
@@ -82,7 +85,6 @@ private function validar_fecha_inicio($conexion,$fecha_inicio,$duracion){
         $sumTime2 =(date('Y-m-d H:i:s',strtotime('+'.$arr['hours'].' hour',strtotime($this -> fecha_inicio))));
         $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$arr['minutes'].' minutes',strtotime($sumTime2))));
           ?>
-          <br>
           <?php
           $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($this ->fecha_inicio)));
           $fecha2=new DateTime($viaje-> getFechaInicio()); 
@@ -110,7 +112,6 @@ private function validar_fecha_inicio($conexion,$fecha_inicio,$duracion){
           $sumTime2 =(date('Y-m-d H:i:s',strtotime('+'.$arr['hours'].' hour',strtotime($this -> fecha_inicio))));
           $sumTime2 = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$arr['minutes'].' minutes',strtotime($sumTime2))));
             ?>
-            <br>
             <?php
             $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($this ->fecha_inicio)));
             $fecha2=new DateTime($viaje-> getFechaInicio()); 
