@@ -73,7 +73,7 @@ include_once "plantillas/navbar2.inc.php"
                          $viajeProgramado=RepositorioViajeProgramado::obtener_por_idViajeProgramado(Conexion::obtener_conexion(),$relacion->getIdViajeProgramado());
                          $ahora =new DateTime(date('Y-m-d H:i:s',strtotime(date('Y-m-d H:i:s')))); 
                          $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($viajeProgramado->getFechaInicio())));
-                         if($ahora<$fecha){
+                         if($ahora>$fecha){
                              $error=2;
                          }
                     }

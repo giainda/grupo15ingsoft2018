@@ -55,11 +55,22 @@ Redireccion::redirigir(RUTA_MOSTRAR_POSTULANTES."?idViaje=".$viaje->getId());}el
     Redireccion::redirigir(RUTA_MOSTRAR_POSTULANTES."?idViaje=".$viaje->getId()."&&arr=2");   
 }
 }else{
+    if($viaje->getTipoViaje()==2){
+        $relacion=RepositorioViajePertenece::viajeIdViaje(Conexion::obtener_conexion(),$_GET['idViajeas']);
+        $relaciones=RepositorioViajePertenece::viajesIdProgramado(Conexion::obtener_conexion(),$relacion->getIdViajeProgramado());
+        foreach($relaciones as $re){
+            RepositorioPostula::actualizarInfo($_GET['id'],$re->getIdViaje(),Conexion::obtener_conexion());
+        }
+        $texto='su solicitud para unirse al <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().' hasta:'.$viaje->getDestino().' fue eliminada (ya tienes otro viaje al mismo horario)';
+        RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$_GET['id'],$texto);
+        Redireccion::redirigir(RUTA_MOSTRAR_POSTULANTES."?idViaje=".$viaje->getId()."&&err=2");
+    }else
+   {
 
-RepositorioPostula::actualizarInfo($_GET['id'],$viaje->getId(),Conexion::obtener_conexion());
-$texto='su solicitud para unirse al <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().' hasta:'.$viaje->getDestino().' fue eliminada (ya tienes otro viaje al mismo horario)';
-RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$_GET['id'],$texto);
-Redireccion::redirigir(RUTA_MOSTRAR_POSTULANTES."?idViaje=".$viaje->getId()."&&err=2");
-
+    RepositorioPostula::actualizarInfo($_GET['id'],$viaje->getId(),Conexion::obtener_conexion());
+     $texto='su solicitud para unirse al <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().' hasta:'.$viaje->getDestino().' fue eliminada (ya tienes otro viaje al mismo horario)';
+    RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$_GET['id'],$texto);
+    Redireccion::redirigir(RUTA_MOSTRAR_POSTULANTES."?idViaje=".$viaje->getId()."&&err=2");
+   }
 }
 ?>

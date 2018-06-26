@@ -296,7 +296,8 @@ if(isset($_POST['enviar'])){
                     echo "<h3>Usted ya se postulo anteriormente a este viaje</h3>";
                 }else{
                     if($viaje->getTipoViaje()==2){
-                        $viajeP=RepositorioViajeProgramado::obtener_por_idViajeProgramado(Conexion::obtener_conexion(),1);
+                        $relacion=RepositorioViajePertenece::viajeIdViaje(Conexion::obtener_conexion(),$viaje->getId());
+                        $viajeP=RepositorioViajeProgramado::obtener_por_idViajeProgramado(Conexion::obtener_conexion(),$relacion->getIdViajeProgramado());
                         date_default_timezone_set('America/Argentina/Buenos_Aires');
                         $actual=new DateTime(date("Y-m-d H:i:s"));
                         $fecha= new DateTime($viajeP->getFechaInicio());
