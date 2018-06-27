@@ -44,7 +44,7 @@ Redireccion::redirigir(RUTA_PAGOS_PENDIENTES."?err=1");
 
             <div class="modal-body">
 
-             <h3>Tiene fondos suficientes en su cuenta, ¿Decea pagar con tarjeta o con los fondos de su cuenta?</h3>
+             <h3>Tiene fondos suficientes en su cuenta, ¿Desea pagar con tarjeta o con los fondos de su cuenta?</h3>
              <form role="form" method="post" action="<?php echo 'pagar.inc.php?idCobrador='.$_GET['idCobrador'].'&&monto='.$_GET['monto'].'&&idPs='.$_GET['idPsa'];?>">
                 <button type="submit" name="enviar" class="btn botoncss form-control color1">Con mis fondos</button>
                 </form>

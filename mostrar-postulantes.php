@@ -96,7 +96,7 @@ $postulaciones = RepositorioPostula::personas_postuladas_idViaje(Conexion::obten
               <h3>Solicitud no fue aceptada, el postulante tiene otro viaje en el mismo horario</h3>
             <?php }else{
                 if($_GET['arr']==2){
-                echo "<h3>No puede aceptar mas pasajeros, limite de capasidad alcansado.</h3>";
+                echo "<h3>No puede aceptar mas pasajeros, limite de capacidad alcanzado.</h3>";
             }else{
                 if($_GET['arr']==3){
                 echo "<h3>No puede aceptar mas pasajeros, el viaje ya comenzó.</h3>";

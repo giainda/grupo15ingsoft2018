@@ -7,6 +7,7 @@ include_once "app/Redireccion.inc.php";
 include_once "plantillas/documento-declaracion.inc.php";
 include_once "plantillas/navbar2.inc.php";
 include_once "app/ValidadorEditorFechaMultiple.inc.php";
+include_once "app/validadorAgregarFecha.inc.php";
 Conexion::abrir_conexion();
 if (!ControlSesion::sesion_iniciada()) {
     Redireccion::redirigir(SERVIDOR);
@@ -26,7 +27,7 @@ if (isset($_POST['enviar'])) {
     $new = date("Y-m-d H:i", strtotime('+' . $arr['hours'] . ' hours', strtotime($_POST['fecha'])));
     $new = date("Y/m/d H:i", strtotime('+' . $arr['minutes'] . ' minutes', strtotime($new)));
 
-    $validador = new ValidadorEditorFechaMultiple($new, $viaje->getDuracion(), $viaje->getPatente(),$viaje->getId(), Conexion::obtener_conexion());
+    $validador = new ValidadorAgregarFecha($new, $viaje->getDuracion(), $viaje->getPatente(),$viaje->getId(), Conexion::obtener_conexion());
     if ($validador->registro_valido()) {
         $viajeNue = new Viaje('', $_SESSION['id_usuario'], $viaje->getPatente(), $viaje->getFechaCreacion(), $new, $viaje->getInicio(), $viaje->getDestino(), $viaje->getAsientos(), $viaje->getPrecio(), $viaje->getDescripcion(), 2, 1, $viaje->getDuracion(),0);
         $id=RepositorioViaje::insertar_viaje2(Conexion::obtener_conexion(),$viajeNue);

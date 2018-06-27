@@ -36,7 +36,7 @@ $pagosPendientes=repositorioPagoPendiente::pago_pendiente_idUsuario(Conexion::ob
                         <br>
                         <h3><?php
                             $cant = 1;
-                            echo "Debes pago a: " .$usuario->getNombre() . " " . $usuario->getApellido(). ", Monto: ".$pos->getMonto();
+                            echo "Debes pago a: " .$usuario->getNombre() . " " . $usuario->getApellido(). ", Monto: $".$pos->getMonto();
                             ?></h3>  
                         <hr>           
                     </div>
