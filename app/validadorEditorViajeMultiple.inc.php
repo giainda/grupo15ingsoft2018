@@ -73,8 +73,8 @@ class ValidadorEditorViajeMultiple {
     }else {
         $this -> duracion = $duracion;
     }
-    if($duracion>24){
-        return "la duracion no puede ser mayor a 24 horas";
+    if($duracion=='00:00'){
+        return "debe ingresar una duracion valida";
     }
     
     return"";
