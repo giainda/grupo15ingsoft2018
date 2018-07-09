@@ -186,6 +186,27 @@ public static function viaja_idViaje($conexion,$idViaje){
     }
     return $viaja;
 }
+public static function actualizarInfo($idUsuario,$idViaje,$conexion){
+    $actualizacion_correcta=false;
+    if(isset($conexion)){
+        try{
+            $sql="UPDATE viaja SET eliminado=0 WHERE idUsuario=:idUsuario and idViaje=:idViaje";
+            $sentencia=$conexion ->prepare($sql);
+            $sentencia -> bindParam( ":idUsuario" , $idUsuario, PDO::PARAM_STR);
+            $sentencia -> bindParam( ":idViaje" , $idViaje, PDO::PARAM_STR);
+            $sentencia ->execute();
+        
+                $actualizacion_correcta=true;
+
+               
+
+        }catch(PDOException $ex){
+            print "error: ".$ex->getMessage();
+
+        }
+    }
+    return $actualizacion_correcta;
+}
 
 
 }

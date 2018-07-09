@@ -52,7 +52,7 @@ $aceptados = RepositorioViaja::viaja_idViaje(Conexion::obtener_conexion(), $viaj
                         <div class="row">
 
                             <div class="col-md-12">
-                            <a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo1">Eliminar</a>
+                            <button onclick="location.href = '<?php echo "eliminar-pasajero.inc.php?idViajeS=".$viaje->getId()."&&id_usuario=".$usuario->getId() ?>';"class="botoncss form-control">Eliminar</button>
                             </div>
 
 

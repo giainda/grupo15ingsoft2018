@@ -284,6 +284,7 @@ if(isset($_POST['enviar'])){
         </div>
         <div class="col-md-6">
             <?php if ($ok == 3) { 
+                $okey=1;
                 $misPostulaciones = RepositorioPostula::viajes_postulado_idUsuario2(Conexion::obtener_conexion(), $_SESSION['id_usuario']);
                 if (isset($misPostulaciones)) {
                     foreach ($misPostulaciones as $pos) {
@@ -292,9 +293,25 @@ if(isset($_POST['enviar'])){
                         }
                     }
                 }
+                $misViajes = RepositorioViaja::viajes_viaja_idUsuario2(Conexion::obtener_conexion(), $_SESSION['id_usuario']);
+                if (isset($misViajes)) {
+                    foreach ($misViajes as $viaj) {
+                        if (($viaje->getId() === $viaj->getIdViaje()) ) {
+                            $okey=5;
+                        }
+                    }
+                }
+                
                 if($ok==4){
+                    if($viaje->getEstado()==1){
+                    if($okey==5){
+                    echo '<a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo3">Eliminarse como conductor</a>';    
+                    }else{
                     echo "<h3>Usted ya se postulo anteriormente a este viaje</h3>";
-                }else{
+                }
+            }else{
+                echo '<h3>el viaje ya comenzó <h3>';
+            }}else{
                     if($viaje->getTipoViaje()==2){
                         $relacion=RepositorioViajePertenece::viajeIdViaje(Conexion::obtener_conexion(),$viaje->getId());
                         $viajeP=RepositorioViajeProgramado::obtener_por_idViajeProgramado(Conexion::obtener_conexion(),$relacion->getIdViajeProgramado());
@@ -340,6 +357,32 @@ if(isset($_POST['enviar'])){
         </div>
     </div>
 </div>
+<div class="modal fade" id="dialogo3">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- cabecera del diálogo -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Eliminaciorse como pasajero</h4>
+                                </div>
+
+                                <!-- Eliminar cuenta -->
+                                <div class="modal-body">
+                                    <?php
+                                        echo "Al eliminarse como pasajero usted recibirá una penalizacion,
+                                            ¿Esta seguro de que desea hacerlo?";
+                                        ?> <div class="row">
+                                            <div class= "col-md-6">
+                                                <button onclick="location.href = '<?php echo "eliminarse-pasajero.inc.php?idViaje=".$viaje->getId()."&&id_usuario=".$_SESSION['id_usuario'] ?>';"class="botoncss form-control">Si</button>
+                                            </div>
+                                            <div class= "col-md-6">
+                                                <button class="botoncss form-control" data-dismiss="modal">No</button>
+                                            </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
 <?php
