@@ -131,6 +131,22 @@ public static function actualizarInfo($idUsuario,$idViaje,$conexion){
     }
     return $actualizacion_correcta;
 }
+public static function borrar($conexion,$idViaje){
+    $ok=false;
+    if(isset($conexion)){
+        try{
+            $sql="DELETE FROM postula WHERE idViaje=:idViaje";
+            $sentencia=$conexion ->prepare($sql);
+            $sentencia ->bindParam(":idViaje", $idViaje, PDO::PARAM_STR);
+            $sentencia ->execute();
+          $ok=true;
+
+        }catch(PDOException $ex){
+            print "erro: ". $ex->getMessage();
+        }
+    }
+    return $ok;
+}
 
 
 

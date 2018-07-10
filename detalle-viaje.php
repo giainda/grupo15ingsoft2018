@@ -180,22 +180,48 @@ if(isset($_POST['enviar'])){
                     if($ahora<$fecha){
                         $cant=RepositorioPostula::personas_postuladas_idViaje(Conexion::obtener_conexion(),$viaje->getId());
                         if(count($cant)){
-                         echo "<h3>el viaje tiene postulantes, no puede ser editado</h3>"; 
+                         echo "<br><h3>el viaje tiene postulantes, no puede ser editado</h3>"; 
                         }else{
                             $cont=RepositorioViaja::viaja_idViaje(Conexion::obtener_conexion(),$viaje->getId());
                             if(count($cont)){
-                             echo "<h3>el viaje tiene pasajeros, no puede ser editado</h3>";   
+                             echo "<br><h3>el viaje tiene pasajeros, no puede ser editado</h3>";   
                             }else{
                                 ?><a href="<?php echo RUTA_EDITOR_VIAJE_MULTIPLE."?idVi=".$viaje->getId(); ?>" class="btn botoncss form-control color1">Editar viaje</a> <?php
                             }
                         }
                     }else{
-                        echo "<h3>el viaje ya empezó, no puede ser editado</h3>";
+                        echo "<br><h3>el viaje ya empezó, no puede ser editado</h3>";
                     }
                 }
                 ?>
                 
-            <?php } ?>
+            <?php 
+            if($viaje->getTipoViaje()==1){ 
+                $ahora =new DateTime(date('Y-m-d H:i:s',strtotime(date('Y-m-d H:i:s')))); 
+                $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($viaje->getFechaInicio())));
+                   if($ahora>$fecha){
+                       $terminado=1;
+                   }
+                }else{
+                    $relacion=RepositorioViajePertenece::viajeIdViaje(Conexion::obtener_conexion(),$viaje->getId());
+                    $viajeProgramado=RepositorioViajeProgramado::obtener_por_idViajeProgramado(Conexion::obtener_conexion(),$relacion->getIdViajeProgramado());
+                    $ahora =new DateTime(date('Y-m-d H:i:s',strtotime(date('Y-m-d H:i:s')))); 
+                    $fecha= new DateTime(date('Y-m-d H:i:s',strtotime($viajeProgramado->getFechaInicio())));
+                    if($ahora>$fecha){
+                        $terminado=1;           
+                    }
+                }
+                if(isset($terminado)){
+                    echo "<br> <h3>El viaje ya empezó, no puede ser eliminado</h3>";
+                }else{
+                    echo '<a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo30">Eliminar viaje</a>';
+                }
+            
+            
+            
+            
+            }            
+            ?>
         </div>
 
         <div class="col-md-8">
@@ -305,7 +331,7 @@ if(isset($_POST['enviar'])){
                 if($ok==4){
                     if($viaje->getEstado()==1){
                     if($okey==5){
-                    echo '<a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo3">Eliminarse como conductor</a>';    
+                    echo '<a href="#" class="btn botoncss form-control color1"data-toggle="modal" data-target="#dialogo3">Eliminarse como pasajero</a>';    
                     }else{
                     echo "<h3>Usted ya se postulo anteriormente a este viaje</h3>";
                 }
@@ -369,7 +395,7 @@ if(isset($_POST['enviar'])){
                                 <!-- Eliminar cuenta -->
                                 <div class="modal-body">
                                     <?php
-                                        echo "Al eliminarse como pasajero usted recibirá una penalizacion,
+                                        echo "Al eliminarse como pasajero usted recibirá una penalizacion,si el viaje es multiple, recibirá una penalizacion por cada viaje,
                                             ¿Esta seguro de que desea hacerlo?";
                                         ?> <div class="row">
                                             <div class= "col-md-6">
@@ -383,6 +409,32 @@ if(isset($_POST['enviar'])){
                             </div>
                         </div>
                     </div>
+                    <div class="modal fade" id="dialogo30">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- cabecera del diálogo -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Eliminaciorse viaje</h4>
+                                </div>
+
+                                <!-- Eliminar cuenta -->
+                                <div class="modal-body">
+                                    <?php
+                                        echo "Al eliminar el viaje usted recibirá una penalizacion por cada pasajero ,si el viaje es multiple, recibirá esa penalizacion por cada viaje,
+                                            ¿Esta seguro de que desea hacerlo?";
+                                        ?> <div class="row">
+                                            <div class= "col-md-6">
+                                                <button onclick="location.href = '<?php echo "eliminar-viaje.inc.php?idVi=".$viaje->getId()?>';"class="botoncss form-control">Si</button>
+                                            </div>
+                                            <div class= "col-md-6">
+                                                <button class="botoncss form-control" data-dismiss="modal">No</button>
+                                            </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
 
 
 <?php

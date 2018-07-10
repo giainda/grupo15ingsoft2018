@@ -29,5 +29,5 @@ if($viaje->getTipoViaje()==1){
     }
 }
 $texto='un usuario se dio de baja en el <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde: '.$viaje->getInicio().', hasta: '.$viaje->getDestino();
-RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$viaje->getIdUsuario(),$texto);
+RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$viaje->getIdConductor(),$texto);
 Redireccion::redirigir(RUTA_DETALLE_VIAJE."?idViaje=".$_GET['idViaje']);

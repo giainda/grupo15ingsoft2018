@@ -90,4 +90,21 @@ class RepositorioViajePertenece{
         }
         return $ok;
     }
+    public static function borrarMultiple($conexion,$idViajeProgramado){
+        $ok=false;
+        if(isset($conexion)){
+            try{
+                $sql="DELETE FROM viajepertenece WHERE idViajeProgramado=:idViaje";
+                $sentencia=$conexion ->prepare($sql);
+                $sentencia ->bindParam(":idViaje", $idViajeProgramado, PDO::PARAM_STR);
+                $sentencia ->execute();
+              $ok=true;
+
+            }catch(PDOException $ex){
+                print "erro: ". $ex->getMessage();
+            }
+        }
+        return $ok;
+    }
+    
 }
