@@ -452,5 +452,53 @@ class RepositorioViaje{
         }
         return $ok;
     }
+    public static function buscarCualquierVehiculo($conexion,$origen,$destino){
+        $viajes=array();
+        if(isset($conexion)){
+            try{
+                $sql="SELECT * from viajes where inicio=:origen and destino=:destino and estado=1";
+                $sentencia=$conexion ->prepare($sql);
+                $sentencia ->bindParam(":origen", $origen, PDO::PARAM_STR);
+                $sentencia ->bindParam(":destino", $destino, PDO::PARAM_STR);
+                $sentencia ->execute();
+                $resultado = $sentencia -> fetchAll();
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion'],$fila['terminado']);
+                    }
+    
+                }
+    
+            }catch(PDOException $ex){
+                print 'error' . $ex ->getMessage();
+            }
+            
+        }return $viajes;
+    }
+    public static function buscarConVehiculo($conexion,$origen,$destino,$vehiculo){
+        $viajes=array();
+        if(isset($conexion)){
+            try{
+                $sql="SELECT * from viajes v inner join auto ve on(v.patente=ve.patente)
+                where v.inicio=:origen and v.destino=:destino and estado=1 and ve.tipo=:vehiculo";
+                $sentencia= $conexion ->prepare($sql);
+                $sentencia ->bindParam(":origen",$origen, PDO::PARAM_STR);
+                $sentencia ->bindParam(":destino",$destino, PDO::PARAM_STR);
+                $sentencia ->bindParam(":vehiculo",$vehiculo, PDO::PARAM_STR);
+                $sentencia ->execute();
+                $resultado = $sentencia -> fetchAll();
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $viajes[]= new Viaje($fila['idViaje'],$fila['idConductor'],$fila['patente'],$fila['fechaCreacion'],$fila['fechaInicio'],$fila['inicio'],$fila['destino'],$fila['asientos'],$fila['precio'],$fila['descripcion'],$fila['tipoViaje'],$fila['estado'],$fila['duracion'],$fila['terminado']);
+                    }
+    
+                }
+    
+            }catch(PDOException $ex){
+                print 'error' . $ex ->getMessage();
+            }
+            
+        }return $viajes;
+    }
        
 }

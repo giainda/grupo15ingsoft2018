@@ -22,7 +22,14 @@ include_once "plantillas/navbar2.inc.php"
         <div class="col-md-2">
         </div>
         <div class="col-md-4">        
-            <button data-toggle="modal" data-target="#dialogo3" class="button2 form-control">
+            <button  class="button2 form-control" 
+            <?php 
+            if(!ControlSesion::sesion_iniciada()){
+                ?>data-toggle="modal" data-target="#dialogo3" <?php
+            }else{
+                ?>onclick="location.href = '<?php echo RUTA_BUSCAR_VIAJE ?>';" <?php
+            }
+            ?>>
 
 
                 <h5 class="stroke">Buscar viaje</h5></button>
@@ -180,7 +187,7 @@ include_once "plantillas/navbar2.inc.php"
 
 
                 <div class="modal-body">
-                    <h3>esta funcionalidad todavia no esta disponible  </h3> 
+                <h3>Debe <a href="<?php echo RUTA_LOGIN ?>">iniciar sesion</a> para usar esta funcionalidad</h3>
                 </div>
             </div>
         </div>
