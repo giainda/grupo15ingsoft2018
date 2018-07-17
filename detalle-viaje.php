@@ -13,6 +13,8 @@ include_once "app/repositorioViaja.inc.php";
 include_once "app/repositorioPostula.inc.php";
 include_once "app/repositorioNotificacion.inc.php"; 
 include_once "app/Redireccion.inc.php";
+include_once "app/repositorioMensaje.inc.php";
+include_once "app/mensaje.inc.php";
 include_once "plantillas/documento-declaracion.inc.php";
 include_once "plantillas/navbar2.inc.php";
 Conexion::abrir_conexion();
@@ -99,6 +101,22 @@ if(isset($_POST['enviar'])){
         Redireccion::redirigir(RUTA_DETALLE_VIAJE."?idViaje=".$viaje->getId()."&&erro=".$error);
     }
     
+}
+if(isset($_POST['comprobar123'])){
+    if(!empty($_POST['comentario'])){
+
+    
+    $mensaje= new Mensaje('',$_SESSION['id_usuario'],$viaje->getId(),'',$_POST['comentario'],'');
+    RepositorioMensaje::crear_mensaje(Conexion::obtener_conexion(),$mensaje);
+    $texto='tienes un nuevo comentario en tu  <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a>';
+    RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$viaje->getIdConductor(),$texto);
+
+}}
+if(isset($_POST['comprobar1234'])){
+    RepositorioMensaje::respuesta($_GET['idMen'],Conexion::obtener_conexion(),$_POST['respuesta']);
+    $texto='tu mensaje en el <a href="'.RUTA_DETALLE_VIAJE.'?idViaje='.$viaje->getId().'">viaje</a> desde:'.$viaje->getInicio().' hasta:'.$viaje->getDestino().' fue respondido';
+    $mens=RepositorioMensaje::mensajes_id(Conexion::obtener_conexion(),$_GET['idMen']);
+    RepositorioNotificacion::crearNotificacion(Conexion::obtener_conexion(),$mens->getIdUsuario(),$texto);
 }
 
 /* ok=1 sin sesion, ok=2 coductor, ok=3 no conductor con sesion iniciada */
@@ -366,7 +384,125 @@ if(isset($_POST['enviar'])){
             }
             ?>
         </div>    
-    </div>  
+    </div>
+    <br>
+    <br>  
+    <div class="card">
+                    <div class="card-heading color1">
+                        <h1> Mensajes </h1>
+                    </div>
+                    <div class="card-body ">
+                        <?php
+                        if($viaje->getTipoViaje()==1){
+                        $mensajes=RepositorioMensaje::mensajes_viaje(Conexion::obtener_conexion(),$viaje->getId());
+                        }else{
+                            $relacion=RepositorioViajePertenece::viajeIdViaje(Conexion::obtener_conexion(),$viaje->getId());
+                            $relaciones=RepositorioViajePertenece::viajesIdProgramado(Conexion::obtener_conexion(),$relacion->getIdViajeProgramado());
+                            $mensajes=array();
+                            foreach($relaciones as $rela){
+                                $mensajes1=RepositorioMensaje::mensajes_viaje(Conexion::obtener_conexion(),$rela->getIdViaje());
+                                foreach($mensajes1 as $m){
+                                    $mensajes[]=$m;
+                                }
+                            }
+                        }
+                        if(empty($mensajes)){
+                            echo "No hay mensajes";
+                        }
+
+                        if(!empty($mensajes)){
+                            foreach($mensajes as $men){
+                                ?>
+                                  <div class="row">
+                                   <div class="col-md-12">
+                                     <div class="card rounded-0">
+                                        <div class="card-header text-left">
+                                             <h3 class="mb-0 "><?php
+                                             $usMen=RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion(),$men->getIdUsuario());
+                                             echo "<h4><u>".$usMen->getNombre().":</u></h3>";
+                                             echo "<h3>".$men->getTexto()."</h3>"
+                                             ?></h3>
+                                        </div>
+                                        
+                                     </div>
+                                     </div>
+                                     </div>
+                                     <?php 
+                                      if($men->getRespuesta()!==''){
+                                          ?>
+                                            <div class="row">
+                                               <div class="col-md-2">
+                                               </div>
+                                               <div class="col-md-10">
+                                               <div class="card rounded-0">
+                                                  <div class="card-header text-left">
+                                                    <h3 class="mb-0">
+                                                      <u>Respuesta:</u> <?php echo "<h3> ".$men->getRespuesta()."<h3>";?>
+                                                    </h3>
+                                                  </div>
+                                               </div>
+                                            </div>
+                                            </div>
+                                          <?php
+                                      }else{
+                                          if(ControlSesion::sesion_iniciada()){
+                                            if ($viaje->getIdConductor() === $_SESSION['id_usuario']) {
+                                                ?>
+                                                <form class="form" role="form"  method="POST" action="<?php echo "detalle-viaje.php?idViaje=".$viaje->getId()."&&idMen=".$men->getId() ?>">
+                                                <br>
+                                                   <label><h4 class="text-left">Responder</h4></label>
+                                                   <input type="text" name="respuesta" class="form-control form-control-lg rounded-0"  style="height:50px;" required>
+                                               <button type="submit" name="comprobar1234" class="btn botoncss " >Enviar</button>
+                                                </form>
+                                                <?php
+                                            }
+                                          }
+                                      }
+                                     ?>
+                                  
+                                  <hr> 
+                                <?php
+                            }
+                        }
+                        if(!ControlSesion::sesion_iniciada()){
+                            echo "<br><h3>Para dejar un comentario en este viaje usted debe <a href='" . RUTA_LOGIN . "'>Iniciar sesion</a> o <a href='" . RUTA_REGISTRO . "'>Crear cuenta</a> si todavia no tiene una </h3>";             
+                        }else{
+                            if ($viaje->getIdConductor() !== $_SESSION['id_usuario']) {
+                                 ?> 
+                                 <br>
+                                 <br>
+                                 <form class="form" role="form" autocomplete="off" id="formPatente" novalidate="" method="POST">
+                                 <div class="form-group">
+                                    <label><h3>Escriba su comentario</h3></label>
+                                    <input type="text" name="comentario" class="form-control form-control-lg rounded-0" style="height:150px;"  <?php if(isset($_POST['comprobar123'])){
+                                      if(empty($_POST['comentario'])){
+                                          echo "autofocus";
+                                      }  
+                                    } ?>>
+                                </div>
+                                <br>
+                                <?php 
+                                if(isset($_POST['comprobar123']))
+                                {
+                                if (empty($_POST['comentario'])) {
+                                    echo "<div class= 'alert alert-danger' role='alert'> debe rellenar el campo comentario</div>";
+                                }
+                            }?>
+                                <button type="submit" name="comprobar123" class="btn botoncss " >Enviar</button>
+                                 </form>
+                                 
+                                 
+                                  <?php
+                                  
+
+                            }
+                        }
+                        ?>                            
+                    </div>
+                </div>
+
+
+
 </div>
 <div class="modal fade text-center" id="dialogo">
     <div class="modal-dialog">

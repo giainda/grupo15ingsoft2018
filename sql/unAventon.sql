@@ -130,8 +130,10 @@ create table mensajes(
     id int not null auto_increment unique,
     idUsuario int not null,
     idViaje int not null,
+    fecha datetime not null,
     texto text character set utf8 not null,
-    respuesta text character set utf8 not null
+    respuesta text character set utf8 not null,
+    primary key (id)
 
 );
 create table fotos(

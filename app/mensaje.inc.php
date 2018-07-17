@@ -4,13 +4,15 @@ class Mensaje{
     private $id;
     private $idUsuario;
     private $idViaje;
+    private $fecha;
     private $texto;
     private $respuesta;
 
-public function __construct($id,$idUsuario,$idViaje,$texto,$respuesta){
+public function __construct($id,$idUsuario,$idViaje,$fecha,$texto,$respuesta){
     $this -> id=$id;
     $this -> idUsuario =$idUsuario;
     $this -> idViaje= $idViaje;
+    $this -> fecha =$fecha;
     $this -> texto = $texto;
     $this -> respuesta=$respuesta;
 }    
@@ -111,6 +113,26 @@ public function __construct($id,$idUsuario,$idViaje,$texto,$respuesta){
     public function setRespuesta($respuesta)
     {
         $this->respuesta = $respuesta;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of fecha
+     */ 
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    /**
+     * Set the value of fecha
+     *
+     * @return  self
+     */ 
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
 
         return $this;
     }
