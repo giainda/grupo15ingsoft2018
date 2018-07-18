@@ -53,7 +53,9 @@ Conexion :: abrir_conexion();
             
              <li class="nav-item active"id="contenido">
              </li>
-            
+             <li class="nav-item active">
+            <a  href="<?php echo "contacto.php"?>">Contacto</a>
+            </li>
             <li class="nav-item active">
             <a  href="<?php echo RUTA_LOGOUT?>">Cerrar Sesion</a>
             </li>

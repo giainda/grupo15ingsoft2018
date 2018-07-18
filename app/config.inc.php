@@ -39,3 +39,4 @@ define("RUTA_INGRESO_TARJETA",SERVIDOR."/ingreso-tarjeta.php");
 define("RUTA_EDITOR_VIAJE_UNICO",SERVIDOR."/editar-viaje.php");
 define("RUTA_EDITOR_VIAJE_MULTIPLE",SERVIDOR."/editor-viaje-multiple.php");
 define("RUTA_BUSCAR_VIAJE",SERVIDOR."/buscar-viaje.php");
+define("RUTA_RECUPERAR_CONTRASEÑA",SERVIDOR."/recuperar-contraseña.php");

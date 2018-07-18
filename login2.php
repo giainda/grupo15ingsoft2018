@@ -54,6 +54,9 @@ include_once 'plantillas/navbar2.inc.php';
                                     $validador->mostrar_error();
                                 }
                                 ?>
+                                <br>
+                                <a href="recuperar-contraseña-email.php">¿Olvidó su contraseña?</a>
+                                <br>
                                 <button type="submit" name="login" class="btn botoncss form-control" >Iniciar Sesion</button>
                             </form>
                         </div>
