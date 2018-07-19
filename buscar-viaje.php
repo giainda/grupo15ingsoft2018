@@ -15,7 +15,7 @@ if(isset($_POST['buscar'])){
 }
 
 ?>
-<div class="container contenerasd">
+<div class="container contenedorasd text-center">
 <div class="card rounded-0">
     <div class="card-header text-center">
         <h3 class="mb-0">

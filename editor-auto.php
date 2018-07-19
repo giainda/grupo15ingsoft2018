@@ -33,7 +33,7 @@ $titulo = 'unAventon editor auto';
 
 include_once 'plantillas/navbar2.inc.php';
 ?>
-<div class="container ">
+<div class="container margen">
     <div class="jumbotron">
         <h1 class="text-center">Formulario editor de información del vehículo</h1>
     </div>

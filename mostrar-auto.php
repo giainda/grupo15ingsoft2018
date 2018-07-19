@@ -77,6 +77,11 @@ $auto = RepositorioAuto::obtener_por_patente(Conexion::obtener_conexion(), $pate
                 ?>
                 <br>
                 <hr>
+                <?php
+                echo "<h4>Tipo: </h4><h3>", $auto->getTipo(), "</h3>";
+                ?>
+                <br>
+                <hr>
             </div>
 
 
