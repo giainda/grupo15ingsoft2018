@@ -10,7 +10,7 @@ if(!ControlSesion::sesion_iniciada()){
     Redireccion::redirigir(SERVIDOR);
 }
 ?>
-<div class="container py-1">
+<div class="container py-1 margen">
     <div class="row">
         <div class="col-md-12">
             

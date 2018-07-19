@@ -27,7 +27,7 @@ include_once 'plantillas/navbar2.inc.php';
         <h1 class="text-center">Formulario de registro</h1>
     </div>
 </div>    
-<div class="container">
+<div class="container margen">
     <div class="row">
         <div class="col-md-6 text-center">
             <div class="card tex-center">

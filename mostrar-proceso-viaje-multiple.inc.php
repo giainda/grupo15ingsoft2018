@@ -42,7 +42,7 @@ if (isset($_POST['enviar'])) {
 ?>
 
 
-<div class="container ">
+<div class="container margen ">
     <div class="card text-center">
         <div class="card-body">
             <h5 class="card-title"><?php echo "<h2>Viaje desde: ", $viaje->getInicio(), ", Hasta: ", $viaje->getDestino(), "<h2>"; ?></h5>

@@ -68,7 +68,7 @@ if(isset($_POST['enviarHora'])){
 ?>
 <div class="row">
     <div class="col-md-6">
-        <div class="container ">
+        <div class="container margen">
             <div class="card text-center">
                 <div class="card-heading">
                     <h3 class="panel-tittle">Editar informacion de los viajes</h3>
@@ -90,7 +90,7 @@ if (isset($_POST['enviar'])) {
         </div>
     </div>
     <div class="col-md-6">
-      <div class="container">
+      <div class="container margen">
       <div class="row">
          <div class="col-md-12">
            <div class="card text-center">  

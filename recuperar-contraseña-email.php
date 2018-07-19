@@ -13,7 +13,7 @@ if(isset($_POST['login'])){
         Redireccion::redirigir(RUTA_RECUPERAR_CONTRASEÑA."?idUs=".$usuario->getId()."&&nom=".$usuario->getNombre());
      }}}
 ?>
-<div class="container py-1">
+<div class="container py-1 margen">
     <div class="row">
         <div class="col-md-12">
             

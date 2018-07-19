@@ -40,7 +40,7 @@ if (isset($_POST['enviar'])) {
     <div class="col-md-3">
     </div>
     <div class="col-md-6">
-        <div class="container ">
+        <div class="container margen">
             <div class="card text-center">
                 <div class="card-heading">
                     <h3 class="panel-tittle">Introduce la informacion del viaje</h3>

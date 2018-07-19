@@ -41,7 +41,7 @@ $titulo = 'unAventon editor perfil';
 
 include_once 'plantillas/navbar2.inc.php';
 ?>
-<div class="container ">
+<div class="container margen ">
     <div class="jumbotron">
         <h1 class="text-center">Formulario editor de informacion</h1>
     </div>

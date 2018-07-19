@@ -31,7 +31,7 @@ if (isset($_POST['enviar'])) {
     }
 }
 ?>
-<div class="container">
+<div class="container margen">
     <div class="row">
         <div class="col-md-3">
         </div>

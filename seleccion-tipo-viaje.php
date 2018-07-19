@@ -15,7 +15,7 @@ if (RepositorioCalificacionPendiente::debeCalificacion(Conexion::obtener_conexio
     Redireccion::redirigir(SERVIDOR . "?cod=1");
 }
 ?>
-<div class="container text-center">
+<div class="container margen text-center">
     <div class="jumbotron">
         <h1 class="text-center">Seleccione el tipo de viaje</h1>
     </div>

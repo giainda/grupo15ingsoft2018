@@ -22,7 +22,7 @@ $titulo = 'Login';
 include_once 'plantillas/documento-declaracion.inc.php';
 include_once 'plantillas/navbar2.inc.php';
 ?>
-<div class="container py-1">
+<div class="container py-1 margen">
     <div class="row">
         <div class="col-md-12">
 

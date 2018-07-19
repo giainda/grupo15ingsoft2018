@@ -16,7 +16,7 @@ if (!ControlSesion::sesion_iniciada()) {
 $usuario = RepositorioUsuario::obtener_usuario_por_id(Conexion::obtener_conexion(), $_SESSION["id_usuario"]);
 
 ?>
-<div class="container py-1">
+<div class="container py-1 margen">
     <div class="row">
         <div class="col-md-12">
 

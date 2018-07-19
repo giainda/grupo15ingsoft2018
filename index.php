@@ -10,6 +10,7 @@ include_once "app/repositorioViajeProgramado.inc.php";
 
 include_once "plantillas/navbar2.inc.php"
 ?>
+<div class="container margen">
 <center>
     <img src="img/logo3.png" width="300" height="300" alt=""></a>           
 </center>
@@ -17,7 +18,7 @@ include_once "plantillas/navbar2.inc.php"
 <br>
 <br>
 <br>
-<div class="container">
+
     <div class="row">
         <div class="col-md-2">
         </div>
@@ -207,7 +208,8 @@ include_once "plantillas/navbar2.inc.php"
                 </div>
             </div>
         </div>
-    </div>        
+    </div> 
+    <a href="preguntas-frecuentes.php" class="flotante botoncss">Preguntas frecuentes</a>       
 
 
     <?php
