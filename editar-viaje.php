@@ -61,13 +61,13 @@ if (isset($_POST['enviar'])) {
     </div>                
 
 </div>
-<div class="modal fade" id="dialogoCorrecto">
+<div class="modal fade" id="dialogoCorrecto" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
             <!-- cabecera del diálogo -->
             <div class="modal-header">
-                <a type="button" class="btn btn-primary ml-auto" href="<?php echo SERVIDOR ?>" >X</a>
+                <a type="button" class="btn btn-primary ml-auto" href="<?php echo RUTA_DETALLE_VIAJE."?idViaje=".$viaje->getId()?>" >X</a>
             </div>
 
             <!-- cuerpo del diálogo -->
