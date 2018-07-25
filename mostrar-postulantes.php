@@ -52,8 +52,14 @@ $postulaciones = RepositorioPostula::personas_postuladas_idViaje(Conexion::obten
                         <div class="row">
                             <div class="col-md-3">
                             <?php
-                            $path='aceptarSolicitud.php?id='.$usuario->getId().'&&idViajeas='.$viaje->getId(); ?>
-                                <a href="<?php echo $path?>" class="btn botoncss form-control color1">Aceptar</a>
+                            $path='aceptarSolicitud.php?id='.$usuario->getId().'&&idViajeaa='.$viaje->getId(); ?>
+                              <form action="aceptarSolicitud.php" method="post">
+                              <input type="hidden" name="id" value="<?php echo $usuario->getId()?>" />
+                              <input type="hidden" name="idViajeaa" value="<?php echo $viaje->getId() ?>" />
+                              <input class="btn botoncss form-control color1" type="submit" value="Aceptar" />
+
+                              </form>
+                               
                             </div>
                             <div class="col-md-3">
                             <?php $path='eliminarSolicitud.php?id='.$usuario->getId().'&&idViaj='.$viaje->getId(); ?>

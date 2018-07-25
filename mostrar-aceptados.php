@@ -92,7 +92,7 @@ $aceptados = RepositorioViaja::viaja_idViaje(Conexion::obtener_conexion(), $viaj
         </div>
     </div>
     <br>
-    <h4>*si elimina algun pasajero, usted será sancionado con calificacion negativa, si el viaje es multiple, será una calificacion negativa por cada viaje*</h4>           
+    <h4>Si elimina algún pasajero, usted será sancionado con calificacion negativa, si el viaje es múltiple, será una calificacion negativa por cada viaje</h4>           
 </div>
 <div class="modal fade" id="dialogo1">
     <div class="modal-dialog">
