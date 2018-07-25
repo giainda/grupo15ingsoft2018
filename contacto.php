@@ -31,7 +31,7 @@ if(!ControlSesion::sesion_iniciada()){
                                 </div>
                                 <div class="form-group">
                                     <label>escriba aquí su consulta</label>
-                                    <input type="text" name="apellido" class="form-control form-control-lg rounded-0" style="height:150px;"  placeholder="apellido" required >
+                                    <input type="text" name="apellido" class="form-control form-control-lg rounded-0" style="height:150px;"   required >
                                 </div>
                                 <?php
                                 if(isset($_POST['login'])){
