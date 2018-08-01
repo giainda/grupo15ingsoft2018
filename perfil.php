@@ -281,7 +281,7 @@ include_once 'plantillas/navbar2.inc.php';
 
                             </div>
                             <div class="col-md-3">
-                                <a href="<?php echo RUTA_DETALLE_VIAJE . "?idViaje=" . $viaje->getId(); ?>" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
+                                <a href="<?php echo RUTA_DETALLE_VIAJE . "?idViaje=" . $viaje->getId(); ?>" class="btn botoncss" >Ver Viaje</a>
                             </div>    
                         </div>
                     </div>
@@ -319,7 +319,7 @@ include_once 'plantillas/navbar2.inc.php';
 
                         </div>
                         <div class="col-md-3">
-                            <a href="<?php echo RUTA_DETALLE_VIAJE . "?idViaje=" . $viaje->getId(); ?>" class="btn botoncss" data-toggle="modal" data-target="#dialogo22">Ver Viaje</a>
+                            <a href="<?php echo RUTA_DETALLE_VIAJE . "?idViaje=" . $viaje->getId(); ?>" class="btn botoncss" >Ver Viaje</a>
                         </div>    
                     </div>
                 </div>
